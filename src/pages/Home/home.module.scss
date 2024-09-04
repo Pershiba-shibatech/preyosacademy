@@ -1,0 +1,33 @@
+.home {
+    padding-top: 100px;
+  //  height: 100vh;
+    margin: auto;
+    overflow: hidden;
+    .titletext{
+        text-align: center;
+        margin: auto;
+        // color: #b4060f;
+    }
+    .containerHome {
+        border: #df000c 6px solid;
+        border-radius: 16px;
+
+    }
+
+    .rightBoarder {
+        border-right: #df000c 5px solid;
+    }
+
+    .outlineBorder {
+        border-width: 2px ;
+        width: 125px;
+        // color: #b4060f;
+    color: #fefefe;
+        font-weight: 600;
+        font-size: 18px;
+        // border-color: #b4060f;
+    }
+    .adjustTop{
+        margin-top: -75px;
+    }
+}
