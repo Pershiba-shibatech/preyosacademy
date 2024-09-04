@@ -1,0 +1,45 @@
+.loginPage {
+    background-color: #f8f9fa;
+    /* Light background color */
+    padding: 20px;
+    /* Add some padding for smaller screens */
+}
+
+.cardLogin {
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+    border: none;
+    /* Remove default border */
+    border-radius: 10px;
+    /* Rounded corners */
+}
+
+@media (min-width: 768px) {
+    .loginPage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 0;
+        /* Remove padding to avoid extra space */
+    }
+
+    .cardLogin {
+        max-width: 400px;
+        /* Card width for tablets */
+    }
+}
+
+@media (min-width: 1024px) {
+    .loginPage {
+        padding-top: 0;
+        /* Ensure no extra space is added on top */
+    }
+
+    .cardLogin {
+        max-width: 500px;
+        /* Card width for desktops */
+    }
+}
