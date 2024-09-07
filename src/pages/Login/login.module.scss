@@ -1,45 +1,63 @@
+
+
+.containerLogin{
+overflow: hidden;
 .loginPage {
-    background-color: #f8f9fa;
-    /* Light background color */
-    padding: 20px;
-    /* Add some padding for smaller screens */
-}
-
-.cardLogin {
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Soft shadow for depth */
-    border: none;
-    /* Remove default border */
-    border-radius: 10px;
-    /* Rounded corners */
-}
-
-@media (min-width: 768px) {
-    .loginPage {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        padding: 0;
-        /* Remove padding to avoid extra space */
+        background-color: #f8f9fa;
+        /* Light background color */
     }
 
     .cardLogin {
         max-width: 400px;
-        /* Card width for tablets */
-    }
-}
+        width: 100%;
+        // border: 1px solid #df000c !important;
+        border-radius: 10px;
+        background-color: #d1d4d7 !important;
 
-@media (min-width: 1024px) {
-    .loginPage {
-        padding-top: 0;
-        /* Ensure no extra space is added on top */
+        /* Add shadow and glow effect */
+        box-shadow: 0 8px 20px rgba(223, 0, 12, 0.4),
+            /* Soft shadow */
+            0 0 20px rgba(223, 0, 12, 0.6),
+            /* Outer glow effect */
+            0 0 40px rgba(223, 0, 12, 0.3);
+        /* Deeper glow */
     }
 
-    .cardLogin {
-        max-width: 500px;
-        /* Card width for desktops */
+    .logo {
+        margin-bottom: 1rem;
+        width: 80px;
+        height: auto;
+    }
+
+    .inputColor {
+        background-color: #d1d4d7 !important;
+        border: 1px solid black !important;
+        color: #000 !important;
+    }
+
+    .buttonDanger {
+        background-color: #df000c !important;
+
+    }
+
+    .hoverButton {
+        border-color: #df000c !important;
+        // color: while !important;
+    }
+
+    .hoverButton:hover {
+        background-color: #df000c !important;
+    }
+
+    .mainheading {
+        margin-top: 80px;
+    }
+    .imageandName{
+      height: 100px;
+      width: 100px;
+        margin-top: 80px;
+        border-radius: 50px;
+        margin-right: 20px;
+        border: 3px solid #df000c;
     }
 }

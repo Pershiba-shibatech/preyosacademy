@@ -17,16 +17,22 @@ const loginUserSlice = createSlice({
         setLoading: (state) => {
             state.isdataLoading = !state.isdataLoading
         },
-        setTitle: (state, { payload }) => {
-            state.userName = payload;
+        setUserName: (state, { payload }) => {
+            state.userName = payload
        
         },
-        setDescription: (state, { payload }) => {
-            state.password = payload;
+        setPassword: (state, { payload }) => {
+            state.password = payload
+        },
+        setUserType: (state, { payload }) => {
+            state.userType = payload
+            state.userName =""
+            state.password =""
         },
       
         reset: () => { },
     },
+    
 
 });
 
