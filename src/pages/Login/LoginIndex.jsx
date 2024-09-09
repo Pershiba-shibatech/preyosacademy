@@ -20,6 +20,7 @@ const Login = () => {
   const color = useMotionValue(COLORS_TOP[0]);
     const getloginData = useSelector((state) => state.loginData);
      const dispatch = useDispatch();
+     
   useEffect(() => {
     animate(color, COLORS_TOP, {
       ease: "easeInOut",

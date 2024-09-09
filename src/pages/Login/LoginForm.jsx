@@ -3,7 +3,43 @@ import { Button, Form } from "react-bootstrap";
 import LoginInputs from "./LoginInputs";
 import styles from "./login.module.scss";
 import { Icon } from "@iconify/react";
+import { LoginUser } from "../../store/api/LoginService";
+import { useNavigate } from "react-router-dom";
 const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
+  const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // Basic email regex
+    return emailRegex.test(email);
+  };
+
+  const LoginToUser = () => {
+    if (!validateEmail(getloginData.userName)) {
+      dispatch(loginUserSliceActions.setUserEmail("*Invalid Email Address"));
+      return;
+    }
+    let loginData = {
+      userName: getloginData.userName,
+      password: getloginData.password,
+      type: getloginData.userType,
+    };
+    console.log(loginData, "loginData");
+    dispatch(LoginUser(loginData))
+      .unwrap()
+      .then((response) => {
+        if (response.data.statusCode === 200) {
+          navigate("/dashboard");
+          dispatch(loginUserSliceActions.reset());
+        } else {
+          if (response.data.message === "User not Found") {
+            dispatch(loginUserSliceActions.setUserEmail("*User not Found"));
+          } else {
+            dispatch(loginUserSliceActions.setUserPassword("*Wrong password "));
+          }
+        }
+      });
+  };
+
   return (
     <>
       <Form>
@@ -18,6 +54,11 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
               dispatch(loginUserSliceActions.setUserName(e.target.value))
             }
           />
+          {getloginData.EmailError ? (
+            <div className={styles.errorMessage}>
+              {getloginData.EmailErrorMessage}
+            </div>
+          ) : null}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="password">
@@ -31,13 +72,21 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
               dispatch(loginUserSliceActions.setPassword(e.target.value))
             }
           />
+          {getloginData.PasswordError ? (
+            <div className={styles.errorMessage}>
+              {getloginData.PasswordErrorMessage}
+            </div>
+          ) : null}
         </Form.Group>
 
         <Button
-          type="submit"
+          onClick={() => LoginToUser()}
           className={`btn btn-danger w-100 ${styles.buttonDanger}`}
           disabled={
-            getloginData.userName === "" || getloginData.password === ""
+            getloginData.userName === "" ||
+            getloginData.password === "" ||
+            getloginData.PasswordError ||
+            getloginData.EmailError
               ? true
               : false
           }
