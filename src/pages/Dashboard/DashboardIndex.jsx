@@ -7,14 +7,14 @@ const DashboardLayout = () => {
   return (
     <div className={styles.dashBoardWrapper}>
       {/* Static Header */}
-      <div className="bg-danger text-white p-3">
+      <div className={`${styles.headerColor} text-white p-3`}>
         <Header />
       </div>
       <div className={styles.bottomContainer}>
         <div className={styles.sideRowWrapper}>
           <SideBar />
         </div>
-        <div >
+        <div>
           <Outlet />
         </div>
       </div>

@@ -6,23 +6,23 @@ const StudentDetails = () => {
     <>
       <div className={styles.userDetailsWrapper}>
         {/* Left Side: Profile Image and Details */}
-        <div className={styles.profileSection}>
-          {/* <img src={profilePic} alt="Profile" className={styles.profileImage} /> */}
+        {/* <div className={styles.profileSection}>
+        
           <Icon
             icon="ei:user"
             width="80"
             height="80"
-            // style={{ color: "#fff" }}
+      
           />
           <div className={styles.profileDetails}>
             <div className={styles.name}>John Doe</div>
             <div className={styles.grade}>Grade: A</div>
             <div className={styles.country}>Country: USA</div>
           </div>
-        </div>
-
+        </div> */}
+<h1 className={styles.bookedSlotText}>Booked Slots</h1>
         {/* Right Side: Book Slot Button */}
-        <div>
+        <div className={styles.buttonDiv}>
           <button className={styles.bookSlotButton}>Refresh</button>
           <button className={styles.bookSlotButton}>Book Slot</button>
         </div>

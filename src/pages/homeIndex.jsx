@@ -6,7 +6,9 @@ import BookedSlots from './Dashboard/bookedSlots';
 import DashBoardHomeIndex from './Home/DashBoardHomeIndex';
 
 
+
 const HomeIndex = () => {
+ 
   return (
     <Router>
       <Routes>

@@ -18,7 +18,12 @@ const Header = () => {
           <h3 className="mb-0">Preyo's Academy</h3>
         </div>
 
-        <div>
+        <div className="d-flex align-items-center justify-content-between">
+          <div>
+            <h3 className="mb-0">Nithin Subhanesh</h3>
+            <div className={styles.gradeText}>Grade 4</div>
+          </div>
+
           <Icon
             icon="ei:user"
             width="66"

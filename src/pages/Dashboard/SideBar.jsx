@@ -22,6 +22,20 @@ const SideBar = () => {
           >
             Booked Slots
           </Nav.Link>
+          <Nav.Link
+            className={styles.navLink}
+            as={Link}
+            to="/dashboard/booked-slots"
+          >
+            Booked Slots
+          </Nav.Link>
+          <Nav.Link
+            className={styles.navLink}
+            as={Link}
+            to="/dashboard/booked-slots"
+          >
+          Library
+          </Nav.Link>
         </Nav>
       </div>
      
