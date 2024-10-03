@@ -1,46 +1,68 @@
-import React from "react";
-import { Container,  Button, Card } from "react-bootstrap";
-import styles from "./login.module.scss"; // Custom styles
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  useMotionTemplate,
+  useMotionValue,
+  motion,
+  animate,
+} from "framer-motion";
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
+import styles from "./login.module.scss";
+import { preyosLogo } from "../../images";
+import LoginContainer from "./LoginContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUserSliceActions } from "../../store/slice/loginUserSlice";
+
+const COLORS_TOP = ["#ff0000", "#b30000", "#660000", "#330000"];
 
 const Login = () => {
-      const Navigate = useNavigate()
+
+  const color = useMotionValue(COLORS_TOP[0]);
+    const getloginData = useSelector((state) => state.loginData);
+     const dispatch = useDispatch();
+     
+  useEffect(() => {
+    animate(color, COLORS_TOP, {
+      ease: "easeInOut",
+      duration: 10,
+      repeat: Infinity,
+      repeatType: "mirror",
+    }); // eslint-disable-next-line
+  }, []);
+
+  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
+
   return (
-    <div className={styles.loginPage}>
-      <Container className="d-flex justify-content-center align-items-center min-vh-100">
-        <Card className={`p-4 ${styles.cardLogin}`}>
-          <h3 className="text-center mb-4">Login</h3>
-          <form>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email address
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter email"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Password"
-              />
-            </div>
-
-            <Button variant="danger" onClick={() => Navigate('/admindashboard')} className="w-100">
-              Login
-            </Button>
-          </form>
-        </Card>
-      </Container>
+    <div className={styles.containerLogin}>
+      <motion.section
+        style={{
+          backgroundImage,
+        }}
+        className="relative d-flex min-vh-100 align-items-center justify-content-center text-white"
+      >
+        <div className="position-absolute w-100 h-100">
+          <Canvas>
+            <Stars radius={50} count={2500} factor={4} fade speed={2} />
+          </Canvas>
+        </div>
+        <div
+          className={`position-absolute top-0 w-100 text-center p-3  
+            d-flex justify-content-center align-items-center`}
+        >
+          <img
+            src={preyosLogo}
+            alt="Preyo's Academy"
+            width="80"
+            className={styles.imageandName}
+          />
+          <h1 className={styles.mainheading}>Preyo's Academy</h1>
+        </div>
+        <LoginContainer
+          getloginData={getloginData}
+          loginUserSliceActions={loginUserSliceActions}
+          dispatch={dispatch}
+        />
+      </motion.section>
     </div>
   );
 };

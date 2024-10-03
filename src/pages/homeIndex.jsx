@@ -1,16 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './Home/home';
 import Login from './Login/LoginIndex';
+import DashboardLayout from './Dashboard/DashboardIndex';
+import BookedSlots from './Dashboard/bookedSlots';
+import DashBoardHomeIndex from './Home/DashBoardHomeIndex';
+
 
 
 const HomeIndex = () => {
+ 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/editPost" element={<CreatePostIndex />} /> */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="" element={<DashBoardHomeIndex />} />
+          <Route path="booked-slots" element={<BookedSlots />} />
+        </Route>
       </Routes>
     </Router>
   );

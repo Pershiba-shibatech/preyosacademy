@@ -1,0 +1,65 @@
+.dashBoardWrapper {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #fefefe;
+
+    .imageLogo {
+        border-radius: 50px;
+    }
+
+    .bottomContainer {
+        display: flex;
+
+    }
+    .gradeText{
+float: inline-end;
+    }
+.headerColor {
+    background-color: #df000d;
+}
+    .sideRowWrapper {
+
+        .sidebarmainWrapper {
+            width: fit-content;
+            height: calc(100vh - 144px);
+            border: 2px solid #df000d;
+
+            border-radius: 16px;
+            margin: 24px 20px 24px 10px;
+            padding: 20px 40px ;
+
+
+            .sidebarWrapper {
+                padding-top: 20px;
+                .navLink {
+                    display: block;
+                    width: 100%;
+                    margin-bottom: 20px;
+                    padding: 10px 40px;
+                    text-align: center;
+                    border: 1px solid #df000d;
+                    border-radius: 12px;
+                    border-radius: 5px;
+                    color: #df000d;
+
+                    background-color: white;
+                    transition: background-color 0.3s ease, color 0.3s ease;
+
+                    &:hover {
+                        background-color: #df000d;
+
+                        color: white;
+                    }
+
+                }
+
+                .NavlinkActive {
+                    background-color: #df000d;
+
+                    color: white;
+                }
+            }
+        }
+    }
+
+}

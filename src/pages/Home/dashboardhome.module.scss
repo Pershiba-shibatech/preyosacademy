@@ -1,0 +1,98 @@
+.DashBoardHomeWrapper {
+    height: calc(100vh - 124px);
+    margin-top: 24px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .userDetailsWrapper {
+        display: flex;
+            // align-items: center;
+                // //margin-bottom: 20px;
+                justify-content: space-between;
+
+        // 
+            .bookedSlotText {
+                margin-top: 20px;
+                margin-left: 50px;
+            }
+        .profileSection {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            background-color: #f6f6f6;
+            max-width: 375px;
+            width: 100%;
+            min-width: 250px;
+            border-radius: 12px;
+            margin-left: 35px;
+            margin-top: 20px;
+
+            .profileImage {
+                border-radius: 50%;
+                margin-right: 20px;
+            }
+
+            .profileDetails {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .name {
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    color: #333;
+                }
+
+                .grade,
+                .country {
+                    font-size: 1rem;
+                    color: #666;
+                }
+            }
+        }
+.buttonDiv {
+    float: right !important;
+    margin-top: 20px;
+
+    // Book Slot Button
+    .bookSlotButton {
+        border: 2px solid #df000d;
+        background-color: white;
+        color: #df000d;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left: auto; // Push button to the extreme right
+        margin-right: 20px; // 20px margin from the right edge
+
+        &:hover {
+                background-color: #df000d;
+                color: white;
+            }
+        }
+}
+    }
+
+
+    .tableArea {
+
+        margin-left: 20px;
+        margin-top: 20px;
+        overflow-y: auto;
+        padding-bottom: 20px;
+
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        scrollbar-width: none;
+
+    }
+
+    .tableArea::-webkit-scrollbar {
+        display: none;
+    }
+}
