@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 const BookSlotModal = (props) => {
+  
+   const Navigate = useNavigate();
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
@@ -54,7 +57,10 @@ const BookSlotModal = (props) => {
         <Button variant="light" onClick={props.onHide}>
           Close
         </Button>
-        <Button variant="danger" onClick={() => console.log("Booking")}>
+        <Button
+          variant="danger"
+          onClick={() => {Navigate("/dashboard/BookSlots"); props.onHide()}}
+        >
           Book Slot
         </Button>
       </Modal.Footer>

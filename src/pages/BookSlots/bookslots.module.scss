@@ -1,0 +1,116 @@
+.bookSlotButton {
+  float: right;
+  border: 2px solid #df000d;
+  background-color: white;
+  color: #df000d;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  //margin-left: auto; // Push button to the extreme right
+  //margin-right: 20px; // 20px margin from the right edge
+
+  &:hover {
+    background-color: #df000d;
+    color: white;
+  }
+}
+
+.StudentTableWrapper {
+
+  padding: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+
+
+
+  .table {
+
+    width: auto;
+
+
+    thead {
+      background-color: #f6f6f6;
+      border-radius: 12px;
+      border: 2px solid #df000d;
+
+      th {
+        padding: 20px 20px;
+        min-width: 195px;
+        width: fit-content;
+        border: 2px solid #df000d;
+
+      }
+
+    }
+
+    tbody {
+
+      tr {
+
+
+        &:nth-child(even) {
+          background-color: #f6f6f6 !important;
+
+          width: fit-content;
+
+        }
+
+        &:nth-child(odd) {
+          background-color: #f8d7da !important;
+
+          width: fit-content;
+        }
+
+        td {
+
+          width: fit-content;
+          padding: 20px 20px;
+
+          border: 2px solid #df000d;
+
+          text-align: left;
+
+        }
+      }
+    }
+  }
+
+  .paginationControls {
+
+    margin-top: 20px;
+
+    float: right !important;
+    margin-right: 20px;
+
+    .pageCount {
+      margin: 5px !important;
+      color: black !important;
+      border: none !important;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .paginationbutton {
+      background-color: #df000d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-right: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+
+
+      &:hover {
+        background-color: #c4000b;
+      }
+    }
+
+  }
+}
+
+.bookSlotsHeading {
+  margin-top: 20px;
+  margin-left: 50px;
+}
