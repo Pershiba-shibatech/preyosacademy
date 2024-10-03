@@ -4,6 +4,7 @@ import * as reducer from './reset_action.js'
 
 const combinedReducers = combineReducers({
     loginData: reducer.loginuserWrapper,
+    userDetails: reducer.userDetailsWrapper
 
 
 });

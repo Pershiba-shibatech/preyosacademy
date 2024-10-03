@@ -15,7 +15,7 @@ const HomeIndex = () => {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="home" element={<DashBoardHomeIndex />} />
+          <Route path="" element={<DashBoardHomeIndex />} />
           <Route path="booked-slots" element={<BookedSlots />} />
         </Route>
       </Routes>
