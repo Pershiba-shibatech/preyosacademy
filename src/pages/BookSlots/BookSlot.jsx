@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table, Pagination, Button } from "react-bootstrap";
 import styles from "./bookslots.module.scss";
-import BookingSlotModel from "../../components/Modals/BookSlotModal/BookingSlotModel";
+import BookingSlotModel from "../../components/Modals/BookingSlotModel";
 const BookSlot = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const exampleData = [

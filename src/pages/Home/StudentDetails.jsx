@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./dashboardhome.module.scss";
-import BookSlotModal from "../../components/Modals/BookSlotModal/BookSlotModal";
+import BookSlotModal from "../../components/Modals/BookSlotModal";
 // import { Icon } from "@iconify/react";
 const StudentDetails = () => {
     const [modalShow, setModalShow] = React.useState(false);

@@ -4,11 +4,13 @@ import Login from './Login/LoginIndex';
 import DashboardLayout from "./Dashboard/DashboardIndex";
 import DashBoardHomeIndex from "./Home/DashBoardHomeIndex";
 import BookSlot from "./BookSlots/BookSlot";
-import Library from "./Dashboard/Library";
+import Library from "./Dashboard/Library/Library";
 import ProtectedRouteForStudent from "./ProtectedRoutesStudent";
-import AddStudent from './AddStudent/AddStudent';
-import AddTutors from './AddTutor/AddTutors';
-
+import AddStudent from "./AddStudent/AddStudent";
+import AddTutors from "./AddTutor/AddTutors";
+import AllSlots from "./Dashboard/AllSlots/AllSlots";
+import StudentList from "./Dashboard/StudentList/studentList";
+import TutorsList from './Dashboard/TutorList/TutorsList';
 
 const HomeIndex = () => {
   return (
@@ -27,7 +29,9 @@ const HomeIndex = () => {
             }
           />
           <Route path="library" element={<Library />} />
-          <Route path="allSlots" element={<Library />} />
+          <Route path="studentlist" element={<StudentList />} />
+          <Route path="tutorlist" element={<TutorsList />} />
+          <Route path="allSlots" element={<AllSlots />} />
         </Route>
         <Route path="/AddStudent" element={<AddStudent />} />
         <Route path="/AddTutor" element={<AddTutors />} />

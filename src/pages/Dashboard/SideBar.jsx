@@ -2,7 +2,7 @@ import React from "react";
 import {  Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./dashBoard.module.scss";
-import BookSlotModal from "../../components/Modals/BookSlotModal/BookSlotModal";
+import BookSlotModal from "../../components/Modals/BookSlotModal";
 import { useSelector } from "react-redux";
 const SideBar = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -51,7 +51,7 @@ const SideBar = () => {
             <Nav.Link
               className={styles.navLink}
               as={Link}
-              onClick={() => setModalShow(true)}
+              // onClick={() => setModalShow(true)}
               to="/dashboard/allSlots"
             >
               All Slots
@@ -62,6 +62,21 @@ const SideBar = () => {
               to="/dashboard/library"
             >
               Library
+            </Nav.Link>
+            <Nav.Link
+              className={styles.navLink}
+              as={Link}
+              // onClick={() => setModalShow(true)}
+              to="/dashboard/studentlist"
+            >
+              Students list
+            </Nav.Link>
+            <Nav.Link
+              className={styles.navLink}
+              as={Link}
+              to="/dashboard/tutorlist"
+            >
+              Tutor list
             </Nav.Link>
           </Nav>
         )}

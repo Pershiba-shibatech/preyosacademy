@@ -2,9 +2,10 @@ import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import styles from "./addStudent.module.scss";
 import Header from "../Dashboard/header";
-import { useTimezoneSelect, allTimezones } from "react-timezone-select";
-import TimeZone from "../../components/Modals/TimeZone/TimeZone";
+import TimeZone from "../../components/TimeZone/TimeZone";
+import { useNavigate } from "react-router-dom";
 const AddStudent = () => {
+  const Navigate = useNavigate();
   return (
     <>
       <div className={`${styles.headerColor} text-white p-3`}>
@@ -56,7 +57,7 @@ const AddStudent = () => {
               <Form.Group className="mb-3" controlId="timeZone">
                 <Form.Label>Time Zone</Form.Label>
                 {/* <Form.Control type="text" placeholder="Enter time zone" /> */}
-                <TimeZone/>
+                <TimeZone />
               </Form.Group>
             </Col>
 
@@ -179,7 +180,11 @@ const AddStudent = () => {
 
           {/* Clear and Submit Buttons in Right Bottom Corner */}
           <div className="d-flex justify-content-end">
-            <Button variant="light" className={`${styles.clearBtn} me-2`}>
+            <Button
+              variant="light"
+              className={`${styles.clearBtn} me-2`}
+              onClick={() => Navigate(-1)}
+            >
               Cancel
             </Button>
             <Button variant="danger" className={styles.submitBtn}>

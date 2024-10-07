@@ -62,16 +62,20 @@
 
           width: fit-content;
         }
-
+        
         td {
-
           width: fit-content;
           padding: 20px 20px;
-
           border: 2px solid #df000d;
-
           text-align: left;
-
+        }
+        .statusText{
+          margin-right: 10px;
+          margin-top: 5px;
+        }
+        .updateStatus{
+          display:flex;
+          justify-content: space-around;
         }
       }
     }
