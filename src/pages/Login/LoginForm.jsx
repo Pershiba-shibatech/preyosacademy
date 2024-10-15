@@ -5,6 +5,8 @@ import styles from "./login.module.scss";
 import { Icon } from "@iconify/react";
 import { LoginUser } from "../../store/api/LoginService";
 import { useNavigate } from "react-router-dom";
+import { getTutorsListApi } from "../../store/api/TutorService";
+import { getStudentsListApi } from "../../store/api/StudentService";
 const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
   const navigate = useNavigate();
 
@@ -28,6 +30,8 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
       .unwrap()
       .then((response) => {
         if (response.data.statusCode === 200) {
+          dispatch(getTutorsListApi())
+          dispatch(getStudentsListApi())
           navigate("/dashboard");
           dispatch(loginUserSliceActions.reset());
         } else {

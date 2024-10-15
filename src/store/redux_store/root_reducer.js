@@ -7,8 +7,9 @@ const combinedReducers = combineReducers({
     userDetails: reducer.userDetailsWrapper,
     createTutor:reducer.CreateTutorWrapper,
     ToastDetails: reducer.ToastWrapper,
-    createStudent: reducer.CreateStudentWrapper
-
+    createStudent: reducer.CreateStudentWrapper,
+    TutorsList:reducer.getTutorsListWrapper,
+    StudentList:reducer.getStudentListWrapper
 
 });
 

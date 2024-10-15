@@ -7,7 +7,7 @@ import Header from "../Dashboard/header";
 import { useDispatch, useSelector } from "react-redux";
 import { createTutorSliceActions } from "../../store/slice/createTutorSlice";
 import { Subjects } from "../../constants";
-import { createTutorApi } from "../../store/api/TutorService";
+import { createTutorApi, getTutorsListApi } from "../../store/api/TutorService";
 import { ToastSliceActions } from "../../store/slice/ToastSlice";
 
 
@@ -20,20 +20,7 @@ const AddTutors = () => {
   const Navigate = useNavigate();
   console.log(createTutorDetails,"createTutorDetails")
   const RegisterUser=()=>{
-console.log( createTutorDetails.firstName==="" ||
-  createTutorDetails.lastName==="" ||
-  createTutorDetails.tutorName ==="" ||
-  createTutorDetails.qualification ==="" ||
-  createTutorDetails.experiences ==="" ||
-  createTutorDetails.contactNumber ==="" ||
-  createTutorDetails.CountryCode ==="+" ||
-  createTutorDetails.email ==="" ||
-  createTutorDetails.password ==="" ||
-  createTutorDetails.TimeZone ==="" ||
-  createTutorDetails.AccountNumber ==="" ||
-  createTutorDetails.IFSCCode ==="" ||
-  createTutorDetails.Branch ==="" ||
-  createTutorDetails.Subjects.length===0)
+
     if (
       createTutorDetails.firstName==="" ||
       createTutorDetails.lastName==="" ||
@@ -87,6 +74,7 @@ console.log( createTutorDetails.firstName==="" ||
       dispatch(createTutorApi(createTutor)).unwrap().then((response)=>{
         dispatch(createTutorSliceActions.setLoading())
         if (response.data.statusCode === 200) {
+          dispatch(getTutorsListApi())
           dispatch(ToastSliceActions.setSuccessToast("Tutor Created Successfully!"))
           dispatch(createTutorSliceActions.reset())
           Navigate(-1)

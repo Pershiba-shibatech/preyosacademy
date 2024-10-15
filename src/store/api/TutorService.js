@@ -11,5 +11,13 @@ const createTutorApi = createAsyncThunk(`/createTutor`, async (data) => {
         .catch((error) => error);
 });
 
+const getTutorsListApi = createAsyncThunk(`/getTutorsList`, async (data) => {
+    return axios.get(`${API_URL}/getTutorsList`).then((response) => {
 
-export { createTutorApi }
+        return response
+    })
+        .catch((error) => error);
+});
+
+
+export { createTutorApi,getTutorsListApi }

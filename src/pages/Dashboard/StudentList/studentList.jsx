@@ -1,10 +1,19 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import styles from "./studentList.module.scss";
 import { Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getStudentsListApi } from "../../../store/api/StudentService";
 
 const StudentList = () => {
   const libraryScrollRef = useRef(null);
+  const StudentDetail = useSelector((state) => state.StudentList);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!StudentDetail.isFetched) {
+      dispatch(getStudentsListApi())
+    }
+  }, [])
 
   const handleScroll = (e) => {
  
@@ -21,145 +30,34 @@ const StudentList = () => {
     <div
       className={styles.libraryscrollWrapper}
       id="studentlist"
-      onScroll={(e) => handleScroll(e)}
-      onTouchMove={(e) => handleScroll(e)}
+      // onScroll={(e) => handleScroll(e)}
+      // onTouchMove={(e) => handleScroll(e)}
       ref={libraryScrollRef}
     >
       <div className={styles.libraryWrapper}>
         <h1 className={styles.bookedSlotText}>Students List</h1>
         <Row>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Nithin Subhanesh</Card.Title>
-                <Card.Text>
-                  <div>
-                    <div>Grade: 4</div>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+          {StudentDetail?.studentList?.map((student)=>(
+              <Col key={student?.userCode} xs={12} md={6} lg={4} className="mb-4">
+              <Card className={styles.librarycard}>
+                <Card.Body>
+                  <Card.Title>{student?.studentName}</Card.Title>
+               
+                  
+                      <div><span>Grade:</span> {student?.grade}</div>
+                      <div><span>Parent Name:</span> {student?.parentName}</div>
+                      <div><span>Phone:</span> {student?.phoneNumber}</div>
+                      <div><span>Email:</span> {student?.email}</div>
+                      <div><span>Coordinator:</span>{student?.Coordinator?.tutorName}</div>
+                
+                 
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+
+          }
+         
           
           
         </Row>
