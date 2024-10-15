@@ -1,0 +1,44 @@
+.libraryscrollWrapper {
+    height: calc(100vh - 100px); // Set a height for the wrapper
+    overflow-y: auto;
+   padding-bottom: 1px;
+
+    .libraryWrapper {
+        margin-top: 24px;
+        padding-top: 20px;
+        margin-right: 50px;
+        margin-left: 50px;
+        padding-bottom: 10px;
+
+        // Enable vertical scrolling
+
+        .bookedSlotText {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .librarycard {
+            max-width: 100%; // Take full width in its column
+            width: 100%; // Ensure card is 100% wide within its column
+            border: 3px solid #DF000D61;
+            border-radius: 24px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            min-height: 200px;
+            height: fit-content;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .cardtext {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3; // Limit to 3 lines
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}

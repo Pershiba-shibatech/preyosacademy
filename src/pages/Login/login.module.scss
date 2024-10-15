@@ -67,3 +67,31 @@ overflow: hidden;
             margin-top: 5px;
         }
 }
+
+@media (max-width: 768px) {
+    .cardLogin {
+     // max-width: 300px; /* Further reduce the form width */
+      margin-top: 120px; /* Add more margin to avoid overlap */
+    }
+  
+    // .mainheading {
+    //   font-size: 1.8rem; /* Further adjust text size */
+    // }
+  
+    // .imageandName {
+    //   height: 60px; /* Further adjust logo size */
+    //   width: 60px;
+    // }
+  }
+
+  @media (max-width: 1280px) {
+    .cardLogin {
+     // max-width: 350px; /* Reduce the form width */
+      margin-top: 120px; /* Adjust top margin to avoid overlapping */
+    }
+ 
+    // .imageandName {
+    //   height: 80px; /* Adjust logo size */
+    //   width: 80px;
+    // }
+  }

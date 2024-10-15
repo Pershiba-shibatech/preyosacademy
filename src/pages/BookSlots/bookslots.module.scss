@@ -37,7 +37,7 @@
 
       th {
         padding: 20px 20px;
-
+        min-width: 195px;
         width: fit-content;
         border: 2px solid #df000d;
 
@@ -62,20 +62,16 @@
 
           width: fit-content;
         }
-        
+
         td {
+
           width: fit-content;
           padding: 20px 20px;
+
           border: 2px solid #df000d;
+
           text-align: left;
-        }
-        .statusText{
-          margin-right: 10px;
-          margin-top: 5px;
-        }
-        .updateStatus{
-          display:flex;
-          justify-content: space-around;
+
         }
       }
     }
@@ -93,7 +89,7 @@
       color: black !important;
       border: none !important;
       text-align: center;
-        font-size: 16px;
+      font-size: 16px;
     }
 
     .paginationbutton {
@@ -104,7 +100,7 @@
       margin-right: 5px;
       cursor: pointer;
       margin-bottom: 20px;
-    
+
 
       &:hover {
         background-color: #c4000b;
@@ -114,4 +110,7 @@
   }
 }
 
-
+.bookSlotsHeading {
+  margin-top: 20px;
+  margin-left: 50px;
+}

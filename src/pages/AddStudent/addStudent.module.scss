@@ -1,0 +1,72 @@
+.addStudentWrapper {
+    width: 100%;
+    max-width: 1200px; // Set a maximum width for larger screens
+    margin: 20px auto; // Center the container with margin on all sides
+    padding: 20px;
+    border: 3px solid red;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+
+    // Ensure content fits well on all screen sizes
+    @media (max-width: 576px) {
+        padding: 15px; // Reduce padding for mobile screens
+        margin: 10px; // Smaller margins for smaller screens
+    }
+
+    h2 {
+        text-align: center;
+        color: red;
+    }
+
+    .formContainer {
+        color: black;
+        background-color: white;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid red;
+    }
+
+    .subjectBtn {
+        width: 100px;
+        margin-bottom: 10px;
+        background-color: red;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        transition: 0.3s ease;
+
+        &:hover {
+            background-color: white;
+            color: red;
+            border: 1px solid red;
+        }
+    }
+
+    .clearBtn,
+    .submitBtn {
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: 0.3s ease;
+    }
+
+    .clearBtn {
+        color: red;
+        background-color: transparent;
+        border: 1px solid red;
+    }
+
+    .submitBtn {
+        color: white;
+        background-color: red;
+        border: none;
+    }
+}
+
+.headerColor {
+    background-color: #df000d;
+}
+

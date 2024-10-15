@@ -1,15 +1,19 @@
 import React from "react";
 import styles from "./dashboardhome.module.scss";
-
-import StudentDetails from "./StudentDetails";
-import StudentTable from "./Student/StudentTable";
+import StudentDashBoard from "./Student/StudentDashBoard";
+import { useSelector } from "react-redux";
+import AdminDashboard from "./Admin/AdminDashboard";
+import TutorDashboard from "./TutorDashBoard.jsx/TutorDashboard";
 
 const DashBoardHomeIndex = () => {
-  return (
-    <div className={styles.DashBoardHomeWrapper}>
-      <StudentDetails />
-      <div className={styles.tableArea}>{<StudentTable />}</div>
-    </div>
+  let usertype = useSelector((state) => state.userDetails);
+  const { userType } = usertype.loggedInUserDetails;
+  return userType === "Student" ? (
+    <StudentDashBoard />
+  ) : "Admin" ? (
+    <AdminDashboard />
+  ) : (
+    <TutorDashboard />
   );
 };
 
