@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import LoginInputs from "./LoginInputs";
 import styles from "./login.module.scss";
@@ -9,7 +9,7 @@ import { getTutorsListApi } from "../../store/api/TutorService";
 import { getStudentsListApi } from "../../store/api/StudentService";
 const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
   const navigate = useNavigate();
-
+  const [passwordtype, setpasswordtype] = useState(true)
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // Basic email regex
     return emailRegex.test(email);
@@ -65,7 +65,7 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
           ) : null}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="password">
+        {/* <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <LoginInputs
             type={"password"}
@@ -76,21 +76,47 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
               dispatch(loginUserSliceActions.setPassword(e.target.value))
             }
           />
+          <Icon icon="carbon:view-off" width="14" height="14" style={{ color: "black" }} />
+          {getloginData.PasswordError ? (
+            <div className={styles.errorMessage}>
+              {getloginData.PasswordErrorMessage}
+            </div>
+          ) : null}
+        </Form.Group> */}
+        <Form.Group className="mb-3" controlId="password" style={{ position: 'relative' }}>
+          <Form.Label>Password</Form.Label>
+          <div className={styles.inputWrapper}>
+            <LoginInputs
+              type={passwordtype?"password":"text"}
+              placeholder={"Enter your password"}
+              value={getloginData.password}
+              classStyle={styles.inputColor}
+              onchangeFunction={(e) =>
+                dispatch(loginUserSliceActions.setPassword(e.target.value))
+              }
+            />
+            <Icon
+              icon={passwordtype ?"carbon:view":"carbon:view-off"}
+              width="14"
+              height="14"
+              onClick={() => setpasswordtype(!passwordtype)}
+              style={{ color: "black", position: 'absolute', right: '10px', top: '75%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+            />
+          </div>
           {getloginData.PasswordError ? (
             <div className={styles.errorMessage}>
               {getloginData.PasswordErrorMessage}
             </div>
           ) : null}
         </Form.Group>
-
         <Button
           onClick={() => LoginToUser()}
           className={`btn btn-danger w-100 ${styles.buttonDanger}`}
           disabled={
             getloginData.userName === "" ||
-            getloginData.password === "" ||
-            getloginData.PasswordError ||
-            getloginData.EmailError
+              getloginData.password === "" ||
+              getloginData.PasswordError ||
+              getloginData.EmailError
               ? true
               : false
           }

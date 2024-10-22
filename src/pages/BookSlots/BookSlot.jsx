@@ -1,65 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Pagination, Button } from "react-bootstrap";
 import styles from "./bookslots.module.scss";
 import BookingSlotModel from "../../components/Modals/BookingSlotModel";
-const BookSlot = () => {
-  const [modalShow, setModalShow] = React.useState(false);
-  const exampleData = [
-    {
-      slots: "11/10/2024 - 10:00 AM - 11:00 AM",
-      tutor: "Jane Smith hane hane",
-      subject: "Mathematics",
-      payment: "10$",
-    },
-    {
-      slots: "11:00 AM - 12:00 PM",
-      tutor: "John Doe",
-      subject: "Maths",
-      subject: "Maths",
-      payment: "10$",
-    },
-    {
-      slots: "11:00 AM - 12:00 PM",
-      tutor: "John Doe",
-      subject: "Maths",
-      payment: "10$",
-    },
-    {
-      slots: "11:00 AM - 12:00 PM",
-      tutor: "John Doe",
-      subject: "Maths",
-      payment: "10$",
-    },
-    {
-      slots: "11:00 AM - 12:00 PM",
-      tutor: "John Doe",
-      subject: "Maths",
-      payment: "10$",
-    },
-  ];
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+import { getAvailableSlots } from "../../store/api/GetAvailableSlotsService";
+import { useDispatch, useSelector } from "react-redux";
+import { BookedSlotsSliceActions } from "../../store/slice/BookSlotsslice";
 
-  const currentData = exampleData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+const BookSlot = () => {
+  const dispatch = useDispatch();
+  const [modalShow, setModalShow] = React.useState(false);
+  const subjectModelDetails = useSelector((state) => state.subjectModelData);
+  const AllAvailableSlotsDetails = useSelector((state) => state.AllAvailableSlotsDetails);
+  console.log(AllAvailableSlotsDetails.AllAvailableSlots)
+  const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
+  // import { BookedSlotsSliceActions } from "../../store/slice/BookSlotsslice";
   const columns = [
     { Header: "Slots", accessor: "slots" },
     { Header: "Tutor", accessor: "tutor" },
     { Header: "Subject", accessor: "subject" },
-    { Header: "Payment", accessor: "payment" },
     { Header: "Action", accessor: "Book" },
   ];
 
   const handleBookSlot = (slot) => {
-    // Function to handle the booking action
-    setModalShow(true);
-    console.log(`Booking slot: ${slot}`);
+    // // Function to handle the booking action
+    // setModalShow(true);
+    // console.log(`Booking slot: ${slot}`);
+    dispatch(BookedSlotsSliceActions.setSelectedStot(slot))
   };
+
+
+  useEffect(() => {
+    
+    dispatch(getAvailableSlots({ subject: subjectModelDetails.selectedSubject }))
+  
+  }, [])
+  
   return (
     <div>
-      <h1 className={styles.bookSlotsHeading}>Book Slots for Maths</h1>
+      <div className={styles.bookSlotsHeading}>{`Book Slots for ${subjectModelDetails.selectedSubject}` }</div>
       <div className={styles.StudentTableWrapper}>
         <Table bsPrefix={styles.table} striped bordered hover>
           <thead>
@@ -70,17 +48,17 @@ const BookSlot = () => {
             </tr>
           </thead>
           <tbody>
-            {currentData.map((item, index) => (
+            {AllAvailableSlotsDetails?.AllAvailableSlots?.map((item, index) => (
               <tr key={index}>
-                <td>{item.slots}</td>
-                <td>{item.tutor}</td>
-                <td>{item.subject}</td>
-                <td>{item.payment}</td>
+                <td>{`${item?.slotDatails?.day} - ${item?.slotDatails?.from} - ${item?.slotDatails?.to}`}</td>
+                <td>{item.tutorDetails?.tutorName}</td>
+                <td>{subjectModelDetails.selectedSubject}</td>
+                {/* <td>{item.payment}</td> */}
                 <td>
                   <Button
                     variant="danger"
                     className={styles.bookButton}
-                    onClick={() => handleBookSlot(item.slots)}
+                    onClick={() => handleBookSlot(item)}
                   >
                     Book slot
                   </Button>
@@ -100,7 +78,7 @@ const BookSlot = () => {
           <Pagination.Next linkClassName={styles.paginationbutton} />
         </Pagination>
       </div>
-      <BookingSlotModel show={modalShow} onHide={() => setModalShow(false)} />
+      <BookingSlotModel show={BookSlotsDetails.openModel} onHide={()=>dispatch(BookedSlotsSliceActions.setOpenModel())} />
     </div>
   );
 };

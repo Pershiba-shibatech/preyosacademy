@@ -11,6 +11,7 @@ import AddTutors from "./AddTutor/AddTutors";
 import AllSlots from "./Dashboard/AllSlots/AllSlots";
 import StudentList from "./Dashboard/StudentList/studentList";
 import TutorsList from './Dashboard/TutorList/TutorsList';
+import ProtectedRouteForAdmin from './ProtectedRoutesAdmin';
 
 
 const HomeIndex = () => {
@@ -28,9 +29,9 @@ const HomeIndex = () => {
           <Route
             path="BookSlots"
             element={
-              <ProtectedRouteForStudent>
+              <ProtectedRouteForAdmin>
                 <BookSlot />
-              </ProtectedRouteForStudent>
+              </ProtectedRouteForAdmin>
             }
           />
           <Route path="library" element={<Library />} />

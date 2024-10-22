@@ -274,6 +274,7 @@ const AddStudent = () => {
                     }
                   }}
                 >
+                  <option >{"select Coordinator"}</option>
                   {TutorsDetail.tutorsList.map((tutor) => (
                     <option  value={tutor.userCode}>
                       {`${tutor?.tutorName} (${tutor.userType})`}

@@ -1,11 +1,15 @@
 .libraryscrollWrapper {
     height: calc(100vh - 100px); // Set a height for the wrapper
     overflow-y: auto;
-   padding-bottom: 1px;
+    padding-bottom: 1px;
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
 
+    scrollbar-width: none;
     .libraryWrapper {
         margin-top: 24px;
-       // padding-top: 20px;
+        // padding-top: 20px;
         margin-right: 50px;
         margin-left: 50px;
         padding-bottom: 10px;
@@ -18,15 +22,13 @@
         }
 
         .librarycard {
-            max-width: 100%; // Take full width in its column
-            width: 100%; // Ensure card is 100% wide within its column
-            border: 3px solid #DF000D61;
+            width: 300px; // Ensure card is 100% wide within its column
+            border: 3px solid #df000d61;
             border-radius: 24px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
             min-height: 200px;
             height: fit-content;
-
             &:hover {
                 transform: translateY(-5px);
                 box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);

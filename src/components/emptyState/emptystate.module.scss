@@ -1,0 +1,38 @@
+.noSessionData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    height: calc(100vh - 315px); /* Corrected the typo here */
+    text-align: center;
+    overflow: hidden;
+    // width: 100%;
+    margin: auto;
+    left: 50%;
+    
+    img {
+        max-width: 100%;
+        height: auto;
+        width: 300px; /* Set a fixed width that can scale */
+        max-height: 300px; /* Ensure the image doesn't overflow */
+       // margin: 0 auto; /* Ensure the image is centered on the x-axis */
+    }
+
+    .emptyStateText {
+        color: #c4000b;
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 20px;
+        text-align: center;
+
+        /* Responsive font sizing */
+        @media (max-width: 768px) {
+            font-size: 18px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 16px;
+        }
+    }
+}

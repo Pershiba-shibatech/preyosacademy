@@ -40,7 +40,7 @@ const TutorsList = () => {
         <h1 className={styles.bookedSlotText}>Tutors List</h1>
         <Row >
           {TutorsDetail?.tutorsList?.map((Tutor) =>(  
-              <Col key={Tutor.userCode} xs={12} md={6} lg={4} className="mb-4">
+            <Col key={Tutor.userCode} xs={12} md={6} lg={4} className="mb-4 d-flex gap-2">
                 <Card className={styles.librarycard}>
                   <Card.Body>
                     <Card.Title> <span>{Tutor.tutorName}</span></Card.Title>

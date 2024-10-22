@@ -7,7 +7,11 @@ import ToastSlice from '../slice/ToastSlice'
 import CreateStudentSlice from '../slice/createStudentSlice'
 import getTutorsSlice from '../slice/getTutorsList'
 import getStudentsSlice from '../slice/getStudentsList'
-
+import selectSubjectSlice from '../slice/selectSubjectModelSlice'
+import GetAvailableSlotsSlice from '../slice/AvailableSlotsSlice'
+import BookedSlotsSlice from '../slice/BookSlotsslice'
+import SelectedStudentSlice from '../slice/SelectedStudentSlice'
+import GetAllBookedSlotsSlice from '../slice/AllBookedSlotsSlice'
 export const loginuserWrapper = (state, action) => {
     if (action.type === `${reducerConstants.LOGIN_USER}/reset`) {
         state = undefined;
@@ -51,3 +55,38 @@ export const getStudentListWrapper =(state,action)=>{
     }
     return getStudentsSlice(state, action)
 } 
+export const selectSubjectWrapper =(state,action)=>{
+    if(action.type === `${reducerConstants.SUBJECT_MODEL}/reset`){
+        state = undefined;
+    }
+    return selectSubjectSlice(state, action)
+} 
+
+export const getAllAvailableSlotsWrapper = (state,action)=>{
+    if (action.type === `${reducerConstants.GET_AVAILABLE_SLOTS}/reset`) {
+        state = undefined;
+    }
+    return GetAvailableSlotsSlice(state, action)
+    
+}
+export const BookedSlotsSliceWrapper = (state,action)=>{
+    if (action.type === `${reducerConstants.BOOK_SLOTS}/reset`) {
+        state = undefined;
+    }
+    return BookedSlotsSlice(state, action)
+    
+}
+export const SelectedStudentSliceWrapper = (state,action)=>{
+    if (action.type === `${reducerConstants.SELECTED_STUDENT}/reset`) {
+        state = undefined;
+    }
+    return SelectedStudentSlice(state, action)
+    
+}
+export const GetAllBookedSlotsSliceWrapper = (state,action)=>{
+    if (action.type === `${reducerConstants.GET_BOOKED_SLOTS}/reset`) {
+        state = undefined;
+    }
+    return GetAllBookedSlotsSlice(state, action)
+    
+}

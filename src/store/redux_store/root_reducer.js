@@ -9,8 +9,12 @@ const combinedReducers = combineReducers({
     ToastDetails: reducer.ToastWrapper,
     createStudent: reducer.CreateStudentWrapper,
     TutorsList:reducer.getTutorsListWrapper,
-    StudentList:reducer.getStudentListWrapper
-
+    StudentList:reducer.getStudentListWrapper,
+    subjectModelData: reducer.selectSubjectWrapper,
+    AllAvailableSlotsDetails: reducer.getAllAvailableSlotsWrapper,
+    BookSlotsDetails: reducer.BookedSlotsSliceWrapper,
+    selectedStudentDetails: reducer.SelectedStudentSliceWrapper,
+    getBookedSlots: reducer.GetAllBookedSlotsSliceWrapper
 });
 
 const rootReducer = (state, action) => {

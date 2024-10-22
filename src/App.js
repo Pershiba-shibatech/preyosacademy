@@ -3,8 +3,7 @@ import FailureToast from './components/Toast/FailureToast';
 import SuccessToast from './components/Toast/SuccessToast';
 import HomeIndex from './pages/homeIndex';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import 'react-loading-skeleton/dist/skeleton.css'
 import { useSelector } from 'react-redux';
 
 
