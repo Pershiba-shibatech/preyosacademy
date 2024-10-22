@@ -1,34 +1,129 @@
-.bookSlotButton {
-  float: right;
-  border: 2px solid #df000d;
-  background-color: white;
-  color: #df000d;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  //margin-left: auto; // Push button to the extreme right
-  //margin-right: 20px; // 20px margin from the right edge
+// .bookSlotButton {
+//   float: right;
+//   border: 2px solid #df000d;
+//   background-color: white;
+//   color: #df000d;
+//   padding: 10px 20px;
+//   border-radius: 5px;
+//   font-size: 1rem;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   //margin-left: auto; // Push button to the extreme right
+//   //margin-right: 20px; // 20px margin from the right edge
 
-  &:hover {
-    background-color: #df000d;
-    color: white;
-  }
-}
+//   &:hover {
+//     background-color: #df000d;
+//     color: white;
+//   }
+// }
+
+// .StudentTableWrapper {
+
+//   padding: 20px;
+//   margin-left: 50px;
+//   margin-right: 50px;
+
+
+
+//   .table {
+
+//     width: auto;
+
+
+//     thead {
+//       background-color: #f6f6f6;
+//       border-radius: 12px;
+//       border: 2px solid #df000d;
+
+//       th {
+//         padding: 20px 20px;
+//         min-width: 195px;
+//         width: fit-content;
+//         border: 2px solid #df000d;
+
+//       }
+
+//     }
+
+//     tbody {
+
+//       tr {
+
+
+//         &:nth-child(even) {
+//           background-color: #f6f6f6 !important;
+
+//           width: fit-content;
+
+//         }
+
+//         &:nth-child(odd) {
+//           background-color: #f8d7da !important;
+
+//           width: fit-content;
+//         }
+
+//         td {
+
+//           width: fit-content;
+//           padding: 20px 20px;
+
+//           border: 2px solid #df000d;
+
+//           text-align: left;
+
+//         }
+//       }
+//     }
+//   }
+
+//   .paginationControls {
+
+//     margin-top: 20px;
+
+//     float: right !important;
+//     margin-right: 20px;
+
+//     .pageCount {
+//       margin: 5px !important;
+//       color: black !important;
+//       border: none !important;
+//       text-align: center;
+//       font-size: 16px;
+//     }
+
+//     .paginationbutton {
+//       background-color: #df000d;
+//       color: white;
+//       padding: 10px 20px;
+//       border: none;
+//       margin-right: 5px;
+//       cursor: pointer;
+//       margin-bottom: 20px;
+
+
+//       &:hover {
+//         background-color: #c4000b;
+//       }
+//     }
+
+//   }
+// }
+
+// .bookSlotsHeading {
+//   margin-top: 20px;
+//   margin-left: 50px;
+// }
+
+
 
 .StudentTableWrapper {
-
   padding: 20px;
   margin-left: 50px;
   margin-right: 50px;
 
-
-
   .table {
-
-    width: auto;
-
+    width: 100%; // Ensure it uses available space
 
     thead {
       background-color: #f6f6f6;
@@ -36,81 +131,120 @@
       border: 2px solid #df000d;
 
       th {
-        padding: 20px 20px;
-        min-width: 195px;
-        width: fit-content;
+        padding: 10px 15px;
+        min-width: 150px; // Adjusted width for smaller screens
         border: 2px solid #df000d;
-
       }
-
     }
 
     tbody {
-
       tr {
-
-
         &:nth-child(even) {
           background-color: #f6f6f6 !important;
-
-          width: fit-content;
-
         }
 
         &:nth-child(odd) {
           background-color: #f8d7da !important;
-
-          width: fit-content;
         }
 
         td {
-
-          width: fit-content;
-          padding: 20px 20px;
-
+          padding: 10px 15px;
           border: 2px solid #df000d;
-
           text-align: left;
-
         }
       }
     }
   }
 
   .paginationControls {
-
     margin-top: 20px;
-
-    float: right !important;
-    margin-right: 20px;
-
-    .pageCount {
-      margin: 5px !important;
-      color: black !important;
-      border: none !important;
-      text-align: center;
-      font-size: 16px;
-    }
-
-    .paginationbutton {
-      background-color: #df000d;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      margin-right: 5px;
-      cursor: pointer;
-      margin-bottom: 20px;
-
-
-      &:hover {
-        background-color: #c4000b;
-      }
-    }
-
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
-.bookSlotsHeading {
-  margin-top: 20px;
-  margin-left: 50px;
+/* Responsive styles for tablet and mobile */
+@media only screen and (max-width: 768px) {
+  .StudentTableWrapper {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    .table {
+      thead {
+        th {
+          padding: 8px 10px;
+          font-size: 14px;
+          min-width: 100px;
+        }
+      }
+
+      tbody {
+        td {
+          padding: 8px 10px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .paginationControls {
+      justify-content: center; // Center pagination on smaller screens
+    }
+  }
+
+//   .bookSlotsHeading {
+//     font-size: 24px;
+//     font-weight: 600; // Adjust heading size for smaller screens
+//     margin-left: 50px;
+//     margin-right: 10px;
+//       margin-top: 20px;
+// //   margin-left: 50px;
+//   }
 }
+
+/* Responsive for mobile (less than 480px) */
+@media only screen and (max-width: 480px) {
+  .StudentTableWrapper {
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    .table {
+      display: block; // Make the table scrollable for small screens
+      overflow-x: auto; // Add horizontal scroll for small screens
+
+      thead {
+        display: none; // Hide thead on small screens (optional, for better readability)
+      }
+
+      tbody {
+        td {
+          display: block; // Stack cells vertically
+          padding: 10px;
+          text-align: right; // Align text right for labels
+
+          &:before {
+            content: attr(data-label); // Add a label before each cell
+            float: left;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .paginationControls {
+      justify-content: center; // Center pagination on mobile
+    }
+  }
+
+
+}
+
+  .bookSlotsHeading {
+   font-size: 24px;
+    font-weight: 600; // Further reduce heading size for mobile
+    text-align: center; 
+      //  margin-left: 50px;
+   // margin-right: 10px;
+      margin-top: 20px;// Center the heading
+  }

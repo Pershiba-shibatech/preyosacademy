@@ -20,6 +20,7 @@
     .sideRowWrapper {
 
         .sidebarmainWrapper {
+            z-index: 99999;
             width: fit-content;
             height: calc(100vh - 144px);
             border: 2px solid #df000d;

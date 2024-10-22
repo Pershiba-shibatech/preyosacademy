@@ -1,13 +1,16 @@
 import React from "react";
 import {  Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./dashBoard.module.scss";
-import BookSlotModal from "../../components/Modals/BookSlotModal";
+
 import { useSelector } from "react-redux";
 const SideBar = () => {
-  const [modalShow, setModalShow] = React.useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
+
   let userDetails = useSelector((state) => state.userDetails);
   const { userType } = userDetails.loggedInUserDetails;
+
   return (
     <div className={styles.sidebarmainWrapper}>
       {/* Left Sidebar */}
@@ -22,13 +25,13 @@ const SideBar = () => {
               Home
             </Nav.Link>
 
-            <Nav.Link
+            {/* <Nav.Link
               className={styles.navLink}
               as={Link}
               onClick={() => setModalShow(true)}
             >
               Book Slots
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link
               className={styles.navLink}
               as={Link}
@@ -41,7 +44,7 @@ const SideBar = () => {
         {userType === "Admin" && (
           <Nav className="flex-column">
             <Nav.Link
-              className={`${styles.navLink} ${styles.NavlinkActive}`}
+              className={pathname === "/dashboard" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
               as={Link}
               to="/dashboard"
             >
@@ -49,7 +52,7 @@ const SideBar = () => {
             </Nav.Link>
 
             <Nav.Link
-              className={styles.navLink}
+              className={pathname === "/dashboard/allSlots" ? `${styles.navLink} ${styles.NavlinkActive}` :styles.navLink}
               as={Link}
               // onClick={() => setModalShow(true)}
               to="/dashboard/allSlots"
@@ -57,14 +60,16 @@ const SideBar = () => {
               All Slots
             </Nav.Link>
             <Nav.Link
-              className={styles.navLink}
+              className={pathname === "/dashboard/library" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+
               as={Link}
               to="/dashboard/library"
             >
               Library
             </Nav.Link>
             <Nav.Link
-              className={styles.navLink}
+              className={pathname === "/dashboard/studentlist" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+
               as={Link}
               // onClick={() => setModalShow(true)}
               to="/dashboard/studentlist"
@@ -72,7 +77,8 @@ const SideBar = () => {
               Students list
             </Nav.Link>
             <Nav.Link
-              className={styles.navLink}
+              className={pathname === "/dashboard/tutorlist" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+
               as={Link}
               to="/dashboard/tutorlist"
             >
@@ -90,13 +96,13 @@ const SideBar = () => {
               Home
             </Nav.Link>
 
-            <Nav.Link
+            {/* <Nav.Link
               className={styles.navLink}
               as={Link}
-              onClick={() => setModalShow(true)}
+             
             >
               Book Slots
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link
               className={styles.navLink}
               as={Link}
@@ -107,7 +113,6 @@ const SideBar = () => {
           </Nav>
         )}
       </div>
-      <BookSlotModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 };

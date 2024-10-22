@@ -3,20 +3,24 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSubjectSliceActions } from "../../store/slice/selectSubjectModelSlice";
 
 const BookSlotModal = (props) => {
+  const subjectModelDetails = useSelector((state) => state.subjectModelData);
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
   
-   const Navigate = useNavigate();
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+
 
   const handleSubjectChange = (e) => {
-    setSelectedSubject(e.target.value);
+   
+    dispatch(selectSubjectSliceActions.setSubject(e.target.value))
   };
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
+  console.log(subjectModelDetails, "subjectModelDetails")
+  // const handleDateChange = (e) => {
+  //   setSelectedDate(e.target.value);
+  // };
 
   return (
     <Modal
@@ -33,9 +37,9 @@ const BookSlotModal = (props) => {
           {/* Subject Select Dropdown */}
           <Form.Group className="mb-3" controlId="subjectSelect">
             <Form.Label>Select Subject</Form.Label>
-            <Form.Select value={selectedSubject} onChange={handleSubjectChange}>
+            <Form.Select value={subjectModelDetails.selectedSubject} onChange={handleSubjectChange}>
               <option value="">Choose a subject</option>
-              <option value="math">Mathematics</option>
+              <option value="maths">Mathematics</option>
               <option value="science">Science</option>
               <option value="english">English</option>
               <option value="history">History</option>
@@ -43,14 +47,14 @@ const BookSlotModal = (props) => {
           </Form.Group>
 
           {/* Date Selection */}
-          <Form.Group className="mb-3" controlId="dateSelect">
+          {/* <Form.Group className="mb-3" controlId="dateSelect">
             <Form.Label>Select Date</Form.Label>
             <Form.Control
               type="date"
               value={selectedDate}
               onChange={handleDateChange}
             />
-          </Form.Group>
+          </Form.Group> */}
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -59,7 +63,7 @@ const BookSlotModal = (props) => {
         </Button>
         <Button
           variant="danger"
-          onClick={() => {Navigate("/dashboard/BookSlots"); props.onHide()}}
+          onClick={() => { Navigate("/dashboard/BookSlots"); props.onHide() }}
         >
           Book Slot
         </Button>

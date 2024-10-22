@@ -1,0 +1,28 @@
+.SpinnerWrapper {
+//  display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     position: absolute;
+//     align-items: center;
+//     height: calc(100vh - 315px); /* Corrected the typo here */
+//     text-align: center;
+//     overflow: hidden;
+//     width: 100%;
+//     margin: auto;
+//     left: 0;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    height: calc(100vh - 315px); /* Corrected the typo here */
+    text-align: center;
+    overflow: hidden;
+    // width: 100%;
+    margin: auto;
+    left: 55%;
+    .spinnnerClass{
+      height: 50px;
+      width: 50px;
+    }
+}

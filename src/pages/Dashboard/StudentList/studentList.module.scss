@@ -1,15 +1,19 @@
 .libraryscrollWrapper {
     height: calc(100vh - 100px); // Set a height for the wrapper
     overflow-y: auto;
-   padding-bottom: 1px;
-
+    padding-bottom: 1px;
+   &::-webkit-scrollbar {
+            width: 0px;
+        }
+    
+        scrollbar-width: none;
     .libraryWrapper {
         margin-top: 24px;
-        padding-top: 20px;
+        // padding-top: 20px;
         margin-right: 50px;
         margin-left: 50px;
         padding-bottom: 10px;
-
+       
         // Enable vertical scrolling
 
         .bookedSlotText {
@@ -18,9 +22,9 @@
         }
 
         .librarycard {
-            max-width: 100%; // Take full width in its column
-            width: 100%; // Ensure card is 100% wide within its column
-            border: 3px solid #DF000D61;
+           
+            width: 300px; // Ensure card is 100% wide within its column
+            border: 3px solid #df000d61;
             border-radius: 24px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
@@ -38,6 +42,24 @@
                 -webkit-line-clamp: 3; // Limit to 3 lines
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+        }
+        .bookSlotButton {
+            float: right;
+            border: 2px solid #df000d;
+            background-color: white;
+            color: #df000d;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            //margin-left: auto; // Push button to the extreme right
+            //margin-right: 20px; // 20px margin from the right edge
+            margin-top: 10px;
+            &:hover {
+                background-color: #df000d;
+                color: white;
             }
         }
     }

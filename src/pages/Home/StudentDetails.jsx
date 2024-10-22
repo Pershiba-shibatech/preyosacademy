@@ -12,17 +12,14 @@ const StudentDetails = () => {
         <h1 className={styles.bookedSlotText}>Booked Slots</h1>
         <div className={styles.buttonDiv}>
           <button className={styles.bookSlotButton}>Refresh</button>
-          <button
+          {/* <button
             className={styles.bookSlotButton}
             onClick={() => setModalShow(true)}
           >
             Book Slot
-          </button>
+          </button> */}
         </div>
-        <BookSlotModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
+     
       </div>
     </>
   );

@@ -19,8 +19,9 @@ export const initialState = {
     password: "",
     contactNumber: "",
     Subjects: [],
-    Coordinator:"",
-    Admin:""
+    Coordinator:{},
+    Admin:"",
+    requirements:''
  
 };
 
@@ -84,11 +85,16 @@ const CreateStudentSlice = createSlice({
            
         },
         setCoordinator: (state, { payload }) => {
+            console.log(payload,"payload")
             state.Coordinator = payload
            
         },
         setAdmin: (state, { payload }) => {
             state.Admin = payload
+           
+        },
+        setrequirements: (state, { payload }) => {
+            state.requirements = payload
            
         },
       

@@ -29,23 +29,50 @@
         border: 1px solid red;
     }
 
+    // .subjectBtn {
+    //     width: 100px;
+    //     margin-bottom: 10px;
+    //     background-color: red;
+    //     color: white;
+    //     border-radius: 5px;
+    //     border: none;
+    //     transition: 0.3s ease;
+
+    //     &:hover {
+    //         background-color: white;
+    //         color: red;
+    //         border: 1px solid red;
+    //     }
+    // }
+
     .subjectBtn {
         width: 100px;
         margin-bottom: 10px;
-        background-color: red;
-        color: white;
-        border-radius: 5px;
-        border: none;
+    
+       
         transition: 0.3s ease;
-
+        border-radius: 5px;
+        background-color: white;
+        color: red;
+        border: 1px solid red;
         &:hover {
-            background-color: white;
-            color: red;
-            border: 1px solid red;
+            // background-color: white;
+            // color: red;
+            // border: 1px solid red;
+            background-color: red;
+            color: white;
+          
+            border: none;
         }
+    }
+    .subjectActive{
+        background-color: red !important;
+        color: white !important;
+        border: none !important;
     }
 
     .clearBtn,
+    .clearbtn,
     .submitBtn {
         padding: 10px 20px;
         font-weight: bold;
@@ -57,12 +84,20 @@
         color: red;
         background-color: transparent;
         border: 1px solid red;
+  
     }
 
     .submitBtn {
         color: white;
         background-color: red;
         border: none;
+        margin-left: 10px;
+    }
+    .clearbtn{
+        color: red;
+        background-color: transparent;
+        border: 1px solid red;
+        margin-left: 10px;
     }
 }
 
