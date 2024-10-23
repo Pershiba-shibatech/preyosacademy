@@ -14,7 +14,8 @@ const combinedReducers = combineReducers({
     AllAvailableSlotsDetails: reducer.getAllAvailableSlotsWrapper,
     BookSlotsDetails: reducer.BookedSlotsSliceWrapper,
     selectedStudentDetails: reducer.SelectedStudentSliceWrapper,
-    getBookedSlots: reducer.GetAllBookedSlotsSliceWrapper
+    getBookedSlots: reducer.GetAllBookedSlotsSliceWrapper,
+    LibraryList: reducer.GetAllMaterialsSliceWrapper
 });
 
 const rootReducer = (state, action) => {

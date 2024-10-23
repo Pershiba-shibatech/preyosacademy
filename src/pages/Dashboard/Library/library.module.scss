@@ -1,7 +1,7 @@
 .libraryscrollWrapper {
     height: calc(100vh - 100px); // Set a height for the wrapper
     overflow-y: auto;
-   padding-bottom: 1px;
+    padding-bottom: 1px;
 
     .libraryWrapper {
         margin-top: 24px;
@@ -20,7 +20,7 @@
         .librarycard {
             max-width: 100%; // Take full width in its column
             width: 100%; // Ensure card is 100% wide within its column
-            border: 3px solid #DF000D61;
+            border: 3px solid #df000d61;
             border-radius: 24px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
@@ -31,7 +31,32 @@
                 transform: translateY(-5px);
                 box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
             }
-
+            .StudentName {
+                width: 200px;
+                font-size: 32px !important;
+                font-weight: 500;
+                font-style: bold;
+                text-transform: lowercase;
+            }
+            .StudentName::first-letter {
+                text-transform: uppercase;
+            }
+            .SessionSubject {
+                // width: 200px;
+                display: inline-flex;
+                font-size: 24px !important;
+             
+            }
+         
+            .InnerSessionSubject {
+                width: 200px;
+                font-size: 24px !important;
+              margin-left: 10px;
+                text-transform: lowercase;
+            }
+            .InnerSessionSubject::first-letter {
+                text-transform: uppercase;
+            }
             .cardtext {
                 display: -webkit-box;
                 -webkit-box-orient: vertical;

@@ -1,13 +1,27 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import styles from "./library.module.scss";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getTutorsMaterials } from "../../../store/api/LibraryService";
 
 const Library = () => {
   const libraryScrollRef = useRef(null);
-
+  const LibraryList = useSelector((state) => state.LibraryList);
+  const userDetails = useSelector((state) => state.userDetails)
+  const dispatch = useDispatch();
+  console.log(userDetails.userCode, "userCode")
+  useEffect(() => {
+    // if (!StudentDetail.isFetched) {
+    const data = {
+      userCode: userDetails.userCode
+    }
+    dispatch(getTutorsMaterials(data))
+    // }
+  }, [])
+  console.log(LibraryList.tutorsMaterials, "LibraryList")
   const handleScroll = (e) => {
- 
+
     // const bottom =
     //   e.target.scrollHeight - Math.round(e.target.scrollTop) ===
     //   e.target.clientHeight;
@@ -15,14 +29,14 @@ const Library = () => {
     // if (bottom) {
     //   console.log("reached bottom");
     // }
-     const target = e.target;
-     const isAtBottom =
-       target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
+    const target = e.target;
+    const isAtBottom =
+      target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
 
-     if (isAtBottom) {
-       console.log("reached bottom");
-       // Load more data or perform another action
-     }
+    if (isAtBottom) {
+      console.log("reached bottom");
+      // Load more data or perform another action
+    }
   };
   return (
     <div
@@ -37,178 +51,24 @@ const Library = () => {
           Library - find all your Study Materials
         </h1>
         <Row>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Maths</Card.Title>
-                {/* <Card.Subtitle className="mb-2 text-muted">
-                  Algebra
-                </Card.Subtitle> */}
-                <Card.Text>Algebra</Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+          {LibraryList.tutorsMaterials.map((material) => {
+            return <>
+              <Col key={material.materialId} xs={12} md={6} lg={4} style={{ minWidth: '375px', minHeight: '225px' }} className="mb-4">
+                <Card className={styles.librarycard} style={{ width: '100%', height: "100%" }}>
+                  <Card.Body>
+                    <p className={styles.StudentName}>{material.studentDetails.studentName}</p>
 
-                <Card.Text className={styles.cardtext}>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content. Some quick example text to
-                  build on the card title and make up the bulk of the card's
-                  content. Some quick example text to build on the card title
-                  and make up the bulk of the card's content.
-                </Card.Text>
+                    <div className={styles.SessionSubject}>Subject : <p className={styles.InnerSessionSubject}>{material.sessionSubject}</p></div>
+                    <Button variant="danger" className={styles.SessionLink} onClick={() => {
+                      window.open(material.sessionMaterial.url, "_blank")
+                    }}>view Resource</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </>
 
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+          })}
 
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="mb-4">
-            <Card className={styles.librarycard}>
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Card.Link href="#">view Resource</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
         </Row>
       </div>
     </div>

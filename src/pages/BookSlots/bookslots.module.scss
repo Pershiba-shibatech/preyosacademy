@@ -23,12 +23,9 @@
 //   margin-left: 50px;
 //   margin-right: 50px;
 
-
-
 //   .table {
 
 //     width: auto;
-
 
 //     thead {
 //       background-color: #f6f6f6;
@@ -48,7 +45,6 @@
 //     tbody {
 
 //       tr {
-
 
 //         &:nth-child(even) {
 //           background-color: #f6f6f6 !important;
@@ -101,7 +97,6 @@
 //       cursor: pointer;
 //       margin-bottom: 20px;
 
-
 //       &:hover {
 //         background-color: #c4000b;
 //       }
@@ -114,137 +109,99 @@
 //   margin-top: 20px;
 //   margin-left: 50px;
 // }
+.bookSlotWrapper {
+  width: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
+  padding-bottom: 30px;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 
 
+  scrollbar-width: none;
+    .bookSlotsHeading {
+    font-size: 24px;
+    font-weight: 600; // Further reduce heading size for mobile
+    text-align: center;
+    //  margin-left: 50px;
+    // margin-right: 10px;
+    margin-top: 20px; // Center the heading
+    margin-bottom: 20px;
+  }
+  .StudentTableWrapper {
+    padding: 0 20px; /* Reduced padding to make better use of width */
+    margin: 0; /* Remove extra margin */
 
-.StudentTableWrapper {
-  padding: 20px;
-  margin-left: 50px;
-  margin-right: 50px;
-
-  .table {
-    width: 100%; // Ensure it uses available space
-
-    thead {
-      background-color: #f6f6f6;
-      border-radius: 12px;
-      border: 2px solid #df000d;
-
-      th {
-        padding: 10px 15px;
-        min-width: 150px; // Adjusted width for smaller screens
+    .table {
+      width: 100%; /* Ensure it uses available space */
+      table-layout: fixed; /* Fixes the table layout to occupy full width */
+      
+      thead {
+        background-color: #f6f6f6;
+        border-radius: 12px;
         border: 2px solid #df000d;
-      }
-    }
 
-    tbody {
-      tr {
-        &:nth-child(even) {
-          background-color: #f6f6f6 !important;
-        }
-
-        &:nth-child(odd) {
-          background-color: #f8d7da !important;
-        }
-
-        td {
-          padding: 10px 15px;
-          border: 2px solid #df000d;
-          text-align: left;
-        }
-      }
-    }
-  }
-
-  .paginationControls {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-  }
-}
-
-/* Responsive styles for tablet and mobile */
-@media only screen and (max-width: 768px) {
-  .StudentTableWrapper {
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-    .table {
-      thead {
         th {
-          padding: 8px 10px;
-          font-size: 14px;
-          min-width: 100px;
+          padding: 10px 15px;
+          min-width: 150px; 
+          border: 2px solid #df000d;
+          text-align: center;
         }
       }
 
       tbody {
-        td {
-          padding: 8px 10px;
-          font-size: 14px;
-        }
-      }
-    }
+        tr {
+          &:nth-child(even) {
+            background-color: #f6f6f6 !important;
+          }
 
-    .paginationControls {
-      justify-content: center; // Center pagination on smaller screens
-    }
-  }
+          &:nth-child(odd) {
+            background-color: #f8d7da !important;
+          }
 
-//   .bookSlotsHeading {
-//     font-size: 24px;
-//     font-weight: 600; // Adjust heading size for smaller screens
-//     margin-left: 50px;
-//     margin-right: 10px;
-//       margin-top: 20px;
-// //   margin-left: 50px;
-//   }
-}
-
-/* Responsive for mobile (less than 480px) */
-@media only screen and (max-width: 480px) {
-  .StudentTableWrapper {
-    padding: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-
-    .table {
-      display: block; // Make the table scrollable for small screens
-      overflow-x: auto; // Add horizontal scroll for small screens
-
-      thead {
-        display: none; // Hide thead on small screens (optional, for better readability)
-      }
-
-      tbody {
-        td {
-          display: block; // Stack cells vertically
-          padding: 10px;
-          text-align: right; // Align text right for labels
-
-          &:before {
-            content: attr(data-label); // Add a label before each cell
-            float: left;
-            font-weight: bold;
+          td {
+            padding: 10px 15px;
+            border: 2px solid #df000d;
+            text-align: center; /* Center-align for better visibility */
+            word-wrap: break-word; /* Allows text wrapping */
           }
         }
       }
     }
 
     .paginationControls {
-      justify-content: center; // Center pagination on mobile
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
+  @media only screen and (max-width: 768px) {
+    .StudentTableWrapper {
+      padding: 10px;
 
+      .table {
+        thead {
+          th {
+            padding: 8px 10px;
+            font-size: 14px;
+            min-width: 100px;
+          }
+        }
+
+        tbody {
+          td {
+            padding: 8px 10px;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .paginationControls {
+        justify-content: center;
+      }
+    }
+  }
 }
 
-  .bookSlotsHeading {
-   font-size: 24px;
-    font-weight: 600; // Further reduce heading size for mobile
-    text-align: center; 
-      //  margin-left: 50px;
-   // margin-right: 10px;
-      margin-top: 20px;// Center the heading
-  }

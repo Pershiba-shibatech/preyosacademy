@@ -12,6 +12,7 @@ import GetAvailableSlotsSlice from '../slice/AvailableSlotsSlice'
 import BookedSlotsSlice from '../slice/BookSlotsslice'
 import SelectedStudentSlice from '../slice/SelectedStudentSlice'
 import GetAllBookedSlotsSlice from '../slice/AllBookedSlotsSlice'
+import GetAllMaterialsSlice from '../slice/LibrarySlice'
 export const loginuserWrapper = (state, action) => {
     if (action.type === `${reducerConstants.LOGIN_USER}/reset`) {
         state = undefined;
@@ -88,5 +89,12 @@ export const GetAllBookedSlotsSliceWrapper = (state,action)=>{
         state = undefined;
     }
     return GetAllBookedSlotsSlice(state, action)
+    
+}
+export const GetAllMaterialsSliceWrapper = (state,action)=>{
+    if (action.type === `${reducerConstants.GET_LIBRARY_DETAILS}/reset`) {
+        state = undefined;
+    }
+    return GetAllMaterialsSlice(state, action)
     
 }

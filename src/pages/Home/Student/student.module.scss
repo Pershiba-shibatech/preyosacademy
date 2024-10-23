@@ -35,6 +35,9 @@
         width: fit-content;
         text-align: center;
         border: 2px solid #df000d;
+        max-width: 110px;
+        // max-width: 150px;
+        width: 100%;
       }
     }
 
@@ -57,8 +60,13 @@
           padding: 10px 15px;
           border: 2px solid #df000d;
           text-align: center;
-          text-wrap: nowrap;
+          // text-wrap: nowrap;
           text-transform: lowercase;
+          min-width: 100px;
+          max-width: 110px;
+
+          text-wrap: wrap;
+          width: 100%;
         }
         td::first-letter {
           text-transform: uppercase;
@@ -68,9 +76,19 @@
           margin-top: 5px;
           text-wrap: nowrap;
         }
+        .statusContainer {
+          min-width: 100px;
+          max-width: 130px;
+
+          width: 100%;
+        }
         .updateStatus {
+          max-width: 90px;
+          width: 100%;
           display: flex;
           justify-content: space-around;
+          text-wrap: nowrap;
+          margin-right: 10px;
         }
       }
     }
