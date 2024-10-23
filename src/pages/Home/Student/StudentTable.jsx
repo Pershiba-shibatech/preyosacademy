@@ -62,7 +62,7 @@ const StudentTable = () => {
     <>
       <div className={styles.StudentTableWrapper}>
 
-        {getBookedSlotsDetails.isFetchedSlots && DisplayData.length > 0 && <Table bsPrefix={styles.table} striped bordered hover>
+        {!getBookedSlotsDetails.isLoading && getBookedSlotsDetails.isFetchedSlots && DisplayData.length > 0 && <Table bsPrefix={styles.table} striped bordered hover>
           <thead>
             <tr>
               {columns.map((column) => (
@@ -99,9 +99,9 @@ const StudentTable = () => {
                       <td>{item?.sessionSubject}</td>
                       <td>
                         <div className={styles.updateStatus}>
-                          <span className={styles.statusText}>
+                          {/* <span className={styles.statusText}>
                             {getStatusOfSession(item.sessionStatus)}
-                          </span>
+                          </span> */}
 
                           <Button
                             variant="danger"
@@ -110,7 +110,7 @@ const StudentTable = () => {
                             }
                             onClick={() => setModalShow(true)}
                           >
-                            update Status
+                            {getStatusOfSession(item.sessionStatus)}
                           </Button>
                         </div>
                       </td>
@@ -131,11 +131,11 @@ const StudentTable = () => {
                       <td>{`${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime} `}</td>
                       <td>{item?.tutorDetails?.tutorName}</td>
                       <td>{item?.sessionSubject}</td>
-                      <td>
+                      <td className={styles.statusContainer}>
                         <div className={styles.updateStatus}>
-                          <span className={styles.statusText}>
+                          {/* <span className={styles.statusText}>
                             {getStatusOfSession(item.sessionStatus)}
-                          </span>
+                          </span> */}
 
                           <Button
                             variant="danger"
@@ -144,7 +144,7 @@ const StudentTable = () => {
                             }
                             onClick={() => setModalShow(true)}
                           >
-                            update Status
+                              {getStatusOfSession(item.sessionStatus)}
                           </Button>
                         </div>
                       </td>

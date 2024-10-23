@@ -20,7 +20,6 @@ const AddTutors = () => {
   const userDetails = useSelector((state) => state.userDetails)
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-  console.log(createTutorDetails.Monday, createTutorDetails.Monday.length, "createTutorDetails")
   const RegisterUser = () => {
 
     if (

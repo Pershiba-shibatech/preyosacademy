@@ -36,7 +36,7 @@ const BookSlot = () => {
   }, [])
   
   return (
-    <div>
+    <div className={styles.bookSlotWrapper}>
       <div className={styles.bookSlotsHeading}>{`Book Slots for ${subjectModelDetails.selectedSubject}` }</div>
       <div className={styles.StudentTableWrapper}>
         <Table bsPrefix={styles.table} striped bordered hover>
@@ -69,14 +69,14 @@ const BookSlot = () => {
         </Table>
 
         {/* Pagination Component */}
-        <Pagination className={styles.paginationControls}>
+        {/* <Pagination className={styles.paginationControls}>
           <Pagination.Prev linkClassName={styles.paginationbutton} />
           <Pagination.Item linkClassName={styles.pageCount}>
             {" "}
             {1}
           </Pagination.Item>
           <Pagination.Next linkClassName={styles.paginationbutton} />
-        </Pagination>
+        </Pagination> */}
       </div>
       <BookingSlotModel show={BookSlotsDetails.openModel} onHide={()=>dispatch(BookedSlotsSliceActions.setOpenModel())} />
     </div>
