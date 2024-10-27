@@ -1,9 +1,23 @@
 import moment from 'moment';
 
-export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, excludeFirst = false) => {
+export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFirst = false) => {
 
+    let getMonth = {
+        Jan: 0,
+        Feb: 1,
+        Mar: 2,
+        Apr: 3,
+        May: 4,
+        Jun: 5,
+        Jul: 6,
+        Aug: 7,
+        Sep: 8,
+        Oct: 9,
+        Nov: 10,
+        Dec: 11
+    }
     let year = moment().format('YYYY');
-    let month = moment().format('MM') - 1;
+    let month = getMonth[mon];
     console.log(year, month, selectedDay, fromTime, toTime, excludeFirst, "year, month, selectedDay, fromTime, toTime, excludeFirst");
     const weekdays = [];
     const dayMap = {
@@ -53,9 +67,9 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, excludeFirst =
 
 
 export const getStatusOfSession = (status) => {
-console.log(status)
+    console.log(status)
     return status === 'Yettojoin' ? "Yet To Join" :
-        status === 'rescheduled' ? "Re-scheduled" :
+        status === 'reschedule' ? "Rescheduled" :
             status === 'completed' ? 'Completed' : "Cancelled";
 
 }

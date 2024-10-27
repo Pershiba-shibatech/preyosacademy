@@ -6,10 +6,11 @@ import moment from 'moment-timezone';
 export const setTimestamps = (sessions,type) => {
     console.log(type,"type")
     return sessions.map(session => {
+       
         const { date, from, to } = session.sessionBookingDetails;
         const timeZone = type === "Student" ? session.StudentDetails.timeZone : session.tutorDetails.timeZone;
         const defaultTimeZone = 'Asia/Kolkata'
-       
+        console.log(date, from, to, " date, from, to ")
         const DefaultfromDateTime = moment(`${date} ${from}`).tz(defaultTimeZone).format('x');
         const DefaulttoDateTime = moment(`${date} ${to}`).tz(defaultTimeZone).format('x');
         const localDate = moment(Number(DefaultfromDateTime)).tz(timeZone).format('DD/MM/YYYY');

@@ -6,7 +6,8 @@ import { SUBJECT_MODEL } from "../reducerConstants";
 
 export const initialState = {
     selectedSubject: "",
-    openSubjectModel: false
+    openSubjectModel: false,
+    selectedDate:""
 };
 
 const selectSubjectSlice = createSlice({
@@ -18,6 +19,10 @@ const selectSubjectSlice = createSlice({
         },
         setSubject: (state, { payload }) => {
             state.selectedSubject = payload
+
+        },
+        setselectedDate: (state, { payload }) => {
+            state.selectedDate = payload
 
         },
 

@@ -17,6 +17,10 @@ const BookSlotModal = (props) => {
    
     dispatch(selectSubjectSliceActions.setSubject(e.target.value))
   };
+  const handleDateChange = (e) => {
+   
+    dispatch(selectSubjectSliceActions.setselectedDate(e.target.value))
+  };
   console.log(subjectModelDetails, "subjectModelDetails")
   // const handleDateChange = (e) => {
   //   setSelectedDate(e.target.value);
@@ -28,6 +32,8 @@ const BookSlotModal = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      backdrop="static"
+      keyboard={false}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Book slot</Modal.Title>
@@ -45,7 +51,25 @@ const BookSlotModal = (props) => {
               <option value="history">History</option>
             </Form.Select>
           </Form.Group>
-
+          <Form.Group className="mb-3" controlId="subjectSelect">
+            <Form.Label>Select Month</Form.Label>
+            <Form.Select value={subjectModelDetails.selectedDate} onChange={handleDateChange}>
+              <option value="">Choose  Month</option>
+              <option value="Jan">January</option>
+              <option value="Feb">February</option>
+              <option value="Mar">March</option>
+              <option value="Apr">April</option>
+              <option value="May">May</option>
+              <option value="Jun">June</option>
+              <option value="July">July</option>
+              <option value="Aug">August</option>
+              <option value="Sep">September</option>
+              <option value="Oct">October</option>
+              <option value="Nov">November</option>
+              <option value="Dec">December</option>
+            </Form.Select>
+          </Form.Group>
+          
           {/* Date Selection */}
           {/* <Form.Group className="mb-3" controlId="dateSelect">
             <Form.Label>Select Date</Form.Label>

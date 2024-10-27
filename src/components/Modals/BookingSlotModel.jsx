@@ -25,7 +25,7 @@ const BookingSlotModel = (props) => {
 
   const BooktheSlot = () => {
 
-    const selctedDays = getWeekdaysInMonth(BookSlotsDetails.SelectedSlot.slotDatails.day, BookSlotsDetails.SelectedSlot.slotDatails.from, BookSlotsDetails.SelectedSlot.slotDatails.to);
+    const selctedDays = getWeekdaysInMonth(BookSlotsDetails.SelectedSlot.slotDatails.day, BookSlotsDetails.SelectedSlot.slotDatails.from, BookSlotsDetails.SelectedSlot.slotDatails.to, subjectModelDetails.selectedDate);
     console.log(selctedDays, "selctedDays")
 
     const BookSlotData = {
@@ -40,8 +40,10 @@ const BookingSlotModel = (props) => {
 
       sessionDetails: BookSlotsDetails.SelectedSlot.slotId,
       sessionSubject: subjectModelDetails.selectedSubject,
+      month: subjectModelDetails.selectedDate,
       paymentStatus: "paid",
       sessionLink: BookSlotsDetails.sessionLink,
+      sessionBoardLink: BookSlotsDetails.sessionBoardLink,
       sessionStatus: "Yettojoin",
       topic: "",
       homeworkStatus: "",
@@ -64,16 +66,17 @@ const BookingSlotModel = (props) => {
 
 
     }
+    console.log(BookSlotData,"BookSlotData")
     dispatch(BookedSlotsSliceActions.setIsBooking(true))
     dispatch(BookSlotsByTutor(BookSlotData)).unwrap().then((response) => {
-      
+
       if (response.data.statusCode === 200) {
         dispatch(BookedSlotsSliceActions.reset())
         dispatch(SelectedStudentSliceActions.reset())
         dispatch(selectSubjectSliceActions.reset())
         navigate('/dashboard/allSlots')
         dispatch(ToastSliceActions.setSuccessToast("Slot Booked Successfully!"))
-      }else{
+      } else {
         dispatch(ToastSliceActions.setfailureToast("Failed to createSlot!"))
 
       }
@@ -88,6 +91,8 @@ const BookingSlotModel = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      backdrop="static"
+      keyboard={false}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Book Slot</Modal.Title>
@@ -127,6 +132,17 @@ const BookingSlotModel = (props) => {
               placeholder="Enter Session link"
               value={BookSlotsDetails.sessionLink}
               onChange={(e) => dispatch(BookedSlotsSliceActions.setsessionLink(e.target.value))}
+            />
+          </Form.Group>
+          <Form.Group controlId="SessionLink" className="mt-3">
+            <Form.Label>
+              Session Board Link
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Session link"
+              value={BookSlotsDetails.sessionBoardLink}
+              onChange={(e) => dispatch(BookedSlotsSliceActions.setBoardLink(e.target.value))}
             />
           </Form.Group>
         </Form>
