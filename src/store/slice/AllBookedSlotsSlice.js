@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GET_BOOKED_SLOTS } from "../reducerConstants";
-import { GetBookedSlots } from "../api/BookSlotsByTutor";
+import { GetBookedPastSlots, GetBookedSlots } from "../api/BookSlotsByTutor";
 import { setTimestamps } from "../helperConstants/TimeConverterConstants";
 
 
@@ -10,7 +10,8 @@ export const initialState = {
     StudentsSlots: [],
     isLoading: false,
     isFetchedSlots: false,
- 
+    endSlots: []
+
 };
 
 const GetAllBookedSlotsSlice = createSlice({
@@ -38,19 +39,19 @@ const GetAllBookedSlotsSlice = createSlice({
                     state.StudentsSlots = DetailWithSession
                     state.AllSlots = []
                     state.tutorSlots = []
-                  
+
                 }
 
                 if (payload?.data?.type === "Tutor") {
                     console.log(DetailWithSession)
                     state.tutorSlots = DetailWithSession
                     state.AllSlots = []
-              
+
                     state.StudentsSlots = []
                 }
                 if (payload?.data?.type === 'Admin') {
                     state.AllSlots = DetailWithSession
-                  
+
                     state.tutorSlots = []
                     state.StudentsSlots = []
                 }
@@ -58,8 +59,8 @@ const GetAllBookedSlotsSlice = createSlice({
                 state.isFetchedSlots = true
             } else {
                 state.AllSlots = []
-                state.tutorSlots=[]
-                state.StudentsSlots=[]
+                state.tutorSlots = []
+                state.StudentsSlots = []
                 state.isFetchedSlots = true
             }
 
@@ -68,6 +69,29 @@ const GetAllBookedSlotsSlice = createSlice({
         builder.addCase(GetBookedSlots.rejected, (state, { payload }) => {
             state.isLoading = false;
         });
+        builder.addCase(GetBookedPastSlots.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(GetBookedPastSlots.fulfilled, (state, { payload }) => {
+
+
+            if (payload?.data?.statusCode === 200) {
+                let DetailWithSession = setTimestamps(payload?.data?.result, payload?.data?.type)
+                state.endSlots = DetailWithSession
+
+                state.isFetchedSlots = true
+            } else {
+                state.endSlots = []
+
+                state.isFetchedSlots = true
+            }
+
+            state.isLoading = false
+        });
+        builder.addCase(GetBookedPastSlots.rejected, (state, { payload }) => {
+            state.isLoading = false;
+        });
+
     },
 
 });

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table, Pagination, Form, Button } from "react-bootstrap";
 import styles from "./student.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import UpdateAttendStatusModel from "../../../components/Modals/UpdateAttendStatusModel";
-import { GetBookedSlots } from "../../../store/api/BookSlotsByTutor";
+import UpdateAttendStatusModel from "../../../components/Modals/updateStatusModel/UpdateAttendStatusModel";
+import { GetBookedPastSlots, GetBookedSlots, GetParticularSession } from "../../../store/api/BookSlotsByTutor";
 import { useLocation } from "react-router-dom";
 import { GetAllBookedSlotsActions } from "../../../store/slice/AllBookedSlotsSlice";
 import StudentSkeleton from "../StudentSkeleton/StudentSkeleton";
@@ -11,6 +11,8 @@ import SpinnerComp from "../../../components/Spinner/Spinner";
 import moment from "moment";
 import EmptyState from "../../../components/emptyState/EmptyState";
 import { getStatusOfSession } from "../../../ConstantFunction";
+import { BookedSlotsSliceActions } from "../../../store/slice/BookSlotsslice";
+import { ToastSliceActions } from "../../../store/slice/ToastSlice";
 
 const StudentTable = () => {
   const location = useLocation();
@@ -22,8 +24,12 @@ const StudentTable = () => {
   const dispatch = useDispatch();
   let getBookedSlotsDetails = useSelector((state) => state.getBookedSlots);
   console.log(getBookedSlotsDetails, "getBookedSlotsDetails")
-  const DisplayData = pathname === "/dashboard/allSlots" ? getBookedSlotsDetails.AllSlots : pathname === '/dashboard' && userType === "Admin" ? getBookedSlotsDetails.tutorSlots : getBookedSlotsDetails.StudentsSlots
+  const DisplayData = pathname === "/dashboard/allSlots" ? getBookedSlotsDetails.AllSlots : pathname === '/dashboard' && userType === "Admin" ? getBookedSlotsDetails.tutorSlots :
+    pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots :
+      getBookedSlotsDetails.StudentsSlots
   const EmptyStateText = pathname === "/dashboard/allSlots" ? "No slots available" : pathname === '/dashboard' && userType === "Admin" ? "No slots For you Today" : "No Slots Booked"
+  const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
+  const hideForendSlot = pathname === "/dashboard/endSlots" ? true : false;
 
   useEffect(() => {
     dispatch(GetAllBookedSlotsActions.setLoading(true))
@@ -32,11 +38,27 @@ const StudentTable = () => {
       studenUsercode: userType === "Student" ? userDetails.loggedInUserDetails.userCode : '',
       tutorUsercode: userType !== "Student" ? userDetails.loggedInUserDetails.userCode : ''
     }
+    if (pathname === '/dashboard/endSlots') {
+      dispatch(GetBookedPastSlots(data))
+    } else {
 
-    dispatch(GetBookedSlots(data))
+      dispatch(GetBookedSlots(data))
+    }
+
   }, [])
 
+  const getSelectedSessionDetails = (sessionId) => {
 
+    dispatch(GetParticularSession(sessionId)).unwrap().then((response) => {
+      if (response?.data?.statusCode === 200) {
+        dispatch(BookedSlotsSliceActions.setopenUpdatwStatusModel())
+      } else {
+        dispatch(ToastSliceActions.setfailureToast("Unable to fetch Session Details update later!"))
+      }
+    })
+
+    // BookedSlotsSliceActions
+  }
 
   const [currentPage, setCurrentPage] = useState(1);
   // const [data, setData] = useState(exampleData);
@@ -54,10 +76,16 @@ const StudentTable = () => {
   //   setData(updatedData);
   // };
 
-  let StudentColumn = ["Slot Date", "Slot Timing", "Subject", "Tutor", "Attend Status", "Link"]
-  const TutorColumn = ["Student", "Slot Date", "Slot Timing", "Subject", "Attend Status", "Link"]
-  const AdminColumn = ["Student", "Slot Date", "Slot Timing", "Tutor", "Subject", "Attend Status", "Payment Status", "Link"]
-  const columns = userType === "Student" ? StudentColumn : userType === "Tutor" ? TutorColumn : AdminColumn
+  const StudentColumn = ["Slot Date", "Slot Timing", "Subject", "Tutor", "Attend Status", "Session Link", "Board Link"];
+  const TutorColumn = ["Student", "Slot Date", "Slot Timing", "Subject", "Attend Status", "Session Link", "Board Link"];
+  const AdminColumn = ["Student", "Slot Date", "Slot Timing", "Tutor", "Subject", "Attend Status", "Payment Status", "Session Link", "Board Link"];
+  const StudentEndColumn = ["Slot Date", "Slot Timing", "Subject", "Tutor", "Attend Status"]
+  const TutorEndColumn = ["Student", "Slot Date", "Slot Timing", "Subject", "Attend Status"]
+  const AdminEndColumn = ["Student", "Slot Date", "Slot Timing", "Tutor", "Subject", "Attend Status", "Payment Status"]
+
+  const columns = (userType === "Student" && !hideForendSlot) ? StudentColumn : (userType === "Tutor" && !hideForendSlot) ? TutorColumn : (userType === "Admin" && !hideForendSlot) ? AdminColumn :
+    (userType === "Student" && hideForendSlot) ? StudentEndColumn : (userType === "Tutor" && hideForendSlot) ? TutorEndColumn : (userType === "Admin" && hideForendSlot) && AdminEndColumn;
+  console.log(columns, hideForendSlot, "columns")
   return (
     <>
       <div className={styles.StudentTableWrapper}>
@@ -82,7 +110,7 @@ const StudentTable = () => {
                       <td>{item?.sessionSubject}</td>
                       <td>{item?.tutorDetails?.tutorName}</td>
                       <td>{getStatusOfSession(item.sessionStatus)}</td>
-                      <td>
+                      {!hideForendSlot && <td>
                         <Button
                           variant="danger"
                           className={styles.bookButton}
@@ -91,7 +119,17 @@ const StudentTable = () => {
                         >
                           Join
                         </Button>
-                      </td>
+                      </td>}
+                      {!hideForendSlot && <td>
+                        <Button
+                          variant="danger"
+                          className={styles.bookButton}
+                          onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
+                          disabled={item.paymentStatus === "paid" ? false : true}
+                        >
+                          Join
+                        </Button>
+                      </td>}
                     </> : userType === "Tutor" ? <>
                       <td>{item?.StudentDetails?.studentName}</td>
                       <td>{`${item.sessionBookingDetails?.localDate}`}</td>
@@ -105,17 +143,18 @@ const StudentTable = () => {
 
                           <Button
                             variant="danger"
-                            disabled={
-                              moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
-                            }
-                            onClick={() => setModalShow(true)}
+                            // disabled={
+                            //   moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
+                            // }
+                            // onClick={() => setModalShow(true)}
+                            onClick={() => getSelectedSessionDetails(item.sessionId)}
                           >
                             {getStatusOfSession(item.sessionStatus)}
                           </Button>
                         </div>
                       </td>
 
-                      <td>
+                      {!hideForendSlot && <td>
                         <Button
                           variant="danger"
                           className={styles.bookButton}
@@ -124,14 +163,24 @@ const StudentTable = () => {
                         >
                           Join
                         </Button>
-                      </td>
+                      </td>}
+                      {!hideForendSlot && <td>
+                        <Button
+                          variant="danger"
+                          className={styles.bookButton}
+                          onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
+                          disabled={item.paymentStatus === "paid" ? false : true}
+                        >
+                          Join
+                        </Button>
+                      </td>}
                     </> : <>
                       <td>{item?.StudentDetails?.studentName}</td>
                       <td>{`${item.sessionBookingDetails?.localDate}`}</td>
                       <td>{`${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime} `}</td>
                       <td>{item?.tutorDetails?.tutorName}</td>
                       <td>{item?.sessionSubject}</td>
-                      <td className={styles.statusContainer}>
+                      <td  >
                         <div className={styles.updateStatus}>
                           {/* <span className={styles.statusText}>
                             {getStatusOfSession(item.sessionStatus)}
@@ -139,17 +188,18 @@ const StudentTable = () => {
 
                           <Button
                             variant="danger"
-                            disabled={
-                              moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
-                            }
-                            onClick={() => setModalShow(true)}
+                            // disabled={
+                            //   moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
+                            // }
+                            onClick={() => getSelectedSessionDetails(item.sessionId)}
+                          // onClick={() => setModalShow(true)}
                           >
-                              {getStatusOfSession(item.sessionStatus)}
+                            {getStatusOfSession(item.sessionStatus)}
                           </Button>
                         </div>
                       </td>
                       <td>{item.paymentStatus}</td>
-                      <td>
+                      {!hideForendSlot && <td>
                         <Button
                           variant="danger"
                           className={styles.bookButton}
@@ -158,7 +208,17 @@ const StudentTable = () => {
                         >
                           Join
                         </Button>
-                      </td>
+                      </td>}
+                      {!hideForendSlot && <td>
+                        <Button
+                          variant="danger"
+                          className={styles.bookButton}
+                          onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
+                          disabled={item.paymentStatus === "paid" ? false : true}
+                        >
+                          Join
+                        </Button>
+                      </td>}
                     </>
 
 
@@ -183,8 +243,8 @@ const StudentTable = () => {
 
 
         <UpdateAttendStatusModel
-          show={modalShow}
-          onHide={() => setModalShow(false)}
+          show={BookSlotsDetails.openUpdatwStatusModel}
+          onHide={() => { dispatch(BookedSlotsSliceActions.reset()) }}
         />
       </div>
       {getBookedSlotsDetails.isLoading &&

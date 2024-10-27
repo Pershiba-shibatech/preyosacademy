@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { TimePicker } from 'antd';
 import styles from './timepickerComp.module.scss'
-const TimepickerComp = ({ selectedDate,onChangeFun,day }) => {
+const TimepickerComp = ({ selectedDate,onChangeFun,day,reschedule }) => {
 
 
   return (
@@ -35,7 +35,9 @@ const TimepickerComp = ({ selectedDate,onChangeFun,day }) => {
 
     // </Form.Select>
 
-    <TimePicker.RangePicker format='HH:mm' minuteStep={30} className={styles.timePicker} onChange={(e)=>onChangeFun(e,day)}/>
+    <TimePicker.RangePicker format='HH:mm' minuteStep={30} className={reschedule ? styles.reschedule :styles.timePicker} onChange={(e)=>onChangeFun(e,day)}
+      getPopupContainer={(trigger) => trigger.parentNode} 
+    />
 
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {  Nav } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./dashBoard.module.scss";
 
@@ -18,26 +18,19 @@ const SideBar = () => {
         {userType === "Student" && (
           <Nav className="flex-column">
             <Nav.Link
-              className={`${styles.navLink} ${styles.NavlinkActive}`}
+              className={pathname === "/dashboard" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
               as={Link}
               to="/dashboard"
             >
               Home
             </Nav.Link>
 
-            {/* <Nav.Link
-              className={styles.navLink}
-              as={Link}
-              onClick={() => setModalShow(true)}
-            >
-              Book Slots
-            </Nav.Link> */}
             <Nav.Link
-              className={styles.navLink}
+              className={pathname === "/dashboard/endSlots" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
               as={Link}
-              to="/dashboard/library"
+              to="/dashboard/endSlots"
             >
-              Library
+              Ended slots
             </Nav.Link>
           </Nav>
         )}
@@ -52,12 +45,19 @@ const SideBar = () => {
             </Nav.Link>
 
             <Nav.Link
-              className={pathname === "/dashboard/allSlots" ? `${styles.navLink} ${styles.NavlinkActive}` :styles.navLink}
+              className={pathname === "/dashboard/allSlots" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
               as={Link}
               // onClick={() => setModalShow(true)}
               to="/dashboard/allSlots"
             >
               All Slots
+            </Nav.Link>
+            <Nav.Link
+              className={pathname === "/dashboard/endSlots" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+              as={Link}
+              to="/dashboard/endSlots"
+            >
+              Ended slots
             </Nav.Link>
             <Nav.Link
               className={pathname === "/dashboard/library" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
@@ -89,22 +89,24 @@ const SideBar = () => {
         {userType === "Tutor" && (
           <Nav className="flex-column">
             <Nav.Link
-              className={`${styles.navLink} ${styles.NavlinkActive}`}
+              className={pathname === "/dashboard" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+
               as={Link}
               to="/dashboard"
             >
               Home
             </Nav.Link>
-
-            {/* <Nav.Link
-              className={styles.navLink}
-              as={Link}
-             
-            >
-              Book Slots
-            </Nav.Link> */}
             <Nav.Link
-              className={styles.navLink}
+              className={pathname === "/dashboard/endSlots" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+              as={Link}
+              to="/dashboard/endSlots"
+            >
+              Ended slots
+            </Nav.Link>
+
+            <Nav.Link
+              className={pathname === "/dashboard/library" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+
               as={Link}
               to="/dashboard/library"
             >

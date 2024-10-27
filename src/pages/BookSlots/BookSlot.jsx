@@ -31,7 +31,7 @@ const BookSlot = () => {
 
   useEffect(() => {
     
-    dispatch(getAvailableSlots({ subject: subjectModelDetails.selectedSubject }))
+    dispatch(getAvailableSlots({ subject: subjectModelDetails.selectedSubject, month: subjectModelDetails.selectedDate }))
   
   }, [])
   

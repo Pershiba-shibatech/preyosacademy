@@ -23,8 +23,30 @@ const GetBookedSlots = createAsyncThunk(`/fetchBookedSlots`, async (data) => {
     })
         .catch((error) => error);
 });
+const GetBookedPastSlots = createAsyncThunk(`/fetchBookedPastSlots`, async (data) => {
+    return axios.post(`${API_URL}/fetchBookedPastSlots`, data).then((response) => {
+
+        return response
+    })
+        .catch((error) => error);
+});
+const updateBookedSLotStatus = createAsyncThunk(`/updateStatus`, async (data) => {
+    return axios.post(`${API_URL}/updateStatus`, data).then((response) => {
+
+        return response
+    })
+        .catch((error) => error);
+});
+
+const GetParticularSession = createAsyncThunk(`/fetchSingleSession`, async (data) => {
+    return axios.get(`${API_URL}/fetchSingleSession?sessionId=${data}`,).then((response) => {
+
+        return response
+    })
+        .catch((error) => error);
+});
 
 
 export {
-    BookSlotsByTutor, GetBookedSlots
+    BookSlotsByTutor, GetBookedSlots, GetParticularSession, updateBookedSLotStatus, GetBookedPastSlots
 }

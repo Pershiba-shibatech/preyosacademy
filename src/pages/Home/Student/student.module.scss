@@ -17,27 +17,31 @@
   }
 }
 
+
+
 .StudentTableWrapper {
   padding: 10px 20px;
   // margin-left: 50px;
   // margin-right: 50px;
 
   .table {
-    width: auto;
-
+    width: 100%;
+    table-layout: fixed;
     thead {
       background-color: #f6f6f6;
       border-radius: 12px;
       border: 2px solid #df000d;
 
       th {
-        padding: 10px 15px;
-        width: fit-content;
+        padding: 10px 5px;
+      //  width: fit-content;
         text-align: center;
         border: 2px solid #df000d;
-        max-width: 110px;
+        // max-width: 110px;
+            max-width: 220px;
+           width: 100%;
         // max-width: 150px;
-        width: 100%;
+      
       }
     }
 
@@ -55,18 +59,28 @@
           width: fit-content;
         }
 
-        td {
-          width: fit-content;
-          padding: 10px 15px;
-          border: 2px solid #df000d;
-          text-align: center;
-          // text-wrap: nowrap;
-          text-transform: lowercase;
-          min-width: 100px;
-          max-width: 110px;
+        // td {
+        //   width: fit-content;
+        //   padding: 10px 15px;
+        //   border: 2px solid #df000d;
+        //   text-align: center;
+        //   // text-wrap: nowrap;
+        //   text-transform: lowercase;
+        //   // min-width: 100px;
+        //   // max-width: 110px;
 
-          text-wrap: wrap;
-          width: 100%;
+        //   text-wrap: wrap;
+        //   // width: 100%;
+        // }
+        td {
+          padding: 10px;
+          border: 2px solid #df000d;
+          text-align: center; /* Centers horizontally */
+          vertical-align: middle; /* Centers vertically */
+          max-width: 180px; /* Set a max width to limit excessive width */
+          word-wrap: break-word; /* Ensure text wraps inside the cell */
+           text-transform: lowercase;
+           width: auto;
         }
         td::first-letter {
           text-transform: uppercase;
@@ -77,18 +91,21 @@
           text-wrap: nowrap;
         }
         .statusContainer {
-          min-width: 100px;
-          max-width: 130px;
+          // min-width: 100px;
+          // max-width: 140px;
 
-          width: 100%;
+          // width: 100%;
         }
         .updateStatus {
-          max-width: 90px;
-          width: 100%;
+           max-width: 220px;
+           width: 100%;
+          // width: 100%;
+          font-size: 10px !important;
           display: flex;
           justify-content: space-around;
           text-wrap: nowrap;
-          margin-right: 10px;
+          border: none;
+          // margin-right: 20px;
         }
       }
     }
@@ -130,4 +147,9 @@
   font-weight: 500;
   text-align: center;
   margin-top: 50px;
+}
+.AddWidth {
+  max-width: 200px;
+  width: 100%;
+  text-wrap: nowrap;
 }

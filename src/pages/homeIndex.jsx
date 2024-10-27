@@ -12,6 +12,7 @@ import AllSlots from "./Dashboard/AllSlots/AllSlots";
 import StudentList from "./Dashboard/StudentList/studentList";
 import TutorsList from './Dashboard/TutorList/TutorsList';
 import ProtectedRouteForAdmin from './ProtectedRoutesAdmin';
+import EndSlots from './Dashboard/EndSlots/EndSlots';
 
 
 const HomeIndex = () => {
@@ -38,6 +39,7 @@ const HomeIndex = () => {
           <Route path="studentlist" element={<StudentList />} />
           <Route path="tutorlist" element={<TutorsList />} />
           <Route path="allSlots" element={<AllSlots />} />
+            <Route path="endSlots" element={<EndSlots />} />
         </Route>
         <Route path="/AddStudent" element={<AddStudent />} />
         <Route path="/AddTutor" element={<AddTutors />} />

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BOOK_SLOTS } from "../reducerConstants";
+import { GetParticularSession } from "../api/BookSlotsByTutor";
+import moment from "moment";
 
 
 
@@ -7,11 +9,31 @@ import { BOOK_SLOTS } from "../reducerConstants";
 
 export const initialState = {
     openModel: false,
-    isBooking:false,
+    isBooking: false,
     SelectedSlot: {},
-    RelatedTopics:"",
-    Materials:"",
-    sessionLink:""
+    RelatedTopics: "",
+    Materials: "",
+    sessionBoardLink: "",
+    sessionLink: "",
+    sessionDetails: {},
+    sessionStatus: "yettojoin",
+    topic: "",
+    homeworkStatus: "Done",
+    sessionSummary: "",
+    studentFeedbackByTutor: '',
+    cancelledBy: "Tutor",
+    rescheduledBy: 'Tutor',
+    cancelReason: '',
+    rescheduleReason: '',
+    openUpdatwStatusModel: false,
+    isstatusLoading: false,
+    RescheduleDatetimeStamp: "",
+    rescheduleFrom: "",
+    rescheduleto: '',
+    reScheduleday: "",
+    Date: "",
+    showDate:''
+
 };
 
 const BookedSlotsSlice = createSlice({
@@ -21,26 +43,87 @@ const BookedSlotsSlice = createSlice({
         setOpenModel: (state) => {
             state.openModel = !state.openModel
         },
-        setIsBooking:(state,{payload})=>{
-            state.isBooking=payload
+        setopenUpdatwStatusModel: (state) => {
+            state.openUpdatwStatusModel = !state.openUpdatwStatusModel
+        },
+        setIsBooking: (state, { payload }) => {
+            state.isBooking = payload
         },
         setSelectedStot: (state, { payload }) => {
             state.openModel = true
             state.SelectedSlot = payload
         },
-        setRelatedTopics:(state,{payload})=>{
+        setRelatedTopics: (state, { payload }) => {
             state.RelatedTopics = payload
         },
-        setMaterials:(state,{payload})=>{
+        setMaterials: (state, { payload }) => {
             state.Materials = payload
         },
-        setsessionLink:(state,{payload})=>{
+        setBoardLink: (state, { payload }) => {
+            state.sessionBoardLink = payload
+        },
+        setsessionLink: (state, { payload }) => {
             state.sessionLink = payload
+        },
+        setSessionStatus: (state, { payload }) => {
+            state.sessionStatus = payload
+        },
+        setTopic: (state, { payload }) => {
+            state.topic = payload
+        },
+        setHomeworkStatus: (state, { payload }) => {
+            state.homeworkStatus = payload
+        },
+        setSessionSummary: (state, { payload }) => {
+            state.sessionSummary = payload
+        },
+        setStudentFeedbackByTutor: (state, { payload }) => {
+            state.studentFeedbackByTutor = payload
+        },
+        setcancelledBy: (state, { payload }) => {
+            state.cancelledBy = payload
+        },
+        setcancelReason: (state, { payload }) => {
+            state.cancelReason = payload
+        },
+        setRescheduleReason: (state, { payload }) => {
+            state.rescheduleReason = payload
+        },
+        setRescheduledBy: (state, { payload }) => {
+            state.rescheduledBy = payload
+        },
+        setRescheduleDate: (state, { payload }) => {
+            let timestamp = Number(moment(payload).format('x'))
+            state.RescheduleDatetimeStamp = timestamp
+            state.reScheduleday = moment(timestamp).format('dddd')
+            state.Date = moment(timestamp).format('YYYY-MM-DD')
+            state.showDate = payload
+        },
+        setRescheduleTime: (state, { payload }) => {
+            state.rescheduleFrom = payload.from
+            state.rescheduleto = payload.To
+
         },
         reset: () => { },
     },
     extraReducers: (builder) => {
 
+        builder.addCase(GetParticularSession.pending, (state) => {
+            state.isstatusLoading = true;
+        });
+        builder.addCase(GetParticularSession.fulfilled, (state, { payload }) => {
+            if (payload?.data?.statusCode === 200) {
+                state.isstatusLoading = true;
+                state.sessionDetails = payload.data.result
+            } else {
+                state.isstatusLoading = false;
+                state.sessionDetails = {}
+            }
+
+        });
+        builder.addCase(GetParticularSession.rejected, (state) => {
+            state.isstatusLoading = true;
+        });
     },
 
 });
