@@ -85,7 +85,7 @@ const CreateStudentSlice = createSlice({
            
         },
         setCoordinator: (state, { payload }) => {
-            console.log(payload,"payload")
+           
             state.Coordinator = payload
            
         },

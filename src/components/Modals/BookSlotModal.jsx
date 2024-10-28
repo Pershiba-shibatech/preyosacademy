@@ -21,7 +21,7 @@ const BookSlotModal = (props) => {
    
     dispatch(selectSubjectSliceActions.setselectedDate(e.target.value))
   };
-  console.log(subjectModelDetails, "subjectModelDetails")
+
   // const handleDateChange = (e) => {
   //   setSelectedDate(e.target.value);
   // };

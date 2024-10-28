@@ -11,7 +11,7 @@ const BookSlot = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const subjectModelDetails = useSelector((state) => state.subjectModelData);
   const AllAvailableSlotsDetails = useSelector((state) => state.AllAvailableSlotsDetails);
-  console.log(AllAvailableSlotsDetails.AllAvailableSlots)
+
   const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
   // import { BookedSlotsSliceActions } from "../../store/slice/BookSlotsslice";
   const columns = [
@@ -24,7 +24,7 @@ const BookSlot = () => {
   const handleBookSlot = (slot) => {
     // // Function to handle the booking action
     // setModalShow(true);
-    // console.log(`Booking slot: ${slot}`);
+ 
     dispatch(BookedSlotsSliceActions.setSelectedStot(slot))
   };
 

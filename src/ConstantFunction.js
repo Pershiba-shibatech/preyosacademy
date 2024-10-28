@@ -18,7 +18,6 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
     }
     let year = moment().format('YYYY');
     let month = getMonth[mon];
-    console.log(year, month, selectedDay, fromTime, toTime, excludeFirst, "year, month, selectedDay, fromTime, toTime, excludeFirst");
     const weekdays = [];
     const dayMap = {
         "Sunday": 0,
@@ -37,11 +36,10 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
 
     const startDate = moment([year, month]);
     const timestamp = startDate.valueOf();
-    console.log("Timestamp:", timestamp);
-    console.log("Formatted Date:", startDate.format('YYYY-MM-DD HH:mm:ss'));
+  
 
     const daysInMonth = startDate.daysInMonth();
-    console.log(daysInMonth, "daysInMonth")
+  
 
     for (let day = 1; day <= daysInMonth; day++) {
         const date = moment([year, month, day]);
@@ -67,7 +65,7 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
 
 
 export const getStatusOfSession = (status) => {
-    console.log(status)
+ 
     return status === 'Yettojoin' ? "Yet To Join" :
         status === 'reschedule' ? "Rescheduled" :
             status === 'completed' ? 'Completed' : "Cancelled";

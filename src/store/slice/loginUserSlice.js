@@ -64,7 +64,7 @@ const loginUserSlice = createSlice({
     //         state.isLoading = true;
     //     });
     //     builder.addCase(LoginUser.fulfilled, (state, { payload }) => {
-    //         console.log(payload,"payload")
+    //      
             
     //         if (payload?.data?.statusCode === 200) {
 

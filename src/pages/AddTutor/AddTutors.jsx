@@ -103,7 +103,7 @@ const AddTutors = () => {
   }
 
   const getTime = (e, d) => {
-    console.log(e, "e")
+  
     if (e) {
       let inserDate = {
         from: moment(e[0].$d).format('HH:mm'),

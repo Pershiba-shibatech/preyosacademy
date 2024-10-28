@@ -22,7 +22,7 @@ const UpdateAttendStatusModel = (props) => {
   const userDetails = useSelector((state) => state.userDetails);
   const { loggedInUserDetails } = userDetails
   const { userType } = loggedInUserDetails;
-  console.log(BookSlotsDetails, "BookSlotsDetails")
+
 
 
   const getTime = (e, d) => {
@@ -44,7 +44,7 @@ const UpdateAttendStatusModel = (props) => {
         || BookSlotsDetails.rescheduledBy === "" || BookSlotsDetails.rescheduleFrom === "" || BookSlotsDetails.rescheduleto === "" || BookSlotsDetails.Date === "") ? true :
         false
   
-  console.log(buttonDisable, "buttonDisable")
+
   const updateStatus = () => {
 
     const sessionDetailsData = {
@@ -67,7 +67,7 @@ const UpdateAttendStatusModel = (props) => {
         timeStamp: BookSlotsDetails.RescheduleDatetimeStamp,
       }
     }
-    console.log(sessionDetailsData, "sessionDetails>>>>>>>>>>")
+  
     dispatch(updateBookedSLotStatus(sessionDetailsData)).unwrap().then((response) => {
       if (response?.data?.statusCode === 200) {
         dispatch(GetAllBookedSlotsActions.setLoading(true))

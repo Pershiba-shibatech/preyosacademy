@@ -211,7 +211,7 @@ const CreateTutorSlice = createSlice({
             }
         },
         removeThursday: (state, { payload }) => {
-            console.log(payload)
+           
             state.Thursday?.splice(payload, 1)
         },
         setSelctedFriday: (state, { payload }) => {
