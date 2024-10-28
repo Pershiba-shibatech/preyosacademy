@@ -25,7 +25,7 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
       password: getloginData.password,
       type: getloginData.userType,
     };
-   
+
     dispatch(LoginUser(loginData))
       .unwrap()
       .then((response) => {
@@ -87,7 +87,7 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
           <Form.Label>Password</Form.Label>
           <div className={styles.inputWrapper}>
             <LoginInputs
-              type={passwordtype?"password":"text"}
+              type={passwordtype ? "password" : "text"}
               placeholder={"Enter your password"}
               value={getloginData.password}
               classStyle={styles.inputColor}
@@ -96,11 +96,12 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
               }
             />
             <Icon
-              icon={passwordtype ?"carbon:view":"carbon:view-off"}
+              icon={passwordtype ? "carbon:view" : "carbon:view-off"}
               width="14"
               height="14"
               onClick={() => setpasswordtype(!passwordtype)}
-              style={{ color: "black", position: 'absolute', right: '10px', top: '75%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+             
+              style={!getloginData.PasswordError ? { color: "black", position: 'absolute', right: '10px', top: '75%', transform: 'translateY(-50%)', cursor: 'pointer' } : { color: "black", position: 'absolute', right: '10px', top: '55%', transform: 'translateY(-50%)', cursor: 'pointer' }}
             />
           </div>
           {getloginData.PasswordError ? (

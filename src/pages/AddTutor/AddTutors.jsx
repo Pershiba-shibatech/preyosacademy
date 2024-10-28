@@ -302,7 +302,7 @@ const AddTutors = () => {
             <Col xs={12} md={6} lg={4}>
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password*</Form.Label>
-                <Form.Control type="password"
+                <Form.Control type="text"
                   value={createTutorDetails.password}
                   onChange={(e) => dispatch(createTutorSliceActions.setpassword(e.target.value))}
                   placeholder="Enter password" />
