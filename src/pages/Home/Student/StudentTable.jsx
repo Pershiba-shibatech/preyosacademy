@@ -90,7 +90,7 @@ const StudentTable = () => {
     <>
       <div className={styles.StudentTableWrapper}>
 
-        {!getBookedSlotsDetails.isLoading && getBookedSlotsDetails.isFetchedSlots && DisplayData.length > 0 && <Table bsPrefix={styles.table} striped bordered hover>
+        {!getBookedSlotsDetails?.isLoading && getBookedSlotsDetails?.isFetchedSlots && DisplayData?.length > 0 && <Table bsPrefix={styles.table} striped bordered hover>
           <thead>
             <tr>
               {columns.map((column) => (
@@ -99,7 +99,7 @@ const StudentTable = () => {
             </tr>
           </thead>
           <tbody>
-            {DisplayData.map((item, index) => {
+            {DisplayData?.map((item, index) => {
              
               return <>
                 <tr key={index}>
