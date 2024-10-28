@@ -18,12 +18,12 @@ const StudentTable = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [modalShow, setModalShow] = useState(false);
+  
   let userDetails = useSelector((state) => state.userDetails);
   const { userType } = userDetails.loggedInUserDetails;
   const dispatch = useDispatch();
   let getBookedSlotsDetails = useSelector((state) => state.getBookedSlots);
-  console.log(getBookedSlotsDetails, "getBookedSlotsDetails")
+ 
   const DisplayData = pathname === "/dashboard/allSlots" ? getBookedSlotsDetails.AllSlots : pathname === '/dashboard' && userType === "Admin" ? getBookedSlotsDetails.tutorSlots :
     pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots :
       getBookedSlotsDetails.StudentsSlots
@@ -85,7 +85,7 @@ const StudentTable = () => {
 
   const columns = (userType === "Student" && !hideForendSlot) ? StudentColumn : (userType === "Tutor" && !hideForendSlot) ? TutorColumn : (userType === "Admin" && !hideForendSlot) ? AdminColumn :
     (userType === "Student" && hideForendSlot) ? StudentEndColumn : (userType === "Tutor" && hideForendSlot) ? TutorEndColumn : (userType === "Admin" && hideForendSlot) && AdminEndColumn;
-  console.log(columns, hideForendSlot, "columns")
+
   return (
     <>
       <div className={styles.StudentTableWrapper}>
@@ -100,7 +100,7 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {DisplayData.map((item, index) => {
-              console.log(item, "item")
+             
               return <>
                 <tr key={index}>
                   {userType === "Student" ?

@@ -43,7 +43,7 @@ const GetAllBookedSlotsSlice = createSlice({
                 }
 
                 if (payload?.data?.type === "Tutor") {
-                    console.log(DetailWithSession)
+                  
                     state.tutorSlots = DetailWithSession
                     state.AllSlots = []
 

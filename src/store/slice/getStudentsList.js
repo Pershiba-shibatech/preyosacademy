@@ -29,7 +29,7 @@ const getStudentsSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(getStudentsListApi.fulfilled, (state, { payload }) => {
-            console.log(payload,"payload")
+          
             
             if (payload?.data?.statusCode === 200) {
 

@@ -25,7 +25,7 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
       password: getloginData.password,
       type: getloginData.userType,
     };
-    console.log(loginData, "loginData");
+   
     dispatch(LoginUser(loginData))
       .unwrap()
       .then((response) => {

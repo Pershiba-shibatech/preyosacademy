@@ -17,7 +17,6 @@ const AddStudent = () => {
   const userDetails = useSelector((state) => state.userDetails)
 
   const RegisterUser=()=>{
-  console.log(createStudentDetails?.Coordinator, createStudentDetails?.Coordinator.hasOwnProperty('userCode'))
         if (
           createStudentDetails.firstName==="" ||
           createStudentDetails.lastName==="" ||

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const ProtectedRouteForAdmin = ({ children }) => {
   let usertype = useSelector((state) => state.userDetails);
-  console.log(usertype.loggedInUserDetails.userType);
+
 
   return usertype.loggedInUserDetails.userType === "Admin" ? (
     children

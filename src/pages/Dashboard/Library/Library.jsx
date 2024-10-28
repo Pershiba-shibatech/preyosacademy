@@ -10,7 +10,7 @@ const Library = () => {
   const LibraryList = useSelector((state) => state.LibraryList);
   const userDetails = useSelector((state) => state.userDetails)
   const dispatch = useDispatch();
-  console.log(userDetails.userCode, "userCode")
+
   useEffect(() => {
     // if (!StudentDetail.isFetched) {
     const data = {
@@ -19,7 +19,7 @@ const Library = () => {
     dispatch(getTutorsMaterials(data))
     // }
   }, [])
-  console.log(LibraryList.tutorsMaterials, "LibraryList")
+
   const handleScroll = (e) => {
 
     // const bottom =
@@ -34,7 +34,7 @@ const Library = () => {
       target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
 
     if (isAtBottom) {
-      console.log("reached bottom");
+   
       // Load more data or perform another action
     }
   };

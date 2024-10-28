@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -26,7 +26,7 @@ const BookingSlotModel = (props) => {
   const BooktheSlot = () => {
 
     const selctedDays = getWeekdaysInMonth(BookSlotsDetails.SelectedSlot.slotDatails.day, BookSlotsDetails.SelectedSlot.slotDatails.from, BookSlotsDetails.SelectedSlot.slotDatails.to, subjectModelDetails.selectedDate);
-    console.log(selctedDays, "selctedDays")
+ 
 
     const BookSlotData = {
       studenUsercode: selectedStudentDetails.selctedStudent.userCode,
@@ -66,7 +66,7 @@ const BookingSlotModel = (props) => {
 
 
     }
-    console.log(BookSlotData,"BookSlotData")
+
     dispatch(BookedSlotsSliceActions.setIsBooking(true))
     dispatch(BookSlotsByTutor(BookSlotData)).unwrap().then((response) => {
 
@@ -81,7 +81,7 @@ const BookingSlotModel = (props) => {
 
       }
     })
-    // console.log(BookSlotData, "BookSlotData")
+
 
 
   }
