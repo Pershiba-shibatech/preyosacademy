@@ -18,12 +18,12 @@ const StudentTable = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  
+
   let userDetails = useSelector((state) => state.userDetails);
   const { userType } = userDetails.loggedInUserDetails;
   const dispatch = useDispatch();
   let getBookedSlotsDetails = useSelector((state) => state.getBookedSlots);
- 
+
   const DisplayData = pathname === "/dashboard/allSlots" ? getBookedSlotsDetails.AllSlots : pathname === '/dashboard' && userType === "Admin" ? getBookedSlotsDetails.tutorSlots :
     pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots :
       getBookedSlotsDetails.StudentsSlots
@@ -100,7 +100,7 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {DisplayData?.map((item, index) => {
-             
+
               return <>
                 <tr key={index}>
                   {userType === "Student" ?
@@ -115,7 +115,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" ? false : true}
+                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
                         >
                           Join
                         </Button>
@@ -125,7 +125,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" ? false : true}
+                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
                         >
                           Join
                         </Button>
@@ -159,7 +159,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" ? false : true}
+                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
                         >
                           Join
                         </Button>
@@ -169,7 +169,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" ? false : true}
+                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
                         >
                           Join
                         </Button>
@@ -204,7 +204,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" ? false : true}
+                            disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
                         >
                           Join
                         </Button>
@@ -214,7 +214,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" ? false : true}
+                            disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
                         >
                           Join
                         </Button>
