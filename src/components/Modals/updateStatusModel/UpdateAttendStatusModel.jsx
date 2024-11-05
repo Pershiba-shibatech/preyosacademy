@@ -58,6 +58,7 @@ const UpdateAttendStatusModel = (props) => {
       cancelledBy: BookSlotsDetails.cancelledBy === "Tutor" ? loggedInUserDetails.userCode : BookSlotsDetails.sessionDetails.studentDetails.userCode,
       rescheduledBy: BookSlotsDetails.rescheduledBy === "Tutor" ? loggedInUserDetails.userCode : BookSlotsDetails.sessionDetails.studentDetails.userCode,
       rescheduleReason: BookSlotsDetails.rescheduleReason,
+      month: BookSlotsDetails.month,
       tutorSlotDetails: {
         userCode: BookSlotsDetails.sessionDetails.tutorDetails.userCode,
         day: BookSlotsDetails.reScheduleday,
