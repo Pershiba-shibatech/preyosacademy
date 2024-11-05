@@ -32,7 +32,8 @@ export const initialState = {
     rescheduleto: '',
     reScheduleday: "",
     Date: "",
-    showDate:''
+    showDate:'',
+    month:''
 
 };
 
@@ -97,6 +98,7 @@ const BookedSlotsSlice = createSlice({
             state.RescheduleDatetimeStamp = timestamp
             state.reScheduleday = moment(timestamp).format('dddd')
             state.Date = moment(timestamp).format('YYYY-MM-DD')
+            state.month = moment(timestamp).format('MMM')
             state.showDate = payload
         },
         setRescheduleTime: (state, { payload }) => {

@@ -52,12 +52,12 @@ const Header = () => {
               onClick={handleToggleDropdown}
             />
             <Dropdown.Menu align="end" className={styles.dropdownmenu}>
-              <Dropdown.Item
+              {/* <Dropdown.Item
                 className={styles.dropdownitem}
                 onClick={() => handleDropdownItemClick("Profile Details")}
               >
                 Profile Details
-              </Dropdown.Item>
+              </Dropdown.Item> */}
               <Dropdown.Item
                 className={styles.dropdownitem}
                 onClick={() =>{  dispatch({ type: "RESET_STORE" }); Navigate('/')}}

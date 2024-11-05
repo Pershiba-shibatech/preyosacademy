@@ -16,78 +16,78 @@ const AddStudent = () => {
   const TutorsDetail = useSelector((state) => state.TutorsList);
   const userDetails = useSelector((state) => state.userDetails)
 
-  const RegisterUser=()=>{
-        if (
-          createStudentDetails.firstName==="" ||
-          createStudentDetails.lastName==="" ||
-          createStudentDetails.studentName ==="" ||
-          createStudentDetails.ParentName ==="" ||
-          createStudentDetails.grade ==="" ||
-          createStudentDetails.contactNumber ==="" ||
-          createStudentDetails.CountryCode ==="+" ||
-          createStudentDetails.email ==="" ||
-          createStudentDetails.password ==="" ||
-          createStudentDetails.TimeZone ==="" ||
-          createStudentDetails.Subjects.length===0
-        ) {
-        // dispatch(CreateStudentSliceActions.setError())
-         dispatch(ToastSliceActions.setfailureToast("Please fill out all required fields!."))
-          
-        }else if( !createStudentDetails?.Coordinator.hasOwnProperty('userCode')){
-          dispatch(ToastSliceActions.setfailureToast("Please Select Coordinator for Student."))
-        }
-        else{
-          dispatch(CreateStudentSliceActions.setLoading())
-          const createStudentData={
-            firstName: createStudentDetails.firstName,
-            lastName: createStudentDetails.lastName,
-            studentName: createStudentDetails.studentName,
-            subjects: createStudentDetails.Subjects,
-            parentName: createStudentDetails.ParentName,
-            Address: {
-                AddressLine1: createStudentDetails.AddressLine1,
-                AddressLine2: "",
-                State:createStudentDetails.State,
-                Country: createStudentDetails.Country,
-                postalCode:createStudentDetails.postalCode
-            },
-            AccountDetails: {
-                AccountNumber: "",
-                IFSC_Code: "",
-                Branch: ""
-            },
-            phoneNumber: createStudentDetails.contactNumber,
-            countryCode: createStudentDetails.CountryCode,
-            email: createStudentDetails.email,
-            password: createStudentDetails.password,
-            timeZone: createStudentDetails.TimeZone,
-            userType: "Student",
-            Coordinator:createStudentDetails.Coordinator.userCode,
-            Dob:createStudentDetails.DOB,
-            grade:createStudentDetails.grade,
-            Requirements:createStudentDetails.requirements
-          }
-      
-          dispatch(createStudentApi(createStudentData)).unwrap().then((response)=>{
-            dispatch(CreateStudentSliceActions.setLoading())
-            if (response.data.statusCode === 200) {
-              dispatch(getStudentsListApi())
-              dispatch(ToastSliceActions.setSuccessToast("Tutor Created Successfully!"))
-              dispatch(CreateStudentSliceActions.reset())
-              Navigate(-1)
-            }else{
-              if(response.data.message==='Student already exist with the same email'){
-                dispatch(ToastSliceActions.setfailureToast("Student already exist with the same email!"))
-              }else{
-                dispatch(ToastSliceActions.setfailureToast("Failed To create Tutor!"))
-              }
-            
-            }
-         
-          })
-        }
-    
+  const RegisterUser = () => {
+    if (
+      createStudentDetails.firstName === "" ||
+      createStudentDetails.lastName === "" ||
+      createStudentDetails.studentName === "" ||
+      createStudentDetails.ParentName === "" ||
+      createStudentDetails.grade === "" ||
+      createStudentDetails.contactNumber === "" ||
+      createStudentDetails.CountryCode === "+" ||
+      createStudentDetails.email === "" ||
+      createStudentDetails.password === "" ||
+      createStudentDetails.TimeZone === "" ||
+      createStudentDetails.Subjects.length === 0
+    ) {
+      // dispatch(CreateStudentSliceActions.setError())
+      dispatch(ToastSliceActions.setfailureToast("Please fill out all required fields!."))
+
+    } else if (!createStudentDetails?.Coordinator.hasOwnProperty('userCode')) {
+      dispatch(ToastSliceActions.setfailureToast("Please Select Coordinator for Student."))
+    }
+    else {
+      dispatch(CreateStudentSliceActions.setLoading())
+      const createStudentData = {
+        firstName: createStudentDetails.firstName,
+        lastName: createStudentDetails.lastName,
+        studentName: createStudentDetails.studentName,
+        subjects: createStudentDetails.Subjects,
+        parentName: createStudentDetails.ParentName,
+        Address: {
+          AddressLine1: createStudentDetails.AddressLine1,
+          AddressLine2: "",
+          State: createStudentDetails.State,
+          Country: createStudentDetails.Country,
+          postalCode: createStudentDetails.postalCode
+        },
+        AccountDetails: {
+          AccountNumber: "",
+          IFSC_Code: "",
+          Branch: ""
+        },
+        phoneNumber: createStudentDetails.contactNumber,
+        countryCode: createStudentDetails.CountryCode,
+        email: createStudentDetails.email,
+        password: createStudentDetails.password,
+        timeZone: createStudentDetails.TimeZone,
+        userType: "Student",
+        Coordinator: createStudentDetails.Coordinator.userCode,
+        Dob: createStudentDetails.DOB,
+        grade: createStudentDetails.grade,
+        Requirements: createStudentDetails.requirements
       }
+
+      dispatch(createStudentApi(createStudentData)).unwrap().then((response) => {
+        dispatch(CreateStudentSliceActions.setLoading())
+        if (response.data.statusCode === 200) {
+          dispatch(getStudentsListApi())
+          dispatch(ToastSliceActions.setSuccessToast("Tutor Created Successfully!"))
+          dispatch(CreateStudentSliceActions.reset())
+          Navigate(-1)
+        } else {
+          if (response.data.message === 'Student already exist with the same email') {
+            dispatch(ToastSliceActions.setfailureToast("Student already exist with the same email!"))
+          } else {
+            dispatch(ToastSliceActions.setfailureToast("Failed To create Tutor!"))
+          }
+
+        }
+
+      })
+    }
+
+  }
 
   return (
     <>
@@ -193,7 +193,7 @@ const AddStudent = () => {
                   value={createStudentDetails.CountryCode}
                   onChange={(e) => {
                     const value = e.target.value;
-                   
+
                     if (/^[+\d]*$/.test(value)) {
                       dispatch(CreateStudentSliceActions.setCountryCode(value === "" ? "+" : value));
                     }
@@ -211,12 +211,12 @@ const AddStudent = () => {
                   value={createStudentDetails.contactNumber}
                   onChange={(e) => {
                     const value = e.target.value;
-                  
+
                     if (/^\d*$/.test(value)) {
                       dispatch(CreateStudentSliceActions.setcontactNumber(value));
                     }
-                  }}   
-                  />
+                  }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -237,7 +237,7 @@ const AddStudent = () => {
             <Col xs={12} md={6} lg={4}>
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password*</Form.Label>
-                <Form.Control type="password" placeholder="Enter password"
+                <Form.Control type="text" placeholder="Enter password"
                   value={createStudentDetails.password}
                   onChange={(e) => dispatch(CreateStudentSliceActions.setpassword(e.target.value))}
                 />
@@ -264,18 +264,18 @@ const AddStudent = () => {
               <Form.Group className="mb-3" controlId="coordinator">
                 <Form.Label>Select Coordinator*</Form.Label>
                 <Form.Select
-                defaultValue={createStudentDetails.Coordinator?.tutorName}
+                  defaultValue={createStudentDetails.Coordinator?.tutorName}
                   // value={createStudentDetails.Coordinator}  // Use a unique identifier for the value
                   onChange={(e) => {
                     const selectedTutor = TutorsDetail.tutorsList.find(tutor => tutor.userCode === e.target.value);
                     if (selectedTutor) {
-                      dispatch(CreateStudentSliceActions.setCoordinator(selectedTutor) );
+                      dispatch(CreateStudentSliceActions.setCoordinator(selectedTutor));
                     }
                   }}
                 >
                   <option >{"select Coordinator"}</option>
                   {TutorsDetail.tutorsList.map((tutor) => (
-                    <option  value={tutor.userCode}>
+                    <option value={tutor.userCode}>
                       {`${tutor?.tutorName} (${tutor.userType})`}
                     </option>
                   ))}
@@ -323,7 +323,7 @@ const AddStudent = () => {
             >
               Clear
             </Button>
-            <Button variant="danger" className={styles.submitBtn} onClick={()=>RegisterUser()}>
+            <Button variant="danger" className={styles.submitBtn} onClick={() => RegisterUser()}>
               Register
             </Button>
           </div>

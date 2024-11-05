@@ -61,7 +61,7 @@ const BookSlotModal = (props) => {
               <option value="Apr">April</option>
               <option value="May">May</option>
               <option value="Jun">June</option>
-              <option value="July">July</option>
+              <option value="Jul">July</option>
               <option value="Aug">August</option>
               <option value="Sep">September</option>
               <option value="Oct">October</option>
