@@ -80,7 +80,7 @@ const UpdateAttendStatusModel = (props) => {
         dispatch(ToastSliceActions.setSuccessToast("Status updated Successfully!"))
         dispatch(GetBookedSlots(data))
         dispatch(BookedSlotsSliceActions.reset());
-
+        dispatch(ToastSliceActions.setSuccessToast("Updated Status successFully"))
       } else {
         dispatch(ToastSliceActions.setfailureToast("Unable to update Status please try again in sometimes!"))
       }

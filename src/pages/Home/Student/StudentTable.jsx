@@ -13,6 +13,7 @@ import EmptyState from "../../../components/emptyState/EmptyState";
 import { getStatusOfSession } from "../../../ConstantFunction";
 import { BookedSlotsSliceActions } from "../../../store/slice/BookSlotsslice";
 import { ToastSliceActions } from "../../../store/slice/ToastSlice";
+import UpdateSlots from "../../../components/Modals/updateSlotsModel/UpdateSlots";
 
 const StudentTable = () => {
   const location = useLocation();
@@ -47,11 +48,22 @@ const StudentTable = () => {
 
   }, [])
 
-  const getSelectedSessionDetails = (sessionId) => {
+ 
+
+  const getSelectedSessionDetails = (sessionId, isUpdate) => {
 
     dispatch(GetParticularSession(sessionId)).unwrap().then((response) => {
       if (response?.data?.statusCode === 200) {
-        dispatch(BookedSlotsSliceActions.setopenUpdatwStatusModel())
+        if (isUpdate) {
+
+          dispatch(BookedSlotsSliceActions.setsessionLink(response?.data?.result?.slotDetails?.sessionLink))
+          dispatch(BookedSlotsSliceActions.setBoardLink(response?.data?.result?.slotDetails?.sessionBoardLink))
+          dispatch(BookedSlotsSliceActions.setopenUpdateModel())
+        } else {
+          dispatch(BookedSlotsSliceActions.setopenUpdatwStatusModel())
+
+        }
+
       } else {
         dispatch(ToastSliceActions.setfailureToast("Unable to fetch Session Details update later!"))
       }
@@ -115,7 +127,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
+                          disabled={item.paymentStatus === "paid" && item.sessionLink !== "" ? false : true}
                         >
                           Join
                         </Button>
@@ -125,13 +137,13 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
+                          disabled={item.paymentStatus === "paid" && item.sessionBoardLink !== "" ? false : true}
                         >
                           Join
                         </Button>
                       </td>}
                     </> : userType === "Tutor" ? <>
-                      <td>{item?.StudentDetails?.studentName}</td>
+                      <td >{item?.StudentDetails?.studentName}</td>
                       <td>{`${item.sessionBookingDetails?.localDate}`}</td>
                       <td>{`${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime} `}</td>
                       <td>{item?.sessionSubject}</td>
@@ -147,7 +159,7 @@ const StudentTable = () => {
                             //   moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
                             // }
                             // onClick={() => setModalShow(true)}
-                            onClick={() => getSelectedSessionDetails(item.sessionId)}
+                            onClick={() => getSelectedSessionDetails(item.sessionId, false)}
                           >
                             {getStatusOfSession(item.sessionStatus)}
                           </Button>
@@ -159,7 +171,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
+                          disabled={item.paymentStatus === "paid" && item.sessionLink !== "" ? false : true}
                         >
                           Join
                         </Button>
@@ -169,13 +181,14 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
+                          disabled={item.paymentStatus === "paid" && item.sessionBoardLink !== "" ? false : true}
                         >
                           Join
                         </Button>
                       </td>}
                     </> : <>
-                      <td>{item?.StudentDetails?.studentName}</td>
+                      {!hideForendSlot ? <td onClick={() => getSelectedSessionDetails(item.sessionId, true)} >{item?.StudentDetails?.studentName}</td> :
+                        <td >{item?.StudentDetails?.studentName}</td>}
                       <td>{`${item.sessionBookingDetails?.localDate}`}</td>
                       <td>{`${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime} `}</td>
                       <td>{item?.tutorDetails?.tutorName}</td>
@@ -191,7 +204,7 @@ const StudentTable = () => {
                             // disabled={
                             //   moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
                             // }
-                            onClick={() => getSelectedSessionDetails(item.sessionId)}
+                            onClick={() => getSelectedSessionDetails(item.sessionId, false)}
                           // onClick={() => setModalShow(true)}
                           >
                             {getStatusOfSession(item.sessionStatus)}
@@ -204,7 +217,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                            disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
+                          disabled={item.paymentStatus === "paid" && item.sessionLink !== "" ? false : true}
                         >
                           Join
                         </Button>
@@ -214,7 +227,7 @@ const StudentTable = () => {
                           variant="danger"
                           className={styles.bookButton}
                           onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                            disabled={item.paymentStatus === "paid" && !item.sessionLink === "" ? false : true}
+                            disabled={item.paymentStatus === "paid" && item.sessionBoardLink !== "" ? false : true}
                         >
                           Join
                         </Button>
@@ -240,7 +253,7 @@ const StudentTable = () => {
 
 
 
-
+        <UpdateSlots show={BookSlotsDetails.openUpdateModel} onHide={() => { dispatch(BookedSlotsSliceActions.reset()) }} />
 
         <UpdateAttendStatusModel
           show={BookSlotsDetails.openUpdatwStatusModel}

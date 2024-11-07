@@ -33,8 +33,8 @@ export const initialState = {
     reScheduleday: "",
     Date: "",
     showDate:'',
-    month:''
-
+    month:'',
+openUpdateModel:false
 };
 
 const BookedSlotsSlice = createSlice({
@@ -46,6 +46,9 @@ const BookedSlotsSlice = createSlice({
         },
         setopenUpdatwStatusModel: (state) => {
             state.openUpdatwStatusModel = !state.openUpdatwStatusModel
+        },
+        setopenUpdateModel: (state) => {
+            state.openUpdateModel = !state.openUpdateModel
         },
         setIsBooking: (state, { payload }) => {
             state.isBooking = payload

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -22,9 +22,7 @@ const BookSlotModal = (props) => {
     dispatch(selectSubjectSliceActions.setselectedDate(e.target.value))
   };
 
-  // const handleDateChange = (e) => {
-  //   setSelectedDate(e.target.value);
-  // };
+
 
   return (
     <Modal
