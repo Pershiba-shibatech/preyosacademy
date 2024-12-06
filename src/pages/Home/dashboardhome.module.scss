@@ -87,6 +87,19 @@
         margin-left: 50px; /* Optional: Adjust the left margin if needed */
     }
 
+    .inputDiv {
+        // display: flex;
+        // gap: 10px;
+        margin-left: 20px;
+margin-top: 20px;
+        .inputBox {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    }
+
     .buttonDiv {
       display: flex;
     gap: 10px;

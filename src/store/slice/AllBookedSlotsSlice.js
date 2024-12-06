@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GET_BOOKED_SLOTS } from "../reducerConstants";
-import { GetBookedPastSlots, GetBookedSlots } from "../api/BookSlotsByTutor";
+import { GetBookedPastSlots, GetBookedSlots, GetReportsList } from "../api/BookSlotsByTutor";
 import { setTimestamps } from "../helperConstants/TimeConverterConstants";
 
 
@@ -10,7 +10,11 @@ export const initialState = {
     StudentsSlots: [],
     isLoading: false,
     isFetchedSlots: false,
-    endSlots: []
+    endSlots: [],
+    Reports:[],
+    reportSubject:"",
+    reportSelectedStudent:''
+    
 
 };
 
@@ -89,6 +93,28 @@ const GetAllBookedSlotsSlice = createSlice({
             state.isLoading = false
         });
         builder.addCase(GetBookedPastSlots.rejected, (state, { payload }) => {
+            state.isLoading = false;
+        });
+        builder.addCase(GetReportsList.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(GetReportsList.fulfilled, (state, { payload }) => {
+
+
+            if (payload?.data?.statusCode === 200) {
+                let DetailWithSession = setTimestamps(payload?.data?.result, payload?.data?.type)
+                state.Reports = DetailWithSession
+
+                state.isFetchedSlots = true
+            } else {
+                state.Reports = []
+
+                state.isFetchedSlots = true
+            }
+
+            state.isLoading = false
+        });
+        builder.addCase(GetReportsList.rejected, (state, { payload }) => {
             state.isLoading = false;
         });
 

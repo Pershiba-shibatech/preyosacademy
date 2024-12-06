@@ -58,17 +58,27 @@ const StudentList = () => {
                       <div><span>Parent Name:</span> {student?.parentName}</div>
                       <div><span>Phone:</span> {student?.phoneNumber}</div>
                       <div><span>Email:</span> {student?.email}</div>
+                      <div><span>Password :</span>{student?.password}</div>
                       <div><span>Coordinator:</span>{student?.Coordinator?.tutorName}</div>
-                      <button
-                        className={styles.bookSlotButton}
-                        onClick={() => {
-                          dispatch(selectSubjectSliceActions.setopenSubjectModel());
+                      <div className={styles.buttonDiv}>
+                        <button
+                          className={styles.bookSlotButton}
+                          onClick={() => {
+                            dispatch(selectSubjectSliceActions.setopenSubjectModel());
 
-                          dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
-                        }}
-                      >
-                        Book Slot
-                      </button>
+                            dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
+                          }}
+                        >
+                          Book Slot
+                        </button>
+                        <button
+                          className={styles.bookSlotButton}
+
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    
 
                     </Card.Body>
                   </Card>

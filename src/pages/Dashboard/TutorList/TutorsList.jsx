@@ -40,22 +40,29 @@ const TutorsList = () => {
     >
       <div className={styles.libraryWrapper}>
         <h1 className={styles.bookedSlotText}>Tutors List</h1>
-        {TutorsDetail.tutorsList.length > 0&& <Row >
-          {TutorsDetail?.tutorsList?.map((Tutor) =>(  
+        {TutorsDetail.tutorsList.length > 0 && <Row >
+          {TutorsDetail?.tutorsList?.map((Tutor) => (
             <Col key={Tutor.userCode} xs={12} md={6} lg={4} style={{ minWidth: '375px', minHeight: '225px' }} className="mb-4">
               <Card className={styles.librarycard} style={{ width: '100%', height: "100%" }}>
-                  <Card.Body>
-                    <Card.Title> <span>{Tutor.tutorName}</span></Card.Title>
-                 
-                        <div><span>Qualification:</span> {Tutor?.Qualification ?? "NA"}</div>
-                        <div><span>Experience: </span>{Tutor?.experince ?? "NA"}</div>
-                        <div><span>Phone:</span> {Tutor?.phoneNumber ?? "NA"}</div>
-                        <div><span>Coordinator:</span>{Tutor?.Coordinator?.tutorName??"NA"}</div>
-                     
-                  </Card.Body>
-                </Card>
-              </Col>
-            
+                <Card.Body>
+                  <Card.Title> <span>{Tutor.tutorName}</span></Card.Title>
+
+                  <div><span>Qualification:</span> {Tutor?.Qualification ?? "NA"}</div>
+                  <div><span>Experience: </span>{Tutor?.experince ?? "NA"}</div>
+                  <div><span>Phone:</span> {Tutor?.phoneNumber ?? "NA"}</div>
+                  <div><span>Coordinator:</span>{Tutor?.Coordinator?.tutorName ?? "NA"}</div>
+                  <div><span>Email:</span> {Tutor?.email}</div>
+                  <div><span>Password :</span>{Tutor?.password}</div>
+                  <button
+                    className={styles.bookSlotButton}
+
+                  >
+                    Delete
+                  </button>
+                </Card.Body>
+              </Card>
+            </Col>
+
           ))}
 
         </Row>}

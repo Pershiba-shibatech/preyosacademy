@@ -13,7 +13,7 @@ export const setTimestamps = (sessions,type) => {
       
         const DefaultfromDateTime = moment(`${date} ${from}`).tz(defaultTimeZone).format('x');
         const DefaulttoDateTime = moment(`${date} ${to}`).tz(defaultTimeZone).format('x');
-        const localDate = moment(Number(DefaultfromDateTime)).tz(timeZone).format('DD/MM/YYYY');
+        const localDate = moment(Number(DefaultfromDateTime)).tz(timeZone).format('ddd, DD/MM/YYYY');
         const fromlocalTimeStamp = moment(Number(DefaultfromDateTime)).tz(timeZone).format('x');
         const fromDateTime = moment(Number(fromlocalTimeStamp)).tz(timeZone).format('HH:mm');
         const tolocalTimeStamp = moment(Number(DefaulttoDateTime)).tz(timeZone).format('x');

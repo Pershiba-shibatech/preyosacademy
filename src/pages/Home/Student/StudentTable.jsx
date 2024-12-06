@@ -3,7 +3,7 @@ import { Table, Pagination, Form, Button } from "react-bootstrap";
 import styles from "./student.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateAttendStatusModel from "../../../components/Modals/updateStatusModel/UpdateAttendStatusModel";
-import { GetBookedPastSlots, GetBookedSlots, GetParticularSession } from "../../../store/api/BookSlotsByTutor";
+import { GetBookedPastSlots, GetBookedSlots, GetParticularSession, GetReportsList } from "../../../store/api/BookSlotsByTutor";
 import { useLocation } from "react-router-dom";
 import { GetAllBookedSlotsActions } from "../../../store/slice/AllBookedSlotsSlice";
 import StudentSkeleton from "../StudentSkeleton/StudentSkeleton";
@@ -26,7 +26,7 @@ const StudentTable = () => {
   let getBookedSlotsDetails = useSelector((state) => state.getBookedSlots);
 
   const DisplayData = pathname === "/dashboard/allSlots" ? getBookedSlotsDetails.AllSlots : pathname === '/dashboard' && userType === "Admin" ? getBookedSlotsDetails.tutorSlots :
-    pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots :
+    pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots : pathname === '/dashboard/reports' ? getBookedSlotsDetails.Reports :
       getBookedSlotsDetails.StudentsSlots
   const EmptyStateText = pathname === "/dashboard/allSlots" ? "No slots available" : pathname === '/dashboard' && userType === "Admin" ? "No slots For you Today" : "No Slots Booked"
   const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
@@ -39,16 +39,20 @@ const StudentTable = () => {
       studenUsercode: userType === "Student" ? userDetails.loggedInUserDetails.userCode : '',
       tutorUsercode: userType !== "Student" ? userDetails.loggedInUserDetails.userCode : ''
     }
+
     if (pathname === '/dashboard/endSlots') {
       dispatch(GetBookedPastSlots(data))
-    } else {
+    } if (pathname === '/dashboard/reports') {
+      dispatch(GetReportsList({ subject: getBookedSlotsDetails?.reportSubject ?? "", student: getBookedSlotsDetails?.reportSelectedStudent ?? "" }))
+    }
+    else {
 
       dispatch(GetBookedSlots(data))
     }
 
   }, [])
 
- 
+
 
   const getSelectedSessionDetails = (sessionId, isUpdate) => {
 
@@ -94,9 +98,10 @@ const StudentTable = () => {
   const StudentEndColumn = ["Slot Date", "Slot Timing", "Subject", "Tutor", "Attend Status"]
   const TutorEndColumn = ["Student", "Slot Date", "Slot Timing", "Subject", "Attend Status"]
   const AdminEndColumn = ["Student", "Slot Date", "Slot Timing", "Tutor", "Subject", "Attend Status", "Payment Status"]
+  const ReportColumn = ["Session Date & Time", "Previous HomeWork", "Current HomeWork", "Access to Focus"]
 
-  const columns = (userType === "Student" && !hideForendSlot) ? StudentColumn : (userType === "Tutor" && !hideForendSlot) ? TutorColumn : (userType === "Admin" && !hideForendSlot) ? AdminColumn :
-    (userType === "Student" && hideForendSlot) ? StudentEndColumn : (userType === "Tutor" && hideForendSlot) ? TutorEndColumn : (userType === "Admin" && hideForendSlot) && AdminEndColumn;
+  const columns = (userType === "Student" && !hideForendSlot) ? StudentColumn : (userType === "Tutor" && !hideForendSlot) ? TutorColumn : (userType === "Admin" && !hideForendSlot && pathname !== '/dashboard/reports') ? AdminColumn :
+    (userType === "Student" && hideForendSlot) ? StudentEndColumn : (userType === "Tutor" && hideForendSlot) ? TutorEndColumn : (userType === "Admin" && pathname === '/dashboard/reports') ? ReportColumn : (userType === "Admin" && hideForendSlot) && AdminEndColumn;
 
   return (
     <>
@@ -112,7 +117,7 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {DisplayData?.map((item, index) => {
-
+              console.log(item.homeworkFeedback,"homeworkFeedback")
               return <>
                 <tr key={index}>
                   {userType === "Student" ?
@@ -187,51 +192,85 @@ const StudentTable = () => {
                         </Button>
                       </td>}
                     </> : <>
-                      {!hideForendSlot ? <td onClick={() => getSelectedSessionDetails(item.sessionId, true)} >{item?.StudentDetails?.studentName}</td> :
-                        <td >{item?.StudentDetails?.studentName}</td>}
-                      <td>{`${item.sessionBookingDetails?.localDate}`}</td>
-                      <td>{`${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime} `}</td>
-                      <td>{item?.tutorDetails?.tutorName}</td>
-                      <td>{item?.sessionSubject}</td>
-                      <td  >
-                        <div className={styles.updateStatus}>
-                          {/* <span className={styles.statusText}>
+
+                      {pathname === '/dashboard/reports' ? <>
+
+                        <td><div>{`${item.sessionBookingDetails?.localDate} ${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime}`}</div>
+                          <div>{`Topic : ${item?.topic !== "" ? item?.topic : "Not added"}`}</div>
+                        </td>
+                        <td><div>{item?.homeworkStatus !== "" ?
+
+                          <div>
+                            <p>
+                              {item?.homeworkStatus}
+                            </p>
+                            <p>
+                                {item.homeworkFeedback}
+                            </p>
+                          </div>
+
+
+                          : "Not Added"}</div>
+                        </td>
+                        <td>
+                          <div>{item?.sessionSummary !== "" ? item?.sessionSummary : "Not Added"}</div>
+                        </td>
+                        <td>
+                          <div>{item?.studentFeedbackByTutor !== "" ? item?.studentFeedbackByTutor : "Not Added"}</div>
+                        </td>
+                      </> :
+                        <>
+                          {!hideForendSlot ? <td onClick={() => getSelectedSessionDetails(item.sessionId, true)} >{item?.StudentDetails?.studentName}</td> :
+                            <td >{item?.StudentDetails?.studentName}</td>}
+                          <td>{`${item.sessionBookingDetails?.localDate}`}</td>
+                          <td>{`${item.sessionBookingDetails?.fromLocalTime} - ${item.sessionBookingDetails?.toLocalTime} `}</td>
+                          <td>{item?.tutorDetails?.tutorName}</td>
+                          <td>{item?.sessionSubject}</td>
+                          <td  >
+                            <div className={styles.updateStatus}>
+                              {/* <span className={styles.statusText}>
                             {getStatusOfSession(item.sessionStatus)}
                           </span> */}
 
-                          <Button
-                            variant="danger"
-                            // disabled={
-                            //   moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
-                            // }
-                            onClick={() => getSelectedSessionDetails(item.sessionId, false)}
-                          // onClick={() => setModalShow(true)}
-                          >
-                            {getStatusOfSession(item.sessionStatus)}
-                          </Button>
-                        </div>
-                      </td>
-                      <td>{item.paymentStatus}</td>
-                      {!hideForendSlot && <td>
-                        <Button
-                          variant="danger"
-                          className={styles.bookButton}
-                          onClick={() => { window.open(item.sessionLink, '_blank'); }}
-                          disabled={item.paymentStatus === "paid" && item.sessionLink !== "" ? false : true}
-                        >
-                          Join
-                        </Button>
-                      </td>}
-                      {!hideForendSlot && <td>
-                        <Button
-                          variant="danger"
-                          className={styles.bookButton}
-                          onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
-                            disabled={item.paymentStatus === "paid" && item.sessionBoardLink !== "" ? false : true}
-                        >
-                          Join
-                        </Button>
-                      </td>}
+                              <Button
+                                variant="danger"
+                                // disabled={
+                                //   moment(Number(item.sessionBookingDetails.timeStamp)) < moment().format('x') ? false : true
+                                // }
+                                onClick={() => getSelectedSessionDetails(item.sessionId, false)}
+                              // onClick={() => setModalShow(true)}
+                              >
+                                {getStatusOfSession(item.sessionStatus)}
+                              </Button>
+                            </div>
+                          </td>
+                          <td>{item.paymentStatus}</td>
+                          {!hideForendSlot && <td>
+                            <Button
+                              variant="danger"
+                              className={styles.bookButton}
+                              onClick={() => { window.open(item.sessionLink, '_blank'); }}
+                              disabled={item.paymentStatus === "paid" && item.sessionLink !== "" ? false : true}
+                            >
+                              Join
+                            </Button>
+                          </td>}
+                          {!hideForendSlot && <td>
+                            <Button
+                              variant="danger"
+                              className={styles.bookButton}
+                              onClick={() => { window.open(item.sessionBoardLink, '_blank'); }}
+                              disabled={item.paymentStatus === "paid" && item.sessionBoardLink !== "" ? false : true}
+                            >
+                              Join
+                            </Button>
+                          </td>}
+
+                        </>
+
+                      }
+
+
                     </>
 
 

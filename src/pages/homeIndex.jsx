@@ -13,39 +13,41 @@ import StudentList from "./Dashboard/StudentList/studentList";
 import TutorsList from './Dashboard/TutorList/TutorsList';
 import ProtectedRouteForAdmin from './ProtectedRoutesAdmin';
 import EndSlots from './Dashboard/EndSlots/EndSlots';
+import Reports from './Dashboard/Reports/Reports';
 
 
 const HomeIndex = () => {
-  
+
 
   return (
-   <>
+    <>
 
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="" element={<DashBoardHomeIndex />} />
-          <Route
-            path="BookSlots"
-            element={
-              <ProtectedRouteForAdmin>
-                <BookSlot />
-              </ProtectedRouteForAdmin>
-            }
-          />
-          <Route path="library" element={<Library />} />
-          <Route path="studentlist" element={<StudentList />} />
-          <Route path="tutorlist" element={<TutorsList />} />
-          <Route path="allSlots" element={<AllSlots />} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route path="" element={<DashBoardHomeIndex />} />
+            <Route
+              path="BookSlots"
+              element={
+                <ProtectedRouteForAdmin>
+                  <BookSlot />
+                </ProtectedRouteForAdmin>
+              }
+            />
+            <Route path="library" element={<Library />} />
+            <Route path="studentlist" element={<StudentList />} />
+            <Route path="tutorlist" element={<TutorsList />} />
+            <Route path="allSlots" element={<AllSlots />} />
             <Route path="endSlots" element={<EndSlots />} />
-        </Route>
-        <Route path="/AddStudent" element={<AddStudent />} />
-        <Route path="/AddTutor" element={<AddTutors />} />
-      </Routes>
-    </Router>
-   </>
+            <Route path='reports' element={<Reports />} />
+          </Route>
+          <Route path="/AddStudent" element={<AddStudent />} />
+          <Route path="/AddTutor" element={<AddTutors />} />
+        </Routes>
+      </Router>
+    </>
 
   );
 };
