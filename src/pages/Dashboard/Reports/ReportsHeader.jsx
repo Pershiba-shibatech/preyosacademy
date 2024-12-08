@@ -72,7 +72,9 @@ const ReportsHeader = () => {
         </Form>
 
         <div className={styles.buttonDiv}>
-          <button className={styles.bookSlotButton} onClick={() => dispatch(GetReportsList({ student: getBookedSlotsDetails.reportSelectedStudent, subject: getBookedSlotsDetails.reportSubject }))}>
+          <button className={styles.bookSlotButton}
+            onClick={() => dispatch(GetReportsList({ subject: getBookedSlotsDetails?.reportSubject ?? "", student: getBookedSlotsDetails?.reportSelectedStudent ?? "" }))}
+           >
             Refresh</button>
         </div>
       </div>

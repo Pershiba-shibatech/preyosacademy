@@ -26,7 +26,7 @@ const StudentTable = () => {
   let getBookedSlotsDetails = useSelector((state) => state.getBookedSlots);
 
   const DisplayData = pathname === "/dashboard/allSlots" ? getBookedSlotsDetails.AllSlots : pathname === '/dashboard' && userType === "Admin" ? getBookedSlotsDetails.tutorSlots :
-    pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots : pathname === '/dashboard/reports' ? getBookedSlotsDetails.Reports :
+    pathname === "/dashboard/endSlots" ? getBookedSlotsDetails.endSlots : pathname === '/dashboard/reports' ? getBookedSlotsDetails?.Reports ?? [] :
       getBookedSlotsDetails.StudentsSlots
   const EmptyStateText = pathname === "/dashboard/allSlots" ? "No slots available" : pathname === '/dashboard' && userType === "Admin" ? "No slots For you Today" : "No Slots Booked"
   const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
@@ -117,7 +117,7 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {DisplayData?.map((item, index) => {
-              console.log(item.homeworkFeedback,"homeworkFeedback")
+              console.log(item.homeworkFeedback, "homeworkFeedback")
               return <>
                 <tr key={index}>
                   {userType === "Student" ?
@@ -205,7 +205,7 @@ const StudentTable = () => {
                               {item?.homeworkStatus}
                             </p>
                             <p>
-                                {item.homeworkFeedback}
+                              {item.homeworkFeedback}
                             </p>
                           </div>
 
@@ -306,7 +306,7 @@ const StudentTable = () => {
       }
 
       {!getBookedSlotsDetails.isLoading &&
-        getBookedSlotsDetails.isFetchedSlots && DisplayData.length === 0 &&
+        getBookedSlotsDetails.isFetchedSlots && DisplayData?.length === 0 &&
         <EmptyState EmptyStateText={EmptyStateText} />}
 
     </>
