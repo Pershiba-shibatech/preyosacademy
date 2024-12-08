@@ -11,10 +11,10 @@ export const initialState = {
     isLoading: false,
     isFetchedSlots: false,
     endSlots: [],
-    Reports:[],
-    reportSubject:"",
-    reportSelectedStudent:''
-    
+    Reports: [],
+    reportSubject: "",
+    reportSelectedStudent: '',
+    reportSelectedStudentName: ''
 
 };
 
@@ -26,6 +26,17 @@ const GetAllBookedSlotsSlice = createSlice({
         setLoading: (state, { payload }) => {
             state.isLoading = payload
 
+        },
+        setReportSelectedStudent: (state, { payload }) => {
+            state.reportSelectedStudent = payload.userCode
+            state.reportSelectedStudentName = payload.studentName
+        },
+        setempty: (state) => {
+            state.reportSelectedStudent = ""
+            state.reportSelectedStudentName = ""
+        },
+        setReportSubject: (state, { payload }) => {
+            state.reportSubject = payload
         },
 
         reset: () => { },
@@ -47,7 +58,7 @@ const GetAllBookedSlotsSlice = createSlice({
                 }
 
                 if (payload?.data?.type === "Tutor") {
-                  
+
                     state.tutorSlots = DetailWithSession
                     state.AllSlots = []
 

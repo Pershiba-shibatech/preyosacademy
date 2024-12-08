@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from "../../Home/dashboardhome.module.scss";
 import StudentTable from '../../Home/Student/StudentTable';
-import ReportsHeader from '../AllSlots/SlotsHeader';
+import ReportsHeader from './ReportsHeader';
 const ReportsTable = () => {
    return (
      <div className={styles.DashBoardHomeWrapper}>
