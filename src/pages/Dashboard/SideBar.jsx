@@ -53,6 +53,14 @@ const SideBar = () => {
               All Slots
             </Nav.Link>
             <Nav.Link
+              className={pathname === "/dashboard/reports" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
+              as={Link}
+              // onClick={() => setModalShow(true)}
+              to="/dashboard/reports"
+            >
+             Reports
+            </Nav.Link>
+            <Nav.Link
               className={pathname === "/dashboard/endSlots" ? `${styles.navLink} ${styles.NavlinkActive}` : styles.navLink}
               as={Link}
               to="/dashboard/endSlots"

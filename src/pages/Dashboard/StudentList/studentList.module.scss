@@ -44,7 +44,10 @@
                 text-overflow: ellipsis;
             }
         }
-        .bookSlotButton {
+        .buttonDiv{
+            display: flex;
+            gap: 20px;
+  .bookSlotButton {
             float: right;
             border: 2px solid #df000d;
             background-color: white;
@@ -62,5 +65,7 @@
                 color: white;
             }
         }
+        }
+      
     }
 }

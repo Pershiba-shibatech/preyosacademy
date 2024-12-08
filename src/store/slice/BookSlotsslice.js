@@ -19,6 +19,7 @@ export const initialState = {
     sessionStatus: "yettojoin",
     topic: "",
     homeworkStatus: "Done",
+    homeworkFeedback:"",
     sessionSummary: "",
     studentFeedbackByTutor: '',
     cancelledBy: "Tutor",
@@ -80,6 +81,9 @@ const BookedSlotsSlice = createSlice({
         },
         setSessionSummary: (state, { payload }) => {
             state.sessionSummary = payload
+        },
+        setHomeworkFeedback: (state, { payload }) => {
+            state.homeworkFeedback = payload
         },
         setStudentFeedbackByTutor: (state, { payload }) => {
             state.studentFeedbackByTutor = payload

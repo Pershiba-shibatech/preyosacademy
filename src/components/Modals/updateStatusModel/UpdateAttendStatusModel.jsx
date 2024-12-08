@@ -51,6 +51,7 @@ const UpdateAttendStatusModel = (props) => {
       sessionId: BookSlotsDetails.sessionDetails.slotDetails.sessionId,
       sessionStatus: BookSlotsDetails.sessionStatus,
       topic: BookSlotsDetails.topic,
+      homeworkFeedback: BookSlotsDetails.homeworkFeedback??"",
       homeworkStatus: BookSlotsDetails.homeworkStatus,
       sessionSummary: BookSlotsDetails.sessionSummary,
       studentFeedbackByTutor: BookSlotsDetails.studentFeedbackByTutor,
@@ -121,16 +122,20 @@ const UpdateAttendStatusModel = (props) => {
           {/* Date Selection */}
           {BookSlotsDetails.sessionStatus === "completed" && <>
             <Row>
-              <Col xs={6}>
+              <Col xs={12}>
                 <Form.Group className="mb-3" controlId="topics">
                   <Form.Label> Topic</Form.Label>
                   <Form.Control
-                    as="input"
+                    as="textarea"
+                    rows={3}
                     value={BookSlotsDetails.topic}
                     onChange={(e) => { dispatch(BookedSlotsSliceActions.setTopic(e.target.value)) }}
                   />
                 </Form.Group>
               </Col>
+             
+            </Row>
+            <Row>
               <Col xs={6}>
                 <Form.Group className="mb-3" controlId="subjectSelect">
                   <Form.Label>Homework Status</Form.Label>
@@ -145,6 +150,18 @@ const UpdateAttendStatusModel = (props) => {
                   </Form.Select>
                 </Form.Group>
               </Col>
+              <Col xs={6}>
+                <Form.Group className="mb-3" controlId="Feedback">
+                  <Form.Label>Homework Feedback</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={BookSlotsDetails.homeworkFeedback}
+                    onChange={(e) => { dispatch(BookedSlotsSliceActions.setHomeworkFeedback(e.target.value)) }}
+                  />
+                </Form.Group>
+              </Col>
+              
             </Row>
             <Row>
               <Col xs={6}>

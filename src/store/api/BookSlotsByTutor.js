@@ -53,7 +53,15 @@ const GetParticularSession = createAsyncThunk(`/fetchSingleSession`, async (data
         .catch((error) => error);
 });
 
+const GetReportsList = createAsyncThunk(`/getAllReport`, async (data) => {
+    return axios.post(`${API_URL}/getAllReport?student=${data.student}&subject=${data.subject}`,).then((response) => {
+
+        return response
+    })
+        .catch((error) => error);
+});
+
 
 export {
-    BookSlotsByTutor, GetBookedSlots, GetParticularSession, updateBookedSLotStatus, GetBookedPastSlots, updateBookedSLotLink
+    BookSlotsByTutor, GetBookedSlots, GetParticularSession, updateBookedSLotStatus, GetBookedPastSlots, updateBookedSLotLink, GetReportsList
 }

@@ -3,12 +3,14 @@ import Card from "react-bootstrap/Card";
 import styles from "./studentList.module.scss";
 import { Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getStudentsListApi } from "../../../store/api/StudentService";
+import { deleteStudent, getStudentsListApi } from "../../../store/api/StudentService";
 import BookSlotModal from "../../../components/Modals/BookSlotModal";
 import { selectSubjectSliceActions } from "../../../store/slice/selectSubjectModelSlice";
 import { SelectedStudentSliceActions } from "../../../store/slice/SelectedStudentSlice";
 import EmptyState from "../../../components/emptyState/EmptyState";
 import SpinnerComp from "../../../components/Spinner/Spinner";
+import { ToastSliceActions } from "../../../store/slice/ToastSlice";
+import { getStudentsSliceActions } from "../../../store/slice/getStudentsList";
 
 const StudentList = () => {
   const libraryScrollRef = useRef(null);
@@ -34,6 +36,19 @@ const StudentList = () => {
       // Load more data or perform another action
     }
   };
+
+  const deleteUStudent = (student) => {
+    dispatch(getStudentsSliceActions.setLoading())
+    dispatch(deleteStudent(student.userCode)).unwrap().then((response) => {
+      if (response.data.statusCode === 200) {
+        dispatch(getStudentsListApi())
+        dispatch(ToastSliceActions.setSuccessToast("Student deleted Successfully!"))
+
+      } else {
+        dispatch(ToastSliceActions.setfailureToast("Failed to delete Student!"))
+      }
+    })
+  }
   return (
     <>
       <div
@@ -58,17 +73,27 @@ const StudentList = () => {
                       <div><span>Parent Name:</span> {student?.parentName}</div>
                       <div><span>Phone:</span> {student?.phoneNumber}</div>
                       <div><span>Email:</span> {student?.email}</div>
+                      <div><span>Password :</span>{student?.password}</div>
                       <div><span>Coordinator:</span>{student?.Coordinator?.tutorName}</div>
-                      <button
-                        className={styles.bookSlotButton}
-                        onClick={() => {
-                          dispatch(selectSubjectSliceActions.setopenSubjectModel());
+                      <div className={styles.buttonDiv}>
+                        <button
+                          className={styles.bookSlotButton}
+                          onClick={() => {
+                            dispatch(selectSubjectSliceActions.setopenSubjectModel());
 
-                          dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
-                        }}
-                      >
-                        Book Slot
-                      </button>
+                            dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
+                          }}
+                        >
+                          Book Slot
+                        </button>
+                        <button
+                          className={styles.bookSlotButton}
+                          onClick={() => deleteUStudent(student)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+
 
                     </Card.Body>
                   </Card>
