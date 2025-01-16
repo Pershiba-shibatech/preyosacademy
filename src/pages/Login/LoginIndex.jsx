@@ -34,17 +34,17 @@ const Login = () => {
 
   return (
     <div className={styles.containerLogin}>
-      <motion.section
+      {/* <motion.section
         style={{
           backgroundImage,
         }}
         className="relative d-flex min-vh-100 align-items-center justify-content-center text-white"
-      >
-        <div className="position-absolute w-100 h-100">
+      > */}
+        {/* <div className="position-absolute w-100 h-100">
           <Canvas>
             <Stars radius={50} count={2500} factor={4} fade speed={2} />
           </Canvas>
-        </div>
+        </div> */}
         <div
           className={`position-absolute top-0 w-100 text-center p-3  
             d-flex justify-content-center align-items-center`}
@@ -62,7 +62,7 @@ const Login = () => {
           loginUserSliceActions={loginUserSliceActions}
           dispatch={dispatch}
         />
-      </motion.section>
+      {/* </motion.section> */}
     </div>
   );
 };

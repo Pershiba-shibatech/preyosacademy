@@ -28,6 +28,7 @@ const loginUserSlice = createSlice({
             state.EmailError = false
             state.PasswordErrorMessage = ''
             state.PasswordError = false
+            state.isLoading = true
        
         },
         setPassword: (state, { payload }) => {
@@ -36,6 +37,7 @@ const loginUserSlice = createSlice({
             state.PasswordError = false
             state.EmailErrorMessage = ""
             state.EmailError = false
+            state.isLoading = true
         },
         setUserType: (state, { payload }) => {
             state.userType = payload
@@ -45,14 +47,17 @@ const loginUserSlice = createSlice({
             state.EmailError = false
             state.PasswordErrorMessage = ''
             state.PasswordError = false
+            state.isLoading = true
         },
         setUserEmail:(state,{payload})=>{
             state.EmailErrorMessage=payload
             state.EmailError = true
+            state.isLoading = true
         },
         setUserPassword:(state,{payload})=>{
             state.PasswordErrorMessage =payload
             state.PasswordError = true
+            state.isLoading = true
         },
        
       
