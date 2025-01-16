@@ -16,6 +16,7 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
   };
 
   const LoginToUser = () => {
+    dispatch(loginUserSliceActions.setLoading())
     if (!validateEmail(getloginData.userName)) {
       dispatch(loginUserSliceActions.setUserEmail("*Invalid Email Address"));
       return;
@@ -36,8 +37,10 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
           dispatch(loginUserSliceActions.reset());
         } else {
           if (response.data.message === "User not Found") {
+            dispatch(loginUserSliceActions.setLoading())
             dispatch(loginUserSliceActions.setUserEmail("*User not Found"));
           } else {
+            dispatch(loginUserSliceActions.setLoading())
             dispatch(loginUserSliceActions.setUserPassword("*Wrong password "));
           }
         }
@@ -100,7 +103,7 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
               width="14"
               height="14"
               onClick={() => setpasswordtype(!passwordtype)}
-             
+
               style={!getloginData.PasswordError ? { color: "black", position: 'absolute', right: '10px', top: '75%', transform: 'translateY(-50%)', cursor: 'pointer' } : { color: "black", position: 'absolute', right: '10px', top: '55%', transform: 'translateY(-50%)', cursor: 'pointer' }}
             />
           </div>
@@ -123,12 +126,13 @@ const LoginForm = ({ getloginData, loginUserSliceActions, dispatch }) => {
           }
         >
           {getloginData.userType === 0 ? "Login as Student" : "Login as Tutor"}
-          <Icon
+          {getloginData.isLoading ? <Icon
             icon="mingcute:arrow-right-line"
             width="24"
             height="24"
             style={{ color: "white", marginLeft: "8px" }}
-          />
+          /> :
+            <Icon icon="line-md:loading-twotone-loop" width="24" height="24" style={{ color: "#fff", marginLeft: "8px" }} />}
         </Button>
       </Form>
     </>

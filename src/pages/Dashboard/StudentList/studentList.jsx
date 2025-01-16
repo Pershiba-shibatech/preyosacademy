@@ -11,6 +11,7 @@ import EmptyState from "../../../components/emptyState/EmptyState";
 import SpinnerComp from "../../../components/Spinner/Spinner";
 import { ToastSliceActions } from "../../../store/slice/ToastSlice";
 import { getStudentsSliceActions } from "../../../store/slice/getStudentsList";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const StudentList = () => {
   const libraryScrollRef = useRef(null);
@@ -66,7 +67,19 @@ const StudentList = () => {
                 <Col key={student?.userCode} xs={12} md={6} lg={4} style={{ minWidth: '375px', minHeight: '225px' }} className="mb-4">
                   <Card className={styles.librarycard} style={{ width: '100%', height: "100%" }}>
                     <Card.Body>
-                      <Card.Title>{student?.studentName}</Card.Title>
+                      <Card.Title>
+                        <div className="d-flex justify-content-between">
+                          {student?.studentName}
+                          <div>
+                            <Icon icon="ic:baseline-edit" width="24" height="30" style={{ color: "#df000d", cursor: 'pointer' }} />
+                            <Icon icon="ic:baseline-delete-forever" width="36" height="30" style={{ color: "#df000d", cursor: 'pointer' }}
+                              onClick={() => deleteUStudent(student)}
+                            />
+                          </div>
+                
+                        </div>
+                       
+                      </Card.Title>
 
 
                       <div><span>Grade:</span> {student?.grade}</div>
@@ -84,16 +97,27 @@ const StudentList = () => {
                             dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
                           }}
                         >
-                          Book Slot
+                          Book Multiple Slot
                         </button>
-                        <button
+                        {/* <button
+                          className={styles.bookSlotButton}
+                          onClick={() => {
+                            dispatch(selectSubjectSliceActions.setopenSubjectModel());
+
+                            dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
+                          }}
+                        >
+                          Book Single Slot
+                        </button> */}
+
+                        {/* <button
                           className={styles.bookSlotButton}
                           onClick={() => deleteUStudent(student)}
                         >
                           Delete
-                        </button>
+                        </button> */}
                       </div>
-
+                    
 
                     </Card.Body>
                   </Card>

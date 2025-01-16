@@ -48,6 +48,7 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
             const dayName = dayNames[date.day()];
 
             if (date.format('YYYY-MM-DD') > moment().format('YYYY-MM-DD')) {
+                
                 weekdays.push({
                     from: fromTime,
                     to: toTime,
@@ -55,6 +56,18 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
                     timeStamp: date.format('x'),
                     dayName: dayName
                 });
+            } else if (date.format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')) {
+               
+                const currentTime = moment().format('HH:mm');
+                if (fromTime > currentTime) {
+                    weekdays.push({
+                        from: fromTime,
+                        to: toTime,
+                        date: date.format('YYYY-MM-DD'),
+                        timeStamp: date.format('x'),
+                        dayName: dayName
+                    });
+                }
             }
 
         }
@@ -66,7 +79,7 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
 
 export const getStatusOfSession = (status) => {
  
-    return status === 'Yettojoin' ? "Yet To Join" :
+    return status === 'Yettojoin' ? "Not Yet" :
         status === 'reschedule' ? "Rescheduled" :
             status === 'completed' ? 'Completed' : "Cancelled";
 
