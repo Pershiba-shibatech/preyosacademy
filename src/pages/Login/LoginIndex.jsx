@@ -1,36 +1,28 @@
-import React, { useEffect } from "react";
-import {
-  useMotionTemplate,
-  useMotionValue,
-  motion,
-  animate,
-} from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
+import React from "react";
+
 import styles from "./login.module.scss";
 import { preyosLogo } from "../../images";
 import LoginContainer from "./LoginContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserSliceActions } from "../../store/slice/loginUserSlice";
 
-const COLORS_TOP = ["#ff0000", "#b30000", "#660000", "#330000"];
 
 const Login = () => {
 
-  const color = useMotionValue(COLORS_TOP[0]);
+  // const color = useMotionValue(COLORS_TOP[0]);
     const getloginData = useSelector((state) => state.loginData);
      const dispatch = useDispatch();
      
-  useEffect(() => {
-    animate(color, COLORS_TOP, {
-      ease: "easeInOut",
-      duration: 10,
-      repeat: Infinity,
-      repeatType: "mirror",
-    }); // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   animate(color, COLORS_TOP, {
+  //     ease: "easeInOut",
+  //     duration: 10,
+  //     repeat: Infinity,
+  //     repeatType: "mirror",
+  //   }); // eslint-disable-next-line
+  // }, []);
 
-  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
+  // const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
 
   return (
     <div className={styles.containerLogin}>

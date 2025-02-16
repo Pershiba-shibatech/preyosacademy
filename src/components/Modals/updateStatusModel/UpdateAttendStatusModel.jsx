@@ -1,29 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { BookedSlotsSliceActions } from "../../../store/slice/BookSlotsslice";
 import TimepickerComp from "../../TimePicker/TimepickerComp";
 import moment from "moment";
 import styles from './updatestatus.module.scss'
-import { GetBookedSlots, updateBookedSLotStatus } from "../../../store/api/BookSlotsByTutor";
+import { checkSlotAvailable, GetBookedSlots, updateBookedSLotStatus } from "../../../store/api/BookSlotsByTutor";
 import { ToastSliceActions } from "../../../store/slice/ToastSlice";
 import { GetAllBookedSlotsActions } from "../../../store/slice/AllBookedSlotsSlice";
 const UpdateAttendStatusModel = (props) => {
-  const Navigate = useNavigate();
+  
   const dispatch = useDispatch();
   const location = useLocation();
   const pathname = location.pathname;
   const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
-  const selectedStudentDetails = useSelector((state) => state.selectedStudentDetails);
+ // const selectedStudentDetails = useSelector((state) => state.selectedStudentDetails);
   const userDetails = useSelector((state) => state.userDetails);
   const { loggedInUserDetails } = userDetails
   const { userType } = loggedInUserDetails;
+ 
+  const checkAvailableStatus = () => {
+    const checkstatusData = {
+      tutorUsercode: BookSlotsDetails.sessionDetails.tutorDetails.userCode,
+      time: {
 
+        day: BookSlotsDetails.reScheduleday,
+        from: BookSlotsDetails.rescheduleFrom,
+        to: BookSlotsDetails.rescheduleto,
+        date: BookSlotsDetails.Date,
+        timeStamp: BookSlotsDetails.RescheduleDatetimeStamp,
+      }
+    }
+    dispatch(checkSlotAvailable(checkstatusData)).unwrap().then((response) => {
+      if (response.data?.statusCode === 200) {
 
+        dispatch(BookedSlotsSliceActions.setcheckedSlotStatus(response.data.isAvailable))
+      }
+    })
+  }
 
   const getTime = (e, d) => {
 
@@ -41,9 +59,9 @@ const UpdateAttendStatusModel = (props) => {
   const buttonDisable = BookSlotsDetails.sessionStatus === "completed" && (BookSlotsDetails.topic === "" || BookSlotsDetails.homeworkStatus === "" || BookSlotsDetails.sessionSummary === "" || BookSlotsDetails.studentFeedbackByTutor === "") ? true :
     BookSlotsDetails.sessionStatus === "cancelled" && (BookSlotsDetails.cancelReason === "" || BookSlotsDetails.cancelledBy === "") ? true :
       BookSlotsDetails.sessionStatus === "reschedule" && (BookSlotsDetails.rescheduleReason === ""
-        || BookSlotsDetails.rescheduledBy === "" || BookSlotsDetails.rescheduleFrom === "" || BookSlotsDetails.rescheduleto === "" || BookSlotsDetails.Date === "") ? true :
+        || BookSlotsDetails.rescheduledBy === "" || BookSlotsDetails.rescheduleFrom === "" || BookSlotsDetails.rescheduleto === "" || BookSlotsDetails.Date === "" || (!BookSlotsDetails.checkedSlotStatus && !BookSlotsDetails.checkedStatus)) ? true :
         false
-  
+
 
   const updateStatus = () => {
 
@@ -51,7 +69,7 @@ const UpdateAttendStatusModel = (props) => {
       sessionId: BookSlotsDetails.sessionDetails.slotDetails.sessionId,
       sessionStatus: BookSlotsDetails.sessionStatus,
       topic: BookSlotsDetails.topic,
-      homeworkFeedback: BookSlotsDetails.homeworkFeedback??"",
+      homeworkFeedback: BookSlotsDetails.homeworkFeedback ?? "",
       homeworkStatus: BookSlotsDetails.homeworkStatus,
       sessionSummary: BookSlotsDetails.sessionSummary,
       studentFeedbackByTutor: BookSlotsDetails.studentFeedbackByTutor,
@@ -69,7 +87,7 @@ const UpdateAttendStatusModel = (props) => {
         timeStamp: BookSlotsDetails.RescheduleDatetimeStamp,
       }
     }
-  
+
     dispatch(updateBookedSLotStatus(sessionDetailsData)).unwrap().then((response) => {
       if (response?.data?.statusCode === 200) {
         dispatch(GetAllBookedSlotsActions.setLoading(true))
@@ -95,7 +113,7 @@ const UpdateAttendStatusModel = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      backdrop="static" 
+      backdrop="static"
       keyboard={false}
     >
       <Modal.Header closeButton>
@@ -133,7 +151,7 @@ const UpdateAttendStatusModel = (props) => {
                   />
                 </Form.Group>
               </Col>
-             
+
             </Row>
             <Row>
               <Col xs={6}>
@@ -161,7 +179,7 @@ const UpdateAttendStatusModel = (props) => {
                   />
                 </Form.Group>
               </Col>
-              
+
             </Row>
             <Row>
               <Col xs={6}>
@@ -244,7 +262,24 @@ const UpdateAttendStatusModel = (props) => {
 
 
               </Col>
+
             </Row>
+            <div className={styles.buttonCenter}  >
+              <Button
+
+                variant="success"
+                onClick={() => {
+                  // props.onHide();
+                  checkAvailableStatus()
+                }}
+              >
+                Check available Status
+              </Button>
+              <span className={!BookSlotsDetails.checkedSlotStatus ? styles.statusCheckColor : BookSlotsDetails.checkedStatus ? styles.statusCheckGreenColor : styles.statusCheckRedColor}>
+                {!BookSlotsDetails.checkedSlotStatus ? ` - Click me to check the slot Availability` : BookSlotsDetails.checkedStatus ? 'Slot is Available' : 'Slot is not Available - please select another slot'}</span>
+
+            </div>
+
           </>}
           {BookSlotsDetails.sessionStatus === "cancelled" && <>
             <Row>
@@ -271,6 +306,7 @@ const UpdateAttendStatusModel = (props) => {
                   </Form.Select>
                 </Form.Group>
               </Col>
+
             </Row>
           </>
 

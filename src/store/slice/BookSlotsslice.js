@@ -19,7 +19,7 @@ export const initialState = {
     sessionStatus: "yettojoin",
     topic: "",
     homeworkStatus: "Done",
-    homeworkFeedback:"",
+    homeworkFeedback: "",
     sessionSummary: "",
     studentFeedbackByTutor: '',
     cancelledBy: "Tutor",
@@ -33,17 +33,27 @@ export const initialState = {
     rescheduleto: '',
     reScheduleday: "",
     Date: "",
-    showDate:'',
-    month:'',
-openUpdateModel:false
+    showDate: '',
+    month: '',
+    openUpdateModel: false,
+    slotType: "",
+    checkedSlotStatus: false,
+    checkedStatus: false
 };
 
 const BookedSlotsSlice = createSlice({
     name: BOOK_SLOTS,
     initialState,
     reducers: {
+        setSlotType: (state, { payload }) => {
+            state.slotType = payload
+        },
         setOpenModel: (state) => {
             state.openModel = !state.openModel
+        },
+        setcheckedSlotStatus: (state, { payload }) => {
+            state.checkedSlotStatus = true
+            state.checkedStatus = payload
         },
         setopenUpdatwStatusModel: (state) => {
             state.openUpdatwStatusModel = !state.openUpdatwStatusModel

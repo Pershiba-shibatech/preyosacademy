@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import styles from './Toast.module.scss'
 
-import { Toast, Button } from 'react-bootstrap';
+import { Toast } from 'react-bootstrap';
 import { ToastSliceActions } from '../../store/slice/ToastSlice';
 import { useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react/dist/iconify.js';
@@ -13,6 +13,7 @@ const FailureToast = ({Message}) => {
         setTimeout(() => {
             dispatch(ToastSliceActions.clearToast())
         }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   return (
     <div className={styles.failureToastWrapper}>

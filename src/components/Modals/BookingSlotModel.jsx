@@ -5,8 +5,8 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BookedSlotsSliceActions } from "../../store/slice/BookSlotsslice";
-import { getWeekdaysInMonth } from "../../ConstantFunction";
-import { BookSlotsByTutor } from "../../store/api/BookSlotsByTutor";
+import { formSingleSlot, getWeekdaysInMonth } from "../../ConstantFunction";
+import { BookSingleSlot, BookSlotsByTutor } from "../../store/api/BookSlotsByTutor";
 import { SelectedStudentSliceActions } from "../../store/slice/SelectedStudentSlice";
 import { selectSubjectSliceActions } from "../../store/slice/selectSubjectModelSlice";
 import { ToastSliceActions } from "../../store/slice/ToastSlice";
@@ -19,68 +19,124 @@ const BookingSlotModel = (props) => {
   const BookSlotsDetails = useSelector((state) => state.BookSlotsDetails);
   const selectedStudentDetails = useSelector((state) => state.selectedStudentDetails);
   const userDetails = useSelector((state) => state.userDetails);
-
   const subjectModelDetails = useSelector((state) => state.subjectModelData);
   const { loggedInUserDetails } = userDetails
 
   const BooktheSlot = () => {
 
-    const selctedDays = getWeekdaysInMonth(BookSlotsDetails.SelectedSlot.slotDatails.day, BookSlotsDetails.SelectedSlot.slotDatails.from, BookSlotsDetails.SelectedSlot.slotDatails.to, subjectModelDetails.selectedDate);
- 
 
-    const BookSlotData = {
-      studenUsercode: selectedStudentDetails.selctedStudent.userCode,
-      Bookedby: loggedInUserDetails.userCode,
-      tutorUsercode: BookSlotsDetails.SelectedSlot.tutorDetails.userCode,
-      sessionMaterial: {
-        url: BookSlotsDetails.Materials,
-        display_name: subjectModelDetails.selectedSubject,
-        format: "link"
-      },
+    if (BookSlotsDetails.slotType === 'single') {
+      let getTimeDetails = formSingleSlot(subjectModelDetails.Date, BookSlotsDetails.SelectedSlot.slotDatails.from, BookSlotsDetails.SelectedSlot.slotDatails.to)
+     
+      const BookSlotData = {
+        studenUsercode: selectedStudentDetails.selctedStudent.userCode,
+        Bookedby: loggedInUserDetails.userCode,
+        tutorUsercode: BookSlotsDetails.SelectedSlot.tutorDetails.userCode,
+        sessionMaterial: {
+          url: BookSlotsDetails.Materials,
+          display_name: subjectModelDetails.selectedSubject,
+          format: "link"
+        },
 
-      sessionDetails: BookSlotsDetails.SelectedSlot.slotId,
-      sessionSubject: subjectModelDetails.selectedSubject,
-      month: subjectModelDetails.selectedDate,
-      paymentStatus: "paid",
-      sessionLink: BookSlotsDetails.sessionLink,
-      sessionBoardLink: BookSlotsDetails.sessionBoardLink,
-      sessionStatus: "Yettojoin",
-      topic: "",
-      homeworkStatus: "",
-      sessionSummary: "",
-      studentFeedbackByTutor: "",
-      AllDate: selctedDays.map((day) => {
-        return day.date
-      }),
-      sessionBookingDetails: selctedDays.map(day => {
-        return {
-          from: day.from,
-          to: day.to,
-          day: day.dayName,
-          date: day.date,
-          timeStamp: day.timeStamp,
+        sessionDetails: BookSlotsDetails.SelectedSlot.slotId,
+        sessionSubject: subjectModelDetails.selectedSubject,
+        month: subjectModelDetails.month,
+        paymentStatus: "paid",
+        sessionLink: BookSlotsDetails.sessionLink,
+        sessionBoardLink: BookSlotsDetails.sessionBoardLink,
+        sessionStatus: "Yettojoin",
+        topic: "",
+        homeworkStatus: "",
+        sessionSummary: "",
+        studentFeedbackByTutor: "",
+        AllDate: [subjectModelDetails.Date],
+        sessionBookingDetails: [{
+          from: getTimeDetails.from,
+          to: getTimeDetails.to,
+          day: getTimeDetails.dayName,
+          date: getTimeDetails.date,
+          timeStamp: getTimeDetails.timeStamp,
           id: BookSlotsDetails.SelectedSlot.slotId,
+        }]
+      }
+
+      dispatch(BookedSlotsSliceActions.setIsBooking(true))
+      
+      dispatch(BookSingleSlot(BookSlotData)).unwrap().then((response) => {
+
+        if (response.data.statusCode === 200) {
+          dispatch(BookedSlotsSliceActions.reset())
+          dispatch(SelectedStudentSliceActions.reset())
+          dispatch(selectSubjectSliceActions.reset())
+          navigate('/dashboard/allSlots')
+          dispatch(ToastSliceActions.setSuccessToast("Slot Booked Successfully!"))
+        } else {
+          dispatch(ToastSliceActions.setfailureToast("Failed to createSlot!"))
+
         }
-
       })
+    } else {
+      const selctedDays = getWeekdaysInMonth(BookSlotsDetails.SelectedSlot.slotDatails.day, BookSlotsDetails.SelectedSlot.slotDatails.from, BookSlotsDetails.SelectedSlot.slotDatails.to, subjectModelDetails.selectedDate, BookSlotsDetails.slotType);
+      const BookSlotData = {
+        studenUsercode: selectedStudentDetails.selctedStudent.userCode,
+        Bookedby: loggedInUserDetails.userCode,
+        tutorUsercode: BookSlotsDetails.SelectedSlot.tutorDetails.userCode,
+        sessionMaterial: {
+          url: BookSlotsDetails.Materials,
+          display_name: subjectModelDetails.selectedSubject,
+          format: "link"
+        },
 
+        sessionDetails: BookSlotsDetails.SelectedSlot.slotId,
+        sessionSubject: subjectModelDetails.selectedSubject,
+        month: subjectModelDetails.selectedDate,
+        paymentStatus: "paid",
+        sessionLink: BookSlotsDetails.sessionLink,
+        sessionBoardLink: BookSlotsDetails.sessionBoardLink,
+        sessionStatus: "Yettojoin",
+        topic: "",
+        homeworkStatus: "",
+        sessionSummary: "",
+        studentFeedbackByTutor: "",
+        AllDate: selctedDays.map((day) => {
+          return day.date
+        }),
+        sessionBookingDetails: selctedDays.map(day => {
+          return {
+            from: day.from,
+            to: day.to,
+            day: day.dayName,
+            date: day.date,
+            timeStamp: day.timeStamp,
+            id: BookSlotsDetails.SelectedSlot.slotId,
+          }
 
-    }
+        })
 
-    dispatch(BookedSlotsSliceActions.setIsBooking(true))
-    dispatch(BookSlotsByTutor(BookSlotData)).unwrap().then((response) => {
-
-      if (response.data.statusCode === 200) {
-        dispatch(BookedSlotsSliceActions.reset())
-        dispatch(SelectedStudentSliceActions.reset())
-        dispatch(selectSubjectSliceActions.reset())
-        navigate('/dashboard/allSlots')
-        dispatch(ToastSliceActions.setSuccessToast("Slot Booked Successfully!"))
-      } else {
-        dispatch(ToastSliceActions.setfailureToast("Failed to createSlot!"))
 
       }
-    })
+
+
+      dispatch(BookedSlotsSliceActions.setIsBooking(true))
+      dispatch(BookSlotsByTutor(BookSlotData)).unwrap().then((response) => {
+
+        if (response.data.statusCode === 200) {
+          dispatch(BookedSlotsSliceActions.reset())
+          dispatch(SelectedStudentSliceActions.reset())
+          dispatch(selectSubjectSliceActions.reset())
+          navigate('/dashboard/allSlots')
+          dispatch(ToastSliceActions.setSuccessToast("Slot Booked Successfully!"))
+        } else {
+          dispatch(ToastSliceActions.setfailureToast("Failed to createSlot!"))
+
+        }
+      })
+    }
+
+
+
+
+
 
 
 

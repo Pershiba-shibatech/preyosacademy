@@ -12,7 +12,14 @@ const getAvailableSlots = createAsyncThunk(`/getAvailableSlots`, async (data) =>
     })
         .catch((error) => error);
 });
+const getAvailableSingleSlots = createAsyncThunk(`/getAvailableSingleSlots`, async (data) => {
+    return axios.post(`${API_URL}/getAvailableSingleSlots`, data).then((response) => {
+
+        return response
+    })
+        .catch((error) => error);
+});
 
 export {
-    getAvailableSlots
+    getAvailableSlots, getAvailableSingleSlots
 }

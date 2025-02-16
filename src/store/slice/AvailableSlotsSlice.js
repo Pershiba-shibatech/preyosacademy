@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GET_AVAILABLE_SLOTS } from "../reducerConstants";
-import { getAvailableSlots } from "../api/GetAvailableSlotsService";
+import { getAvailableSingleSlots, getAvailableSlots } from "../api/GetAvailableSlotsService";
 
 
 
 
 export const initialState = {
     AllAvailableSlots: [],
+    AvailableSingleSlots:[],
     isLoading: false,
     isFetchedSlots: false
 };
@@ -44,6 +45,27 @@ const GetAvailableSlotsSlice = createSlice({
         builder.addCase(getAvailableSlots.rejected, (state, { payload }) => {
             state.isLoading = false;
         });
+        builder.addCase(getAvailableSingleSlots.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getAvailableSingleSlots.fulfilled, (state, { payload }) => {
+
+
+            if (payload?.data?.statusCode === 200) {
+
+                state.AvailableSingleSlots = payload?.data?.result
+                state.isFetchedSlots = true
+            } else {
+                state.AvailableSingleSlots = []
+                state.isFetchedSlots = true
+            }
+
+            state.isLoading = false
+        });
+        builder.addCase(getAvailableSingleSlots.rejected, (state, { payload }) => {
+            state.isLoading = false;
+        });
+
     },
 
 });

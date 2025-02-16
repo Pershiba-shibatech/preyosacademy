@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./dashboardhome.module.scss";
+//import styles from "./dashboardhome.module.scss";
 import StudentDashBoard from "./Student/StudentDashBoard";
 import { useSelector } from "react-redux";
 import AdminDashboard from "./Admin/AdminDashboard";

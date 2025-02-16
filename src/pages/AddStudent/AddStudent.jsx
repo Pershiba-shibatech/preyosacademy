@@ -14,7 +14,7 @@ const AddStudent = () => {
   const Navigate = useNavigate();
   const createStudentDetails = useSelector((state) => state.createStudent);
   const TutorsDetail = useSelector((state) => state.TutorsList);
-  const userDetails = useSelector((state) => state.userDetails)
+//  const userDetails = useSelector((state) => state.userDetails)
 
   const RegisterUser = () => {
     if (
