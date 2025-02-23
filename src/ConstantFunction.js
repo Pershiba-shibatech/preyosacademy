@@ -35,11 +35,11 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
 
 
     const startDate = moment([year, month]);
-    const timestamp = startDate.valueOf();
-  
+    //const timestamp = startDate.valueOf();
+
 
     const daysInMonth = startDate.daysInMonth();
-  
+
 
     for (let day = 1; day <= daysInMonth; day++) {
         const date = moment([year, month, day]);
@@ -48,7 +48,7 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
             const dayName = dayNames[date.day()];
 
             if (date.format('YYYY-MM-DD') > moment().format('YYYY-MM-DD')) {
-                
+
                 weekdays.push({
                     from: fromTime,
                     to: toTime,
@@ -57,7 +57,7 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
                     dayName: dayName
                 });
             } else if (date.format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')) {
-               
+
                 const currentTime = moment().format('HH:mm');
                 if (fromTime > currentTime) {
                     weekdays.push({
@@ -76,9 +76,20 @@ export const getWeekdaysInMonth = (selectedDay, fromTime, toTime, mon, excludeFi
     return weekdays;
 };
 
+export const formSingleSlot = (selectedDay, fromTime, toTime) => {
+
+    //const TimeStamp = moment(selectedDay).format('x')
+    return {
+        from: fromTime,
+        to: toTime,
+        date: selectedDay,
+        timeStamp: moment(selectedDay).format('x'),
+        dayName: moment(selectedDay).format('dddd')
+    }
+}
 
 export const getStatusOfSession = (status) => {
- 
+
     return status === 'Yettojoin' ? "Not Yet" :
         status === 'reschedule' ? "Rescheduled" :
             status === 'completed' ? 'Completed' : "Cancelled";

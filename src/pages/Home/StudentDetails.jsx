@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./dashboardhome.module.scss";
-import BookSlotModal from "../../components/Modals/BookSlotModal";
+//import BookSlotModal from "../../components/Modals/BookSlotModal";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetBookedSlots } from "../../store/api/BookSlotsByTutor";
 // import { Icon } from "@iconify/react";
 const StudentDetails = () => {
-    const [modalShow, setModalShow] = React.useState(false);
+   // const [modalShow, setModalShow] = React.useState(false);
   const location = useLocation();
   const pathname = location.pathname;
 

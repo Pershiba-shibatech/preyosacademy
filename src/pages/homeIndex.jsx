@@ -5,7 +5,6 @@ import DashboardLayout from "./Dashboard/DashboardIndex";
 import DashBoardHomeIndex from "./Home/DashBoardHomeIndex";
 import BookSlot from "./BookSlots/BookSlot";
 import Library from "./Dashboard/Library/Library";
-import ProtectedRouteForStudent from "./ProtectedRoutesStudent";
 import AddStudent from "./AddStudent/AddStudent";
 import AddTutors from "./AddTutor/AddTutors";
 import AllSlots from "./Dashboard/AllSlots/AllSlots";
@@ -14,6 +13,7 @@ import TutorsList from './Dashboard/TutorList/TutorsList';
 import ProtectedRouteForAdmin from './ProtectedRoutesAdmin';
 import EndSlots from './Dashboard/EndSlots/EndSlots';
 import Reports from './Dashboard/Reports/Reports';
+import BookSingleSlot from './BookSingleSlots/BookSingleSlot';
 
 
 const HomeIndex = () => {
@@ -33,6 +33,16 @@ const HomeIndex = () => {
               element={
                 <ProtectedRouteForAdmin>
                   <BookSlot />
+                 
+                </ProtectedRouteForAdmin>
+              }
+            />
+            <Route
+              path="BookSingleSlot"
+              element={
+                <ProtectedRouteForAdmin>
+                  <BookSingleSlot />
+                 
                 </ProtectedRouteForAdmin>
               }
             />

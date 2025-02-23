@@ -6,21 +6,21 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSubjectSliceActions } from "../../store/slice/selectSubjectModelSlice";
 
-const BookSlotModal = (props) => {
+const BookSingleSlotModal = (props) => {
   const subjectModelDetails = useSelector((state) => state.subjectModelData);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
 
 
   const handleSubjectChange = (e) => {
-   
+
     dispatch(selectSubjectSliceActions.setSubject(e.target.value))
   };
-  const handleDateChange = (e) => {
-   
-    dispatch(selectSubjectSliceActions.setselectedDate(e.target.value))
-  };
+  // const handleDateChange = (e) => {
+
+  //   dispatch(selectSubjectSliceActions.setselectedDate(e.target.value))
+  // };
 
 
 
@@ -34,7 +34,7 @@ const BookSlotModal = (props) => {
       keyboard={false}
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Book Multiple Slots</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Book Single Slot</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -51,7 +51,7 @@ const BookSlotModal = (props) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="subjectSelect">
             <Form.Label>Select Month</Form.Label>
-            <Form.Select value={subjectModelDetails.selectedDate} onChange={handleDateChange}>
+            {/* <Form.Select value={subjectModelDetails.selectedDate} onChange={handleDateChange}>
               <option value="">Choose  Month</option>
               <option value="Jan">January</option>
               <option value="Feb">February</option>
@@ -65,9 +65,16 @@ const BookSlotModal = (props) => {
               <option value="Oct">October</option>
               <option value="Nov">November</option>
               <option value="Dec">December</option>
-            </Form.Select>
+            </Form.Select> */}
+
+            <Form.Control type="date"
+              value={subjectModelDetails.showDate}
+              onChange={(e) => { dispatch(selectSubjectSliceActions.SetscheduleDate(e.target.value)) }}
+            />
+
+
           </Form.Group>
-          
+
           {/* Date Selection */}
           {/* <Form.Group className="mb-3" controlId="dateSelect">
             <Form.Label>Select Date</Form.Label>
@@ -85,7 +92,7 @@ const BookSlotModal = (props) => {
         </Button>
         <Button
           variant="danger"
-          onClick={() => { Navigate("/dashboard/BookSlots"); props.onHide() }}
+          onClick={() => { Navigate("/dashboard/BookSingleSlot"); props.onHide() }}
         >
           Book Slot
         </Button>
@@ -94,4 +101,4 @@ const BookSlotModal = (props) => {
   );
 };
 
-export default BookSlotModal;
+export default BookSingleSlotModal;

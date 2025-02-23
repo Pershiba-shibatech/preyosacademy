@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Table, Pagination, Form, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Table, Button } from "react-bootstrap";
 import styles from "./student.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateAttendStatusModel from "../../../components/Modals/updateStatusModel/UpdateAttendStatusModel";
 import { GetBookedPastSlots, GetBookedSlots, GetParticularSession, GetReportsList } from "../../../store/api/BookSlotsByTutor";
 import { useLocation } from "react-router-dom";
 import { GetAllBookedSlotsActions } from "../../../store/slice/AllBookedSlotsSlice";
-import StudentSkeleton from "../StudentSkeleton/StudentSkeleton";
 import SpinnerComp from "../../../components/Spinner/Spinner";
-import moment from "moment";
 import EmptyState from "../../../components/emptyState/EmptyState";
 import { getStatusOfSession } from "../../../ConstantFunction";
 import { BookedSlotsSliceActions } from "../../../store/slice/BookSlotsslice";
@@ -50,6 +48,7 @@ const StudentTable = () => {
       dispatch(GetBookedSlots(data))
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -76,9 +75,9 @@ const StudentTable = () => {
     // BookedSlotsSliceActions
   }
 
-  const [currentPage, setCurrentPage] = useState(1);
-  // const [data, setData] = useState(exampleData);
-  const itemsPerPage = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // // const [data, setData] = useState(exampleData);
+  // const itemsPerPage = 10;
 
   // Get data to be displayed for the current page
   // const currentData = data.slice(
@@ -117,7 +116,7 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {DisplayData?.map((item, index) => {
-              console.log(item.homeworkFeedback, "homeworkFeedback")
+             
               return <>
                 <tr key={index}>
                   {userType === "Student" ?

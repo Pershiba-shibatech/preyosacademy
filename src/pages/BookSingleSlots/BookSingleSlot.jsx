@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import styles from "./bookslots.module.scss";
 import BookingSlotModel from "../../components/Modals/BookingSlotModel";
-import { getAvailableSlots } from "../../store/api/GetAvailableSlotsService";
+import { getAvailableSingleSlots } from "../../store/api/GetAvailableSlotsService";
 import { useDispatch, useSelector } from "react-redux";
 import { BookedSlotsSliceActions } from "../../store/slice/BookSlotsslice";
 
-const BookSlot = () => {
+const BookSingleSlot = () => {
   const dispatch = useDispatch();
- // const [modalShow, setModalShow] = React.useState(false);
+  //const [modalShow, setModalShow] = React.useState(false);
   const subjectModelDetails = useSelector((state) => state.subjectModelData);
   const AllAvailableSlotsDetails = useSelector((state) => state.AllAvailableSlotsDetails);
 
@@ -24,21 +24,21 @@ const BookSlot = () => {
   const handleBookSlot = (slot) => {
     // // Function to handle the booking action
     // setModalShow(true);
-    dispatch(BookedSlotsSliceActions.setSlotType('multiple'))
+    dispatch(BookedSlotsSliceActions.setSlotType('single'))
     dispatch(BookedSlotsSliceActions.setSelectedStot(slot))
   };
 
 
   useEffect(() => {
     
-    dispatch(getAvailableSlots({ subject: subjectModelDetails.selectedSubject, month: subjectModelDetails.selectedDate }))
+    dispatch(getAvailableSingleSlots({ subject: subjectModelDetails.selectedSubject, date: subjectModelDetails.Date, day: subjectModelDetails.Scheduleday }))
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   return (
     <div className={styles.bookSlotWrapper}>
-      <div className={styles.bookSlotsHeading}>{`Book Slots for ${subjectModelDetails.selectedSubject}` }</div>
+      <div className={styles.bookSlotsHeading}>{`Book single Slots for ${subjectModelDetails.selectedSubject}` }</div>
       <div className={styles.StudentTableWrapper}>
         <Table bsPrefix={styles.table} striped bordered hover>
           <thead>
@@ -49,10 +49,10 @@ const BookSlot = () => {
             </tr>
           </thead>
           <tbody>
-            {AllAvailableSlotsDetails?.AllAvailableSlots?.map((item, index) => (
+            {AllAvailableSlotsDetails?.AvailableSingleSlots?.map((item, index) => (
               <tr key={index}>
                 <td>{`${item?.slotDatails?.day} - ${item?.slotDatails?.from} - ${item?.slotDatails?.to}`}</td>
-                <td>{item.tutorDetails?.tutorName}</td>
+                <td>{item?.tutorDetails?.tutorName}</td>
                 <td>{subjectModelDetails.selectedSubject}</td>
                 {/* <td>{item.payment}</td> */}
                 <td>
@@ -61,7 +61,7 @@ const BookSlot = () => {
                     className={styles.bookButton}
                     onClick={() => handleBookSlot(item)}
                   >
-                    Book slot
+                    Book single slot
                   </Button>
                 </td>
               </tr>
@@ -84,4 +84,4 @@ const BookSlot = () => {
   );
 };
 
-export default BookSlot;
+export default BookSingleSlot;

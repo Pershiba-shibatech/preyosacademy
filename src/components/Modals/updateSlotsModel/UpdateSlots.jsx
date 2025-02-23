@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { BookedSlotsSliceActions } from "../../../store/slice/BookSlotsslice";
@@ -12,7 +12,7 @@ import { ToastSliceActions } from "../../../store/slice/ToastSlice";
 
 const UpdateSlots = (props) => {
 
-  const Navigate = useNavigate();
+  // const Navigate = useNavigate();
   const dispatch = useDispatch();
   let userDetails = useSelector((state) => state.userDetails);
   const { userType } = userDetails.loggedInUserDetails;

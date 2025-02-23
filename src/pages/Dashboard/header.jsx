@@ -18,9 +18,9 @@ const Header = () => {
     setShowDropdown((prev) => !prev);
   };
 
-  const handleDropdownItemClick = (item) => {
-    setShowDropdown(false); 
-  };
+  // const handleDropdownItemClick = (item) => {
+  //   setShowDropdown(false); 
+  // };
 
   return (
     <>

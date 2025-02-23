@@ -12,31 +12,33 @@ import SpinnerComp from "../../../components/Spinner/Spinner";
 import { ToastSliceActions } from "../../../store/slice/ToastSlice";
 import { getStudentsSliceActions } from "../../../store/slice/getStudentsList";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import BookSingleSlotModal from "../../../components/Modals/BookSingleSlotModal";
 
 const StudentList = () => {
   const libraryScrollRef = useRef(null);
   const StudentDetail = useSelector((state) => state.StudentList);
   const subjectModelDetails = useSelector((state) => state.subjectModelData);
   const dispatch = useDispatch();
-  const [modalShow, setModalShow] = React.useState(false);
+  // const [modalShow, setModalShow] = React.useState(false);
   useEffect(() => {
     // if (!StudentDetail.isFetched) {
 
     dispatch(getStudentsListApi())
     // }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleScroll = (e) => {
+  // const handleScroll = (e) => {
 
-    const target = e.target;
-    const isAtBottom =
-      target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
+  //   const target = e.target;
+  //   const isAtBottom =
+  //     target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
 
-    if (isAtBottom) {
-      console.log("reached bottom");
-      // Load more data or perform another action
-    }
-  };
+  //   if (isAtBottom) {
+      
+  //     // Load more data or perform another action
+  //   }
+  // };
 
   const deleteUStudent = (student) => {
     dispatch(getStudentsSliceActions.setLoading())
@@ -99,16 +101,16 @@ const StudentList = () => {
                         >
                           Book Multiple Slot
                         </button>
-                        {/* <button
+                        <button
                           className={styles.bookSlotButton}
                           onClick={() => {
-                            dispatch(selectSubjectSliceActions.setopenSubjectModel());
+                            dispatch(selectSubjectSliceActions.setopenSingleSlotModel());
 
                             dispatch(SelectedStudentSliceActions.setSelectedSlot(student))
                           }}
                         >
                           Book Single Slot
-                        </button> */}
+                        </button>
 
                         {/* <button
                           className={styles.bookSlotButton}
@@ -133,6 +135,7 @@ const StudentList = () => {
         </div>
       </div>
       <BookSlotModal show={subjectModelDetails.openSubjectModel} onHide={() => dispatch(selectSubjectSliceActions.setopenSubjectModel())} />
+      <BookSingleSlotModal show={subjectModelDetails.openSingleSlotModel} onHide={() => dispatch(selectSubjectSliceActions.setopenSingleSlotModel())} />
     </>
 
   );

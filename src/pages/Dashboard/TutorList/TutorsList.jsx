@@ -17,19 +17,20 @@ const TutorsList = () => {
     if (!TutorsDetail.isFetched) {
       dispatch(getTutorsListApi())
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleScroll = (e) => {
+  // const handleScroll = (e) => {
 
-    const target = e.target;
-    const isAtBottom =
-      target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
+  //   const target = e.target;
+  //   const isAtBottom =
+  //     target.scrollHeight - target.scrollTop <= target.clientHeight + 1;
 
-    if (isAtBottom) {
-      console.log("reached bottom");
-      // Load more data or perform another action
-    }
-  };
+  //   if (isAtBottom) {
+  //     console.log("reached bottom");
+  //     // Load more data or perform another action
+  //   }
+  // };
 
   return (
     <div
